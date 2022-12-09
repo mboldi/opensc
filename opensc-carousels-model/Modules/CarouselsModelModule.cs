@@ -13,6 +13,7 @@ namespace OpenSC.Modules
         protected override void registerDatabases()
         {
             MasterDatabase.Instance.RegisterSingletonDatabase(typeof(CarouselDatabase));
+            MasterDatabase.Instance.RegisterSingletonDatabase(typeof(CarouselSyncGroupDatabase));
         }
 
         protected override void registerSerializers()

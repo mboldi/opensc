@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OpenSC.Model.Carousels
@@ -63,6 +64,37 @@ namespace OpenSC.Model.Carousels
         [AutoProperty]
         [PersistAs("time_sync_manual_stepping")]
         private bool timeSyncManualStepping = false;
+        #endregion
+
+        #region Property: SyncGroup
+        [AutoProperty]
+        [AutoProperty.BeforeChange(nameof(_syncGroup_beforeChange))]
+        [AutoProperty.AfterChange(nameof(_syncGroup_afterChange))]
+        [PersistAs("sync_group")]
+        private CarouselSyncGroup syncGroup;
+
+        private void _syncGroup_beforeChange(CarouselSyncGroup oldSyncGroup, CarouselSyncGroup newSyncGroup)
+        {
+            if (oldSyncGroup != null)
+            {
+                oldSyncGroup.UnsubscribeAssignedCarousel(this);
+                if (newSyncGroup == null)
+                    Start();
+            }
+        }
+
+        private void _syncGroup_afterChange(CarouselSyncGroup oldSyncGroup, CarouselSyncGroup newSyncGroup)
+        {
+            if (newSyncGroup != null)
+            {
+                if (oldSyncGroup == null)
+                    Stop();
+                newSyncGroup.SubscribeAssignedCarousel(this);
+            }
+        }
+
+        internal void SyncGroupRemoved()
+            => SyncGroup = null;
         #endregion
 
         #region Element property changed event
@@ -148,24 +180,41 @@ namespace OpenSC.Model.Carousels
 
         public void Start()
         {
+            if (syncGroup != null)
+                return;
             if (timeStepperTask != null)
                 return;
             Reset();
-            timeStepperTask = Task.Run(timeStepperTaskMethod);
+            timeStepperTaskCancellationTokenSource = new();
+            timeStepperTaskCancellationToken = timeStepperTaskCancellationTokenSource.Token;
+            timeStepperTask = Task.Run(timeStepperTaskMethod, timeStepperTaskCancellationToken);
         }
 
-        private Task timeStepperTask = null;
+        public void Stop()
+        {
+            if (timeStepperTask == null)
+                return;
+            timeStepperTaskCancellationTokenSource.Cancel();
+        }
+
+        private Task timeStepperTask;
+        private CancellationTokenSource timeStepperTaskCancellationTokenSource;
+        private CancellationToken timeStepperTaskCancellationToken;
 
         private async Task timeStepperTaskMethod()
         {
-            while (true)
+            while (!timeStepperTaskCancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(100);
-                TimeStep();
+                await Task.Delay(100, timeStepperTaskCancellationToken);
+                if (!timeStepperTaskCancellationToken.IsCancellationRequested)
+                    TimeStep();
             }
+            timeStepperTaskCancellationTokenSource.Dispose();
+            timeStepperTaskCancellationTokenSource = null;
+            timeStepperTask = null;
         }
         #endregion
 
     }
-
+    
 }

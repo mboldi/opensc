@@ -15,7 +15,13 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="GUI\Carousels\CarouselSyncGroupEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUI\Carousels\CarouselEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\Carousels\CarouselSyncGroupList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\Carousels\CarouselList.cs">

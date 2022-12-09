@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using OpenSC.GUI.GeneralComponents.DropDowns;
 
 namespace OpenSC.GUI.Carousels
 {
@@ -17,8 +18,17 @@ namespace OpenSC.GUI.Carousels
         public IModelEditorForm GetInstance(object modelInstance) => GetInstanceT(modelInstance as Carousel);
         public IModelEditorForm<Carousel> GetInstanceT(Carousel modelInstance) => new CarouselEditorForm(modelInstance);
 
-        public CarouselEditorForm() : base() => InitializeComponent();
-        public CarouselEditorForm(Carousel Carousel) : base(Carousel) => InitializeComponent();
+        public CarouselEditorForm() : base()
+        {
+            InitializeComponent();
+            initSyncGroupDown();
+        }
+
+        public CarouselEditorForm(Carousel Carousel) : base(Carousel)
+        {
+            InitializeComponent();
+            initSyncGroupDown();
+        }
 
         protected override IModelEditorFormDataManager createManager()
             => new ModelEditorFormDataManager<Carousel, Carousel>(this, CarouselDatabase.Instance);
@@ -30,6 +40,7 @@ namespace OpenSC.GUI.Carousels
             if (carousel == null)
                 return;
             timeSyncManualCheckBox.Checked = carousel.TimeSyncManualStepping;
+            syncGroupDropDown.SelectByValue(carousel.SyncGroup);
             initElementsTable();
         }
 
@@ -48,6 +59,13 @@ namespace OpenSC.GUI.Carousels
             if (carousel == null)
                 return;
             carousel.TimeSyncManualStepping = timeSyncManualCheckBox.Checked;
+            carousel.SyncGroup = syncGroupDropDown.SelectedValue as CarouselSyncGroup;
+        }
+
+        private void initSyncGroupDown()
+        {
+            syncGroupDropDown.CreateAdapterAsDataSource(CarouselSyncGroupDatabase.Instance, null, true, "(not synced)");
+            syncGroupDropDown.ReceiveObjectDrop().FilterByType<CarouselSyncGroup>();
         }
 
         private CustomDataGridView<CarouselElement> elementsTableCDGV;
@@ -144,6 +162,11 @@ namespace OpenSC.GUI.Carousels
         }
 
         private void elementsTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void settingsTable_Paint(object sender, PaintEventArgs e)
         {
 
         }

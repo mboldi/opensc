@@ -37,6 +37,8 @@
             this.settingsTable = new System.Windows.Forms.TableLayoutPanel();
             this.timeSyncManualSteppingLabel = new System.Windows.Forms.Label();
             this.timeSyncManualCheckBox = new System.Windows.Forms.CheckBox();
+            this.syncGroupLabel = new System.Windows.Forms.Label();
+            this.syncGroupDropDown = new System.Windows.Forms.ComboBox();
             this.customElementsPanel.SuspendLayout();
             this.mainContainer.SuspendLayout();
             this.labelsGroupBox.SuspendLayout();
@@ -69,11 +71,11 @@
             this.labelsGroupBox.Controls.Add(this.labelsTableContainerPanel);
             this.labelsGroupBox.Controls.Add(this.panel1);
             this.labelsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelsGroupBox.Location = new System.Drawing.Point(10, 178);
+            this.labelsGroupBox.Location = new System.Drawing.Point(10, 212);
             this.labelsGroupBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelsGroupBox.Name = "labelsGroupBox";
             this.labelsGroupBox.Padding = new System.Windows.Forms.Padding(8, 10, 8, 10);
-            this.labelsGroupBox.Size = new System.Drawing.Size(962, 357);
+            this.labelsGroupBox.Size = new System.Drawing.Size(962, 323);
             this.labelsGroupBox.TabIndex = 0;
             this.labelsGroupBox.TabStop = false;
             this.labelsGroupBox.Text = "Labels";
@@ -85,7 +87,7 @@
             this.labelsTableContainerPanel.Location = new System.Drawing.Point(8, 30);
             this.labelsTableContainerPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelsTableContainerPanel.Name = "labelsTableContainerPanel";
-            this.labelsTableContainerPanel.Size = new System.Drawing.Size(946, 268);
+            this.labelsTableContainerPanel.Size = new System.Drawing.Size(946, 234);
             this.labelsTableContainerPanel.TabIndex = 1;
             // 
             // elementsTable
@@ -97,7 +99,7 @@
             this.elementsTable.Name = "elementsTable";
             this.elementsTable.RowHeadersWidth = 51;
             this.elementsTable.RowTemplate.Height = 24;
-            this.elementsTable.Size = new System.Drawing.Size(946, 268);
+            this.elementsTable.Size = new System.Drawing.Size(946, 234);
             this.elementsTable.TabIndex = 0;
             this.elementsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.elementsTable_CellContentClick);
             // 
@@ -105,7 +107,7 @@
             // 
             this.panel1.Controls.Add(this.addElementButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(8, 298);
+            this.panel1.Location = new System.Drawing.Point(8, 264);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(946, 49);
             this.panel1.TabIndex = 1;
@@ -133,7 +135,7 @@
             this.settingsGroupBox.Margin = new System.Windows.Forms.Padding(10, 12, 10, 12);
             this.settingsGroupBox.Name = "settingsGroupBox";
             this.settingsGroupBox.Padding = new System.Windows.Forms.Padding(8, 5, 8, 10);
-            this.settingsGroupBox.Size = new System.Drawing.Size(962, 58);
+            this.settingsGroupBox.Size = new System.Drawing.Size(962, 92);
             this.settingsGroupBox.TabIndex = 2;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
@@ -147,15 +149,18 @@
             this.settingsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.settingsTable.Controls.Add(this.timeSyncManualSteppingLabel, 0, 0);
             this.settingsTable.Controls.Add(this.timeSyncManualCheckBox, 1, 0);
+            this.settingsTable.Controls.Add(this.syncGroupLabel, 0, 1);
+            this.settingsTable.Controls.Add(this.syncGroupDropDown, 1, 1);
             this.settingsTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsTable.Location = new System.Drawing.Point(8, 25);
             this.settingsTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.settingsTable.Name = "settingsTable";
-            this.settingsTable.RowCount = 1;
+            this.settingsTable.RowCount = 2;
             this.settingsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.settingsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.settingsTable.Size = new System.Drawing.Size(946, 23);
+            this.settingsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.settingsTable.Size = new System.Drawing.Size(946, 57);
             this.settingsTable.TabIndex = 0;
+            this.settingsTable.Paint += new System.Windows.Forms.PaintEventHandler(this.settingsTable_Paint);
             // 
             // timeSyncManualSteppingLabel
             // 
@@ -178,6 +183,27 @@
             this.timeSyncManualCheckBox.Size = new System.Drawing.Size(678, 17);
             this.timeSyncManualCheckBox.TabIndex = 1;
             this.timeSyncManualCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // syncGroupLabel
+            // 
+            this.syncGroupLabel.AutoSize = true;
+            this.syncGroupLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.syncGroupLabel.Location = new System.Drawing.Point(3, 23);
+            this.syncGroupLabel.Name = "syncGroupLabel";
+            this.syncGroupLabel.Size = new System.Drawing.Size(83, 34);
+            this.syncGroupLabel.TabIndex = 2;
+            this.syncGroupLabel.Text = "Sync group";
+            this.syncGroupLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // syncGroupDropDown
+            // 
+            this.syncGroupDropDown.Dock = System.Windows.Forms.DockStyle.Left;
+            this.syncGroupDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.syncGroupDropDown.FormattingEnabled = true;
+            this.syncGroupDropDown.Location = new System.Drawing.Point(265, 26);
+            this.syncGroupDropDown.Name = "syncGroupDropDown";
+            this.syncGroupDropDown.Size = new System.Drawing.Size(364, 28);
+            this.syncGroupDropDown.TabIndex = 3;
             // 
             // CarouselEditorForm
             // 
@@ -218,5 +244,7 @@
         private System.Windows.Forms.TableLayoutPanel settingsTable;
         private System.Windows.Forms.Label timeSyncManualSteppingLabel;
         private System.Windows.Forms.CheckBox timeSyncManualCheckBox;
+        private System.Windows.Forms.Label syncGroupLabel;
+        private System.Windows.Forms.ComboBox syncGroupDropDown;
     }
 }
