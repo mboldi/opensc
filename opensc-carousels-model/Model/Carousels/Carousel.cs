@@ -71,10 +71,29 @@ namespace OpenSC.Model.Carousels
         public void Next()
         {
             currentElementIndex++;
-            int elementCount = elements.Count;
-            if (currentElementIndex >= elementCount)
-                currentElementIndex = 0;
             currentElementElapsedTime = 0;
+            selectByIndex();
+        }
+
+        public void Previous()
+        {
+            currentElementIndex--;
+            currentElementElapsedTime = 0;
+            selectByIndex();
+        }
+
+        public void Reset()
+        {
+            currentElementIndex = 0;
+            currentElementElapsedTime = 0;
+            selectByIndex();
+        }
+
+        private void selectByIndex()
+        {
+            int elementCount = elements.Count;
+            if ((currentElementIndex >= elementCount) || (currentElementIndex < 0))
+                currentElementIndex = 0;
             CurrentElement = (elementCount > 0) ? elements[currentElementIndex] : null;
         }
 
@@ -88,7 +107,6 @@ namespace OpenSC.Model.Carousels
             currentElementElapsedTime++;
             if ((currentElement != null) && (currentElementElapsedTime >= currentElement.Time))
                 Next();
-            
         }
 
         private int currentElementIndex = 0;
@@ -98,8 +116,7 @@ namespace OpenSC.Model.Carousels
         {
             if (timeStepperTask != null)
                 return;
-            currentElementIndex = 0;
-            currentElementElapsedTime = 0;
+            Reset();
             timeStepperTask = Task.Run(timeStepperTaskMethod);
         }
 
