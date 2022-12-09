@@ -59,6 +59,12 @@ namespace OpenSC.Model.Carousels
         private string currentText;
         #endregion
 
+        #region Property: TimeSyncManualStepping
+        [AutoProperty]
+        [PersistAs("time_sync_manual_stepping")]
+        private bool timeSyncManualStepping = false;
+        #endregion
+
         #region Element property changed event
         internal void NotifyCarouselTextChanged(CarouselElement element, string newText)
         {
@@ -68,25 +74,45 @@ namespace OpenSC.Model.Carousels
         #endregion
 
         #region Stepping
-        public void Next()
+        private int? nextElementOnTimeSync = null;
+
+        public void Next(bool timeSync = false)
         {
-            currentElementIndex++;
-            currentElementElapsedTime = 0;
-            selectByIndex();
+            if (timeSyncManualStepping || timeSync)
+            {
+                nextElementOnTimeSync = currentElementIndex + 1;
+            }
+            else
+            {
+                currentElementIndex++;
+                selectByIndex();
+            }
         }
 
-        public void Previous()
+        public void Previous(bool timeSync = false)
         {
-            currentElementIndex--;
-            currentElementElapsedTime = 0;
-            selectByIndex();
+            if (timeSyncManualStepping || timeSync)
+            {
+                nextElementOnTimeSync = currentElementIndex - 1;
+            }
+            else
+            {
+                currentElementIndex--;
+                selectByIndex();
+            }
         }
 
-        public void Reset()
+        public void Reset(bool timeSync = false)
         {
-            currentElementIndex = 0;
-            currentElementElapsedTime = 0;
-            selectByIndex();
+            if (timeSyncManualStepping || timeSync)
+            {
+                nextElementOnTimeSync = 0;
+            }
+            else
+            {
+                currentElementIndex = 0;
+                selectByIndex();
+            }
         }
 
         private void selectByIndex()
@@ -94,11 +120,19 @@ namespace OpenSC.Model.Carousels
             int elementCount = elements.Count;
             if ((currentElementIndex >= elementCount) || (currentElementIndex < 0))
                 currentElementIndex = 0;
+            currentElementElapsedTime = 0;
             CurrentElement = (elementCount > 0) ? elements[currentElementIndex] : null;
         }
 
         public void TimeStep()
         {
+            if (nextElementOnTimeSync != null)
+            {
+                currentElementIndex = (int)nextElementOnTimeSync;
+                selectByIndex();
+                nextElementOnTimeSync = null;
+                return;
+            }
             if (currentElement == null)
             {
                 Next();
@@ -131,7 +165,6 @@ namespace OpenSC.Model.Carousels
             }
         }
         #endregion
-
 
     }
 

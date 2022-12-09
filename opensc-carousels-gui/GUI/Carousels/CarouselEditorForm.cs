@@ -26,26 +26,28 @@ namespace OpenSC.GUI.Carousels
         protected override void loadData()
         {
             base.loadData();
-            Carousel Carousel = (Carousel)EditedModel;
-            if (Carousel == null)
+            Carousel carousel = (Carousel)EditedModel;
+            if (carousel == null)
                 return;
+            timeSyncManualCheckBox.Checked = carousel.TimeSyncManualStepping;
             initElementsTable();
         }
 
         protected override void validateFields()
         {
             base.validateFields();
-            Carousel Carousel = (Carousel)EditedModel;
-            if (Carousel == null)
+            Carousel carousel = (Carousel)EditedModel;
+            if (carousel == null)
                 return;
         }
 
         protected override void writeFields()
         {
             base.writeFields();
-            Carousel Carousel = (Carousel)EditedModel;
-            if (Carousel == null)
+            Carousel carousel = (Carousel)EditedModel;
+            if (carousel == null)
                 return;
+            carousel.TimeSyncManualStepping = timeSyncManualCheckBox.Checked;
         }
 
         private CustomDataGridView<CarouselElement> elementsTableCDGV;
