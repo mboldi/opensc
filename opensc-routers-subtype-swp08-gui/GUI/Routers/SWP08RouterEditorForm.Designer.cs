@@ -107,7 +107,7 @@
             tableLayoutPanel4.ColumnCount = 3;
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.92228F));
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.07772F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 629F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 632F));
             tableLayoutPanel4.Controls.Add(numericUpDown2, 1, 0);
             tableLayoutPanel4.Controls.Add(label4, 0, 0);
             tableLayoutPanel4.Controls.Add(label5, 0, 1);
@@ -123,10 +123,10 @@
             // 
             // numericUpDown2
             // 
-            numericUpDown2.Location = new System.Drawing.Point(106, 3);
+            numericUpDown2.Location = new System.Drawing.Point(104, 3);
             numericUpDown2.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(78, 23);
+            numericUpDown2.Size = new System.Drawing.Size(77, 23);
             numericUpDown2.TabIndex = 8;
             // 
             // label4
@@ -149,10 +149,10 @@
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new System.Drawing.Point(106, 29);
+            numericUpDown3.Location = new System.Drawing.Point(104, 29);
             numericUpDown3.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new System.Drawing.Size(78, 23);
+            numericUpDown3.Size = new System.Drawing.Size(77, 23);
             numericUpDown3.TabIndex = 10;
             // 
             // ethernetGroup
