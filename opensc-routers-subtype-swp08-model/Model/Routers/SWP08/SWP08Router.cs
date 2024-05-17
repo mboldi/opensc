@@ -1,6 +1,12 @@
 ﻿
+using OpenSC.Logger;
 using OpenSC.Model;
+using OpenSC.Model.General;
+using OpenSC.Model.Persistence;
 using OpenSC.Model.Routers;
+using OpenSC.Model.Routers.SWP08;
+using OpenSC.Model.SerialPorts;
+using OpenSC.Model.SourceGenerators;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +18,7 @@ namespace OpenSC
     {
         private new const string LOG_TAG = "Router/SW-P-08";
 
+
         private static byte DLE = hexToByte("10");
         private static byte STX = hexToByte("02");
         private static byte ETX = hexToByte("03");
@@ -21,6 +28,135 @@ namespace OpenSC
 
         private static Byte[] SOM = { DLE, STX };                   // Start of message
         private static Byte[] EOM = { DLE, ETX };                   // End of message
+
+        #region Property: Connection mode
+        public event PropertyChangedTwoValuesDelegate<SWP08Router, RouterConnectionMode> ConnectionModeChanged;
+
+        private RouterConnectionMode connectionMode;
+
+        [PersistAs("connection_mode")]
+        public RouterConnectionMode ConnectionMode
+        {
+            get => connectionMode;
+            set => this.setProperty(ref connectionMode, value, ConnectionModeChanged,
+                null, null, null);
+        }
+        #endregion
+
+        #region Property: Ip Address
+        public event PropertyChangedTwoValuesDelegate<SWP08Router, string> IpAddressChanged;
+
+        private string ipAddress;
+
+        [PersistAs("ip_address")]
+        public string IpAddress
+        {
+            get => ipAddress;
+            set => this.setProperty(ref ipAddress, value, IpAddressChanged,
+                null, null, ValidateIpAddress);
+        }
+
+        public void ValidateIpAddress(string ipAddress)
+        {
+            // ... throw new ArgumentException();
+        }
+        #endregion
+
+        #region Auto reconnect
+        public event PropertyChangedTwoValuesDelegate<SWP08Router, bool> AutoReconnectChanged;
+
+        private bool autoReconnect;
+
+        [PersistAs("auto_reconnect")]
+        public bool AutoReconnect
+        {
+            get => autoReconnect;
+            set => this.setProperty(ref autoReconnect, value, AutoReconnectChanged);
+        }
+        #endregion
+
+        #region Property: Serial Port
+        [AutoProperty]
+        [AutoProperty.BeforeChange(nameof(_serial_port_beforeChange))]
+        [AutoProperty.AfterChange(nameof(_serial_port_afterChange))]
+        [PersistAs("serial_port")]
+        private SerialPort serialPort;
+
+        public SerialPort SerialPort
+        {
+            get; set;
+        }
+
+        private void _serial_port_beforeChange(SerialPort oldValue, SerialPort newValue, BeforeChangePropertyArgs args)
+        {
+            if (oldValue != null)
+            {
+                oldValue.ReceivedDataAsciiLine -= receivedLineFromSerialPort;
+                oldValue.InitializedChanged -= serialPortInitializedChangedHandler;
+            }
+        }
+
+        private void _serial_port_afterChange(SerialPort oldValue, SerialPort newValue)
+        {
+            if (newValue != null)
+            {
+                newValue.ReceivedDataAsciiLine += receivedLineFromSerialPort;
+                newValue.InitializedChanged += serialPortInitializedChangedHandler;
+                initSerial();
+            }
+        }
+
+        private void serialPortInitializedChangedHandler(SerialPort port, bool oldState, bool newState)
+        {
+            if (newState)
+            {
+                initSerial();
+                Connected = true;
+            } else
+            {
+                Connected = false;
+            }
+        }
+
+        private void initSerial()
+        {
+            queryAllStates();
+        }
+        #endregion
+
+        #region Property: Connected
+        public event PropertyChangedTwoValuesDelegate<SWP08Router, bool> ConnectionStateChanged;
+
+        private bool connected;
+
+        public bool Connected
+        {
+            get => connected;
+            set
+            {
+                AfterChangePropertyDelegate<bool> afterChangeDelegate = (ov, nv) =>
+                {
+                    if (nv)
+                    {
+                        State = RouterState.Ok;
+                        StateString = "connected";
+                        string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
+                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
+                        LogDispatcher.I(LOG_TAG, logMessage);
+                    }
+                    else
+                    {
+                        State = RouterState.Warning;
+                        StateString = "disconnected";
+                        string logMessage = string.Format("Disconnected from an SW-P-08 router (ID: {0}) {1}.", ID,
+                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
+                        LogDispatcher.I(LOG_TAG, logMessage);
+                    }
+                };
+                this.setProperty(ref connected, value, ConnectionStateChanged, null, afterChangeDelegate);
+            }
+        }
+        #endregion
 
         public override RouterInput CreateInput(string name, int index)
         {
@@ -51,6 +187,14 @@ namespace OpenSC
         {
             throw new System.NotImplementedException();
         }
+
+        #region Serial communication & handling
+        private void receivedLineFromSerialPort(SerialPort port, string asciiLine)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
 
         #region Helper functions

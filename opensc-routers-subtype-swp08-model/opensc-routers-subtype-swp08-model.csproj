@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
+    <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -30,10 +30,10 @@
         {
             matrixPropertiesGroupBox = new System.Windows.Forms.GroupBox();
             tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            matrixNumeric = new System.Windows.Forms.NumericUpDown();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
-            numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            layerNumeric = new System.Windows.Forms.NumericUpDown();
             ethernetGroup = new System.Windows.Forms.GroupBox();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             label1 = new System.Windows.Forms.Label();
@@ -42,8 +42,8 @@
             connectButton = new System.Windows.Forms.Button();
             disconnectButton = new System.Windows.Forms.Button();
             autoReconnectCheckBox = new System.Windows.Forms.CheckBox();
-            iPv4AddressControl1 = new GeneralComponents.IPAddressControl.IPv4AddressControl();
-            numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            ipAddressInput = new GeneralComponents.IPAddressControl.IPv4AddressControl();
+            ipPortNumeric = new System.Windows.Forms.NumericUpDown();
             serialGroup = new System.Windows.Forms.GroupBox();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             serialPortLabel = new System.Windows.Forms.Label();
@@ -55,11 +55,11 @@
             mainContainer.SuspendLayout();
             matrixPropertiesGroupBox.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)matrixNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)layerNumeric).BeginInit();
             ethernetGroup.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ipPortNumeric).BeginInit();
             serialGroup.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             connTypeGroup.SuspendLayout();
@@ -107,11 +107,11 @@
             tableLayoutPanel4.ColumnCount = 3;
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.92228F));
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.07772F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 632F));
-            tableLayoutPanel4.Controls.Add(numericUpDown2, 1, 0);
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 640F));
+            tableLayoutPanel4.Controls.Add(matrixNumeric, 1, 0);
             tableLayoutPanel4.Controls.Add(label4, 0, 0);
             tableLayoutPanel4.Controls.Add(label5, 0, 1);
-            tableLayoutPanel4.Controls.Add(numericUpDown3, 1, 1);
+            tableLayoutPanel4.Controls.Add(layerNumeric, 1, 1);
             tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel4.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -121,13 +121,13 @@
             tableLayoutPanel4.Size = new System.Drawing.Size(817, 52);
             tableLayoutPanel4.TabIndex = 0;
             // 
-            // numericUpDown2
+            // matrixNumeric
             // 
-            numericUpDown2.Location = new System.Drawing.Point(104, 3);
-            numericUpDown2.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(77, 23);
-            numericUpDown2.TabIndex = 8;
+            matrixNumeric.Location = new System.Drawing.Point(100, 3);
+            matrixNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
+            matrixNumeric.Name = "matrixNumeric";
+            matrixNumeric.Size = new System.Drawing.Size(73, 23);
+            matrixNumeric.TabIndex = 8;
             // 
             // label4
             // 
@@ -147,13 +147,13 @@
             label5.TabIndex = 9;
             label5.Text = "Level";
             // 
-            // numericUpDown3
+            // layerNumeric
             // 
-            numericUpDown3.Location = new System.Drawing.Point(104, 29);
-            numericUpDown3.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new System.Drawing.Size(77, 23);
-            numericUpDown3.TabIndex = 10;
+            layerNumeric.Location = new System.Drawing.Point(100, 29);
+            layerNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
+            layerNumeric.Name = "layerNumeric";
+            layerNumeric.Size = new System.Drawing.Size(73, 23);
+            layerNumeric.TabIndex = 10;
             // 
             // ethernetGroup
             // 
@@ -179,8 +179,8 @@
             tableLayoutPanel2.Controls.Add(connectButton, 1, 2);
             tableLayoutPanel2.Controls.Add(disconnectButton, 2, 2);
             tableLayoutPanel2.Controls.Add(autoReconnectCheckBox, 1, 3);
-            tableLayoutPanel2.Controls.Add(iPv4AddressControl1, 1, 0);
-            tableLayoutPanel2.Controls.Add(numericUpDown1, 1, 1);
+            tableLayoutPanel2.Controls.Add(ipAddressInput, 1, 0);
+            tableLayoutPanel2.Controls.Add(ipPortNumeric, 1, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel2.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -246,26 +246,26 @@
             autoReconnectCheckBox.TabIndex = 5;
             autoReconnectCheckBox.UseVisualStyleBackColor = true;
             // 
-            // iPv4AddressControl1
+            // ipAddressInput
             // 
-            iPv4AddressControl1.AllowInternalTab = false;
-            iPv4AddressControl1.AutoHeight = true;
-            iPv4AddressControl1.BackColor = System.Drawing.SystemColors.Window;
-            iPv4AddressControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            tableLayoutPanel2.SetColumnSpan(iPv4AddressControl1, 2);
-            iPv4AddressControl1.Location = new System.Drawing.Point(107, 3);
-            iPv4AddressControl1.Name = "iPv4AddressControl1";
-            iPv4AddressControl1.ReadOnly = false;
-            iPv4AddressControl1.Size = new System.Drawing.Size(163, 23);
-            iPv4AddressControl1.TabIndex = 6;
-            iPv4AddressControl1.Text = "...";
+            ipAddressInput.AllowInternalTab = false;
+            ipAddressInput.AutoHeight = true;
+            ipAddressInput.BackColor = System.Drawing.SystemColors.Window;
+            ipAddressInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tableLayoutPanel2.SetColumnSpan(ipAddressInput, 2);
+            ipAddressInput.Location = new System.Drawing.Point(107, 3);
+            ipAddressInput.Name = "ipAddressInput";
+            ipAddressInput.ReadOnly = false;
+            ipAddressInput.Size = new System.Drawing.Size(163, 23);
+            ipAddressInput.TabIndex = 6;
+            ipAddressInput.Text = "...";
             // 
-            // numericUpDown1
+            // ipPortNumeric
             // 
-            numericUpDown1.Location = new System.Drawing.Point(107, 33);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new System.Drawing.Size(79, 23);
-            numericUpDown1.TabIndex = 7;
+            ipPortNumeric.Location = new System.Drawing.Point(107, 33);
+            ipPortNumeric.Name = "ipPortNumeric";
+            ipPortNumeric.Size = new System.Drawing.Size(79, 23);
+            ipPortNumeric.TabIndex = 7;
             // 
             // serialGroup
             // 
@@ -325,24 +325,27 @@
             // ethernetControlRadioButton
             // 
             ethernetControlRadioButton.AutoSize = true;
+            ethernetControlRadioButton.BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
             ethernetControlRadioButton.Location = new System.Drawing.Point(77, 22);
             ethernetControlRadioButton.Name = "ethernetControlRadioButton";
             ethernetControlRadioButton.Size = new System.Drawing.Size(100, 19);
             ethernetControlRadioButton.TabIndex = 1;
             ethernetControlRadioButton.TabStop = true;
             ethernetControlRadioButton.Text = "Ethernet (TCP)";
-            ethernetControlRadioButton.UseVisualStyleBackColor = true;
+            ethernetControlRadioButton.UseVisualStyleBackColor = false;
             // 
             // serialControlRadioButton
             // 
             serialControlRadioButton.AutoSize = true;
+            serialControlRadioButton.BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
+            serialControlRadioButton.Checked = true;
             serialControlRadioButton.Location = new System.Drawing.Point(15, 22);
             serialControlRadioButton.Name = "serialControlRadioButton";
             serialControlRadioButton.Size = new System.Drawing.Size(53, 19);
             serialControlRadioButton.TabIndex = 0;
             serialControlRadioButton.TabStop = true;
             serialControlRadioButton.Text = "Serial";
-            serialControlRadioButton.UseVisualStyleBackColor = true;
+            serialControlRadioButton.UseVisualStyleBackColor = false;
             // 
             // SWP08RouterEditorForm
             // 
@@ -356,12 +359,12 @@
             matrixPropertiesGroupBox.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)matrixNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)layerNumeric).EndInit();
             ethernetGroup.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ipPortNumeric).EndInit();
             serialGroup.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
@@ -384,16 +387,16 @@
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.Button disconnectButton;
         private System.Windows.Forms.CheckBox autoReconnectCheckBox;
-        private GeneralComponents.IPAddressControl.IPv4AddressControl iPv4AddressControl1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private GeneralComponents.IPAddressControl.IPv4AddressControl ipAddressInput;
+        private System.Windows.Forms.NumericUpDown ipPortNumeric;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label serialPortLabel;
         private System.Windows.Forms.GroupBox matrixPropertiesGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown matrixNumeric;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown layerNumeric;
         private System.Windows.Forms.ComboBox serialPortDropDown;
     }
 }

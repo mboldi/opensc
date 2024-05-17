@@ -1,12 +1,16 @@
 ﻿using OpenSC.GUI.GeneralComponents.DropDowns;
 using OpenSC.Model.Routers;
+using OpenSC.Model.Routers.SWP08;
 using OpenSC.Model.SerialPorts;
 using System;
+using System.Drawing;
 
 namespace OpenSC.GUI.Routers
 {
     public partial class SWP08RouterEditorForm : RouterEditorFormBase, IModelEditorForm<Router>
     {
+        private static Color NotActiveColor = Color.FromArgb(50,160, 0, 0);
+
         public IModelEditorForm GetInstance(object modelInstance) => GetInstanceT(modelInstance as Router);
         public IModelEditorForm<Router> GetInstanceT(Router modelInstance) => new SWP08RouterEditorForm(modelInstance);
 
@@ -32,6 +36,75 @@ namespace OpenSC.GUI.Routers
             serialPortDropDown.ReceiveObjectDrop().FilterByType<SerialPort>();
         }
 
+        protected override void loadData()
+        {
+            base.loadData();
+            SWP08Router swpRouter = (SWP08Router)EditedModel;
+            if (swpRouter == null)
+                return;
+
+            switch(swpRouter.ConnectionMode)
+            {
+                case RouterConnectionMode.Serial:
+                    serialControlRadioButton.Checked = true;
+                    ethernetControlRadioButton.Checked = false;
+
+                    serialGroup.BackColor = Color.Gray;
+                    ethernetGroup.BackColor = NotActiveColor;
+                    break;
+                case RouterConnectionMode.IP:
+                    ethernetControlRadioButton.Checked = true;
+                    serialControlRadioButton.Checked = false;
+
+                    ethernetGroup.BackColor = Color.Gray;
+                    serialGroup.BackColor = NotActiveColor;
+                    break;
+            }
+
+            swpRouter.ConnectionModeChanged += connectionModeChangedHandler;
+
+            ipAddressInput.Text = swpRouter.IpAddress;
+            autoReconnectCheckBox.Checked = swpRouter.AutoReconnect;
+            swpRouter.ConnectionStateChanged += connectionStateChangedHandler;
+            connectButton.Enabled = !swpRouter.Connected;
+            disconnectButton.Enabled = swpRouter.Connected;
+        }
+
+        private void connectionModeChangedHandler(SWP08Router router, RouterConnectionMode oldState, RouterConnectionMode newState)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => connectionModeChangedHandler(router, oldState, newState)));
+                return;
+            }
+
+            if(newState == RouterConnectionMode.Serial)
+            {
+                serialControlRadioButton.Checked = true;
+                ethernetControlRadioButton.Checked = false;
+
+                serialGroup.BackColor = Color.Gray;
+                ethernetGroup.BackColor = NotActiveColor;
+            } else
+            {
+                ethernetControlRadioButton.Checked = true;
+                serialControlRadioButton.Checked = false;
+
+                ethernetGroup.BackColor = Color.Gray;
+                serialGroup.BackColor = NotActiveColor;
+            }
+        }
+
+        private void connectionStateChangedHandler(SWP08Router router, bool oldState, bool newState)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => connectionStateChangedHandler(router, oldState, newState)));
+                return;
+            }
+            connectButton.Enabled = !newState;
+            disconnectButton.Enabled = newState;
+        }
 
     }
 }
