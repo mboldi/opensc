@@ -1,11 +1,15 @@
 ﻿
+using OpenSC.Model;
 using OpenSC.Model.Routers;
 using System.Collections.Generic;
 
 namespace OpenSC
 {
-    internal class SWP08Router : Router
+    [TypeLabel("Pro-Bel SW-P-08")]
+    [TypeCode("swp08")]
+    public class SWP08Router : Router
     {
+
         public override RouterInput CreateInput(string name, int index)
         {
             throw new System.NotImplementedException();

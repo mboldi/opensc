@@ -47,7 +47,7 @@
             serialGroup = new System.Windows.Forms.GroupBox();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             serialPortLabel = new System.Windows.Forms.Label();
-            serialPortDropdown = new System.Windows.Forms.ComboBox();
+            serialPortDropDown = new System.Windows.Forms.ComboBox();
             connTypeGroup = new System.Windows.Forms.GroupBox();
             ethernetControlRadioButton = new System.Windows.Forms.RadioButton();
             serialControlRadioButton = new System.Windows.Forms.RadioButton();
@@ -76,13 +76,13 @@
             // 
             // inputsButtonsPanel
             // 
-            inputsButtonsPanel.Location = new System.Drawing.Point(3, 335);
-            inputsButtonsPanel.Size = new System.Drawing.Size(829, 41);
+            inputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            inputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // outputsButtonsPanel
             // 
-            outputsButtonsPanel.Location = new System.Drawing.Point(3, 335);
-            outputsButtonsPanel.Size = new System.Drawing.Size(829, 41);
+            outputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            outputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // customElementsPanel
             // 
@@ -94,7 +94,6 @@
             // 
             // matrixPropertiesGroupBox
             // 
-            matrixPropertiesGroupBox.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             matrixPropertiesGroupBox.Controls.Add(tableLayoutPanel4);
             matrixPropertiesGroupBox.Location = new System.Drawing.Point(6, 266);
             matrixPropertiesGroupBox.Name = "matrixPropertiesGroupBox";
@@ -106,9 +105,9 @@
             // tableLayoutPanel4
             // 
             tableLayoutPanel4.ColumnCount = 3;
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.2456131F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.7543869F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 526F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.92228F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.07772F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 629F));
             tableLayoutPanel4.Controls.Add(numericUpDown2, 1, 0);
             tableLayoutPanel4.Controls.Add(label4, 0, 0);
             tableLayoutPanel4.Controls.Add(label5, 0, 1);
@@ -124,10 +123,10 @@
             // 
             // numericUpDown2
             // 
-            numericUpDown2.Location = new System.Drawing.Point(114, 3);
+            numericUpDown2.Location = new System.Drawing.Point(106, 3);
             numericUpDown2.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(84, 23);
+            numericUpDown2.Size = new System.Drawing.Size(78, 23);
             numericUpDown2.TabIndex = 8;
             // 
             // label4
@@ -150,10 +149,10 @@
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new System.Drawing.Point(114, 29);
+            numericUpDown3.Location = new System.Drawing.Point(106, 29);
             numericUpDown3.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new System.Drawing.Size(84, 23);
+            numericUpDown3.Size = new System.Drawing.Size(78, 23);
             numericUpDown3.TabIndex = 10;
             // 
             // ethernetGroup
@@ -173,7 +172,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0264549F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.9735451F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 529F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 544F));
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Controls.Add(label2, 0, 3);
             tableLayoutPanel2.Controls.Add(label3, 0, 1);
@@ -222,7 +221,7 @@
             // 
             // connectButton
             // 
-            connectButton.Location = new System.Drawing.Point(115, 63);
+            connectButton.Location = new System.Drawing.Point(107, 63);
             connectButton.Name = "connectButton";
             connectButton.Size = new System.Drawing.Size(75, 23);
             connectButton.TabIndex = 3;
@@ -231,7 +230,7 @@
             // 
             // disconnectButton
             // 
-            disconnectButton.Location = new System.Drawing.Point(206, 63);
+            disconnectButton.Location = new System.Drawing.Point(192, 63);
             disconnectButton.Name = "disconnectButton";
             disconnectButton.Size = new System.Drawing.Size(75, 23);
             disconnectButton.TabIndex = 4;
@@ -241,7 +240,7 @@
             // autoReconnectCheckBox
             // 
             autoReconnectCheckBox.AutoSize = true;
-            autoReconnectCheckBox.Location = new System.Drawing.Point(115, 93);
+            autoReconnectCheckBox.Location = new System.Drawing.Point(107, 93);
             autoReconnectCheckBox.Name = "autoReconnectCheckBox";
             autoReconnectCheckBox.Size = new System.Drawing.Size(15, 14);
             autoReconnectCheckBox.TabIndex = 5;
@@ -254,18 +253,18 @@
             iPv4AddressControl1.BackColor = System.Drawing.SystemColors.Window;
             iPv4AddressControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tableLayoutPanel2.SetColumnSpan(iPv4AddressControl1, 2);
-            iPv4AddressControl1.Location = new System.Drawing.Point(115, 3);
+            iPv4AddressControl1.Location = new System.Drawing.Point(107, 3);
             iPv4AddressControl1.Name = "iPv4AddressControl1";
             iPv4AddressControl1.ReadOnly = false;
-            iPv4AddressControl1.Size = new System.Drawing.Size(166, 23);
+            iPv4AddressControl1.Size = new System.Drawing.Size(163, 23);
             iPv4AddressControl1.TabIndex = 6;
             iPv4AddressControl1.Text = "...";
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new System.Drawing.Point(115, 33);
+            numericUpDown1.Location = new System.Drawing.Point(107, 33);
             numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new System.Drawing.Size(82, 23);
+            numericUpDown1.Size = new System.Drawing.Size(79, 23);
             numericUpDown1.TabIndex = 7;
             // 
             // serialGroup
@@ -285,7 +284,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.5970335F));
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 86.40297F));
             tableLayoutPanel3.Controls.Add(serialPortLabel, 0, 0);
-            tableLayoutPanel3.Controls.Add(serialPortDropdown, 1, 0);
+            tableLayoutPanel3.Controls.Add(serialPortDropDown, 1, 0);
             tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel3.Location = new System.Drawing.Point(3, 19);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -303,13 +302,14 @@
             serialPortLabel.TabIndex = 8;
             serialPortLabel.Text = "Port";
             // 
-            // serialPortDropdown
+            // serialPortDropDown
             // 
-            serialPortDropdown.FormattingEnabled = true;
-            serialPortDropdown.Location = new System.Drawing.Point(114, 3);
-            serialPortDropdown.Name = "serialPortDropdown";
-            serialPortDropdown.Size = new System.Drawing.Size(168, 23);
-            serialPortDropdown.TabIndex = 9;
+            serialPortDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            serialPortDropDown.FormattingEnabled = true;
+            serialPortDropDown.Location = new System.Drawing.Point(114, 3);
+            serialPortDropDown.Name = "serialPortDropDown";
+            serialPortDropDown.Size = new System.Drawing.Size(166, 23);
+            serialPortDropDown.TabIndex = 10;
             // 
             // connTypeGroup
             // 
@@ -388,12 +388,12 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label serialPortLabel;
-        private System.Windows.Forms.ComboBox serialPortDropdown;
         private System.Windows.Forms.GroupBox matrixPropertiesGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.ComboBox serialPortDropDown;
     }
 }

@@ -10,6 +10,8 @@
   <ItemGroup>
     <ProjectReference Include="..\opensc-routers-gui\opensc-routers-gui.csproj" />
     <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
+    <ProjectReference Include="..\opensc-routers-subtype-swp08-model\opensc-routers-subtype-swp08-model.csproj" />
+    <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
 
 </Project>
