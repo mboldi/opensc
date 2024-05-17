@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\opensc-core-gui\opensc-core-gui.csproj" />
+    <ProjectReference Include="..\opensc-routers-gui\opensc-routers-gui.csproj" />
+    <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
   </ItemGroup>
 
 </Project>

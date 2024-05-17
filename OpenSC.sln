@@ -226,9 +226,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-routers-subtype-virt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-salvos-bridge-macros", "opensc-salvos-bridge-macros\opensc-salvos-bridge-macros.csproj", "{7B3CA8B7-5E98-41F1-9B85-C233BAC5C788}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-routers-subtype-swp08-gui", "opensc-routers-subtype-swp08-gui\opensc-routers-subtype-swp08-gui.csproj", "{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-routers-subtype-swp08-model", "opensc-routers-subtype-swp08-model\opensc-routers-subtype-swp08-model.csproj", "{11541155-E489-4E0C-AE13-0EA7669C3B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "opensc-routers-subtype-swp08-model", "opensc-routers-subtype-swp08-model\opensc-routers-subtype-swp08-model.csproj", "{11541155-E489-4E0C-AE13-0EA7669C3B4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "opensc-routers-subtype-swp08-gui", "opensc-routers-subtype-swp08-gui\opensc-routers-subtype-swp08-gui.csproj", "{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1512,18 +1512,6 @@ Global
 		{7B3CA8B7-5E98-41F1-9B85-C233BAC5C788}.Release|x64.Build.0 = Release|Any CPU
 		{7B3CA8B7-5E98-41F1-9B85-C233BAC5C788}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B3CA8B7-5E98-41F1-9B85-C233BAC5C788}.Release|x86.Build.0 = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|x64.Build.0 = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Debug|x86.Build.0 = Debug|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|x64.ActiveCfg = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|x64.Build.0 = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|x86.ActiveCfg = Release|Any CPU
-		{D04B0FFA-3B60-4CB1-A5D3-2D512810B6E8}.Release|x86.Build.0 = Release|Any CPU
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -1536,6 +1524,18 @@ Global
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Release|x64.Build.0 = Release|Any CPU
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{11541155-E489-4E0C-AE13-0EA7669C3B4A}.Release|x86.Build.0 = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|x64.Build.0 = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D76C6BE-BD80-4C20-8C58-2701AB9072FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
