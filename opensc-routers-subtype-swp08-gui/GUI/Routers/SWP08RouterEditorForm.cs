@@ -9,7 +9,6 @@ namespace OpenSC.GUI.Routers
 {
     public partial class SWP08RouterEditorForm : RouterEditorFormBase, IModelEditorForm<Router>
     {
-        private static Color NotActiveColor = Color.FromArgb(50,160, 0, 0);
 
         public IModelEditorForm GetInstance(object modelInstance) => GetInstanceT(modelInstance as Router);
         public IModelEditorForm<Router> GetInstanceT(Router modelInstance) => new SWP08RouterEditorForm(modelInstance);
@@ -49,15 +48,11 @@ namespace OpenSC.GUI.Routers
                     serialControlRadioButton.Checked = true;
                     ethernetControlRadioButton.Checked = false;
 
-                    serialGroup.BackColor = Color.Gray;
-                    ethernetGroup.BackColor = NotActiveColor;
                     break;
                 case RouterConnectionMode.IP:
                     ethernetControlRadioButton.Checked = true;
                     serialControlRadioButton.Checked = false;
 
-                    ethernetGroup.BackColor = Color.Gray;
-                    serialGroup.BackColor = NotActiveColor;
                     break;
             }
 
@@ -82,16 +77,10 @@ namespace OpenSC.GUI.Routers
             {
                 serialControlRadioButton.Checked = true;
                 ethernetControlRadioButton.Checked = false;
-
-                serialGroup.BackColor = Color.Gray;
-                ethernetGroup.BackColor = NotActiveColor;
             } else
             {
                 ethernetControlRadioButton.Checked = true;
                 serialControlRadioButton.Checked = false;
-
-                ethernetGroup.BackColor = Color.Gray;
-                serialGroup.BackColor = NotActiveColor;
             }
         }
 

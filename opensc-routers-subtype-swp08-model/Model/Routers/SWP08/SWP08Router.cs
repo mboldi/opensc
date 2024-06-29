@@ -14,7 +14,7 @@ namespace OpenSC
 {
     [TypeLabel("Pro-Bel SW-P-08")]
     [TypeCode("swp08")]
-    public class SWP08Router : Router
+    public partial class SWP08Router : Router
     {
         private new const string LOG_TAG = "Router/SW-P-08";
 
@@ -82,7 +82,7 @@ namespace OpenSC
         [PersistAs("serial_port")]
         private SerialPort serialPort;
 
-        public SerialPort SerialPort
+        public SerialPort SerPort
         {
             get; set;
         }
@@ -141,7 +141,7 @@ namespace OpenSC
                         State = RouterState.Ok;
                         StateString = "connected";
                         string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
-                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
+                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
                         LogDispatcher.I(LOG_TAG, logMessage);
                     }
                     else
@@ -149,7 +149,7 @@ namespace OpenSC
                         State = RouterState.Warning;
                         StateString = "disconnected";
                         string logMessage = string.Format("Disconnected from an SW-P-08 router (ID: {0}) {1}.", ID,
-                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
+                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
                         LogDispatcher.I(LOG_TAG, logMessage);
                     }
                 };
