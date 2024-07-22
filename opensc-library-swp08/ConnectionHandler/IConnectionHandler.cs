@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    public interface IConnectionHandler
+    internal interface IConnectionHandler
     {
         public delegate void DisconnectedDelegate();
         public event DisconnectedDelegate Disconnected;
@@ -14,9 +14,9 @@ namespace OpenSC.Library.SWP08Router
         public delegate void MessageReceivedDelegate();
         public event MessageReceivedDelegate MessageReceived;
 
-        public bool ConnectTo(string address);
+        public bool Connect();
 
-        public void Close();
+        public void Disconnect();
 
         public void SendMessage(string message);
     }
