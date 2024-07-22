@@ -9,6 +9,7 @@ using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace OpenSC
 {
@@ -73,7 +74,43 @@ namespace OpenSC
             get => autoReconnect;
             set => this.setProperty(ref autoReconnect, value, AutoReconnectChanged);
         }
+
+        private const int RECONNECT_TRY_INTERVAL = 10000;
+
+        private Thread autoReconnectThread = null;
+        private bool autoReconnectThreadWorking = false;
+
+        private void startAutoReconnectThread()
+        {
+            autoReconnectThread = new Thread(autoReconnectThreadMethod)
+            {
+                IsBackground = true
+            };
+            autoReconnectThreadWorking = true;
+            autoReconnectThread.Start();
+        }
+
+        private void autoReconnectThreadMethod()
+        {
+
+            string logMessage = string.Format("Trying auto reconnect to an SW-P-08 router (ID: {0}) with IP {1}...",
+                ID,
+                IpAddress);
+            LogDispatcher.I(LOG_TAG, logMessage);
+
+            if (autoReconnect && !connected)
+                Connect();
+            while (autoReconnectThreadWorking && autoReconnect && !connected)
+            {
+                Thread.Sleep(RECONNECT_TRY_INTERVAL);
+                if (autoReconnect && !connected)
+                    Connect();
+            }
+
+        }
         #endregion
+
+        public void Connect() { }
 
         #region Property: Serial Port
         [AutoProperty]
@@ -199,8 +236,10 @@ namespace OpenSC
 
         #region Helper functions
 
+
+
         // Everything indexed from 0!
-        Byte[] crosspointConnectMessage(byte matrix, byte level, Int16 dest, Int16 source)
+        Byte[] createCrosspointConnectMessage(byte matrix, byte level, Int16 dest, Int16 source)
         {
             List<Byte> dataBytes = new List<Byte>();
 
