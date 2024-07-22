@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj"/>
+      <ProjectReference Include="..\opensc-library-swp08\opensc-library-swp08.csproj" />
+      <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
     <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
 
-  <Import Project="..\opensc-routers-model\RoutersSubtypeModelModuleBase.csproj"/>
+  <Import Project="..\opensc-routers-model\RoutersSubtypeModelModuleBase.csproj" />
 </Project>

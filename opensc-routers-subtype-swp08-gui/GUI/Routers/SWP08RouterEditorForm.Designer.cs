@@ -76,13 +76,13 @@
             // 
             // inputsButtonsPanel
             // 
-            inputsButtonsPanel.Location = new System.Drawing.Point(3, 335);
-            inputsButtonsPanel.Size = new System.Drawing.Size(829, 41);
+            inputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            inputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // outputsButtonsPanel
             // 
-            outputsButtonsPanel.Location = new System.Drawing.Point(3, 335);
-            outputsButtonsPanel.Size = new System.Drawing.Size(829, 41);
+            outputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            outputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // customElementsPanel
             // 
@@ -107,7 +107,7 @@
             tableLayoutPanel4.ColumnCount = 3;
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.92228F));
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.07772F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 644F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 645F));
             tableLayoutPanel4.Controls.Add(matrixNumeric, 1, 0);
             tableLayoutPanel4.Controls.Add(label4, 0, 0);
             tableLayoutPanel4.Controls.Add(label5, 0, 1);
@@ -123,7 +123,7 @@
             // 
             // matrixNumeric
             // 
-            matrixNumeric.Location = new System.Drawing.Point(98, 3);
+            matrixNumeric.Location = new System.Drawing.Point(97, 3);
             matrixNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             matrixNumeric.Name = "matrixNumeric";
             matrixNumeric.Size = new System.Drawing.Size(71, 23);
@@ -149,7 +149,7 @@
             // 
             // layerNumeric
             // 
-            layerNumeric.Location = new System.Drawing.Point(98, 29);
+            layerNumeric.Location = new System.Drawing.Point(97, 29);
             layerNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             layerNumeric.Name = "layerNumeric";
             layerNumeric.Size = new System.Drawing.Size(71, 23);
