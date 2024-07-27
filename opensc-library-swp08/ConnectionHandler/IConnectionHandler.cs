@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    internal interface IConnectionHandler
+    public abstract class IConnectionHandler
     {
-        public delegate void DisconnectedDelegate();
-        public event DisconnectedDelegate Disconnected;
+        public delegate void ConnectionChangedDelegate(bool state);
+        public event ConnectionChangedDelegate ConnectionChanged;
 
-        public delegate void MessageReceivedDelegate();
+        public delegate void MessageReceivedDelegate(Byte[] message);
         public event MessageReceivedDelegate MessageReceived;
 
-        public bool Connect();
+        public abstract void Connect();
 
-        public void Disconnect();
+        public abstract void Disconnect();
 
-        public void SendMessage(string message);
+        public abstract void SendMessage(Byte[] message);
+
+        protected void FireConnectionChanged(bool state)
+        {
+            ConnectionChanged(state);
+        }
     }
 }

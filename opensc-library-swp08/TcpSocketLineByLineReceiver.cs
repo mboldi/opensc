@@ -9,8 +9,6 @@ namespace OpenSC.Library.SWP08Router
     internal class TcpSocketLineByLineReceiver : IDisposable
     {
 
-
-
         private Socket socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
         private string ipAddress;

@@ -9,6 +9,8 @@ namespace OpenSC.Library.SWP08Router
 {
     public class TCPConnectionHandler : IConnectionHandler
     {
+        private TcpSocketLineByLineReceiver lineReceiver;
+
         #region IP Address & port
         private string ipAddress;
         private int port;
@@ -24,49 +26,55 @@ namespace OpenSC.Library.SWP08Router
             {
                 if (value == ipAddress.ToString() + ":" + port.ToString())
                     return;
-                bool wasConnected = connected;
+                bool wasConnected = Connected;
                 if (wasConnected)
                     Disconnect();
-                ipAddress = value;
+                var addressBits = value.Split(':');
+
+                ipAddress = addressBits[0];
+                port = int.Parse(addressBits[1]);
+
                 if (wasConnected)
                     Connect();
             }
         }
 
-
         #endregion
-
-        private bool connected;
 
         public bool Connected
         {
             get
             {
-                return connected;
+                return lineReceiver.Connected;
             }
         }
 
         public TCPConnectionHandler(string ipAddressWithPort) { 
             IpAddress = ipAddressWithPort;
+
+            lineReceiver = new TcpSocketLineByLineReceiver(ipAddress, port);
+
+            lineReceiver.ConnectedStateChanged += state => FireConnectionChanged(state);
         }
 
         public TCPConnectionHandler(string ipAddress, int port) {
             IpAddress = ipAddress.ToString() + ":" + port.ToString();
+
+            lineReceiver = new TcpSocketLineByLineReceiver(ipAddress, port);
+
+            lineReceiver.ConnectedStateChanged += state => FireConnectionChanged(state);
         }
 
-        public void Disconnect()
+        override public void Disconnect()
         {
-            
+            lineReceiver.Disconnect();
         }
 
-        public bool Connect()
+        override public void Connect()
         {
-            throw new NotImplementedException();
+            lineReceiver.Connect();
         }
 
-        public void SendMessage(string message)
-        {
-            throw new NotImplementedException();
-        }
+        override public void SendMessage(Byte[] message) => lineReceiver.Send(message);
     }
 }
