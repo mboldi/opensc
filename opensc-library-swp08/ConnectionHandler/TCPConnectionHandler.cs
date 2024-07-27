@@ -65,15 +65,9 @@ namespace OpenSC.Library.SWP08Router
             lineReceiver.ConnectedStateChanged += state => FireConnectionChanged(state);
         }
 
-        override public void Disconnect()
-        {
-            lineReceiver.Disconnect();
-        }
+        override public void Disconnect() => lineReceiver.Disconnect();
 
-        override public void Connect()
-        {
-            lineReceiver.Connect();
-        }
+        override public void Connect() => lineReceiver.Connect();
 
         override public void SendMessage(Byte[] message) => lineReceiver.Send(message);
     }

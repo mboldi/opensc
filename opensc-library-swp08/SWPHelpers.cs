@@ -60,57 +60,6 @@ namespace OpenSC.Library.SWP08Router
             return outBytes.ToArray();
         }
 
-        // Everything indexed from 0!
-        public static Byte[] createCrosspointConnectMessage(byte matrix, byte level, Int16 dest, Int16 source)
-        {
-            List<Byte> dataBytes = new List<Byte>();
-
-            // Command byte
-            dataBytes.Add(SWPHelpers.hexToByte("02"));
-
-            // Matrix - Level
-            dataBytes.Add((byte)(level + 16 * matrix));
-
-            dataBytes.Add(SWPHelpers.generateMultiplier(dest, source));
-
-            dataBytes.Add((byte)(dest % 128));
-
-            dataBytes.Add((byte)(source % 128));
-
-            return dataBytes.ToArray();
-        }
-
-
-        public static Byte[] packageMessage(Byte[] DATA)
-        {
-            List<Byte> message = new List<Byte>();
-
-
-            byte BTC = (byte)DATA.Length;
-            var CHK = SWPHelpers.calcCHK(DATA, BTC);
-
-            message.AddRange(DATA);
-
-            message.Add(BTC);
-            message.Add((byte)CHK);
-
-            for (int i = 0; i < message.Count; i++)
-            {
-                if (message[i] == ProtocolStrings.DLE)
-                {
-                    message.Insert(++i, ProtocolStrings.DLE);
-                }
-            }
-
-            // Start of message
-            message.Insert(0, ProtocolStrings.STX);
-            message.Insert(0, ProtocolStrings.DLE);
-
-            // End of message
-            message.Add(ProtocolStrings.DLE);
-            message.Add(ProtocolStrings.ETX);
-
-            return message.ToArray();
-        }
+        // Everything indexed from 0!        
     }
 }
