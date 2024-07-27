@@ -16,8 +16,6 @@ namespace OpenSC.Library.SWP08Router
 
         public static SByte calcCHK(Byte[] DATA, Byte BTC)
         {
-            SByte CHK = 0;
-
             Byte sumBytes = 0;
 
             foreach (Byte b in DATA)

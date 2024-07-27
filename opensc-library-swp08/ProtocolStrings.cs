@@ -21,14 +21,16 @@ namespace OpenSC.Library.SWP08Router
 
 
         #region Command bytes
-        public static byte SWP08_CMD_INTERROGATE = SWPHelpers.hexToByte("01");
-        public static byte SWP08_CMD_CONNECT = SWPHelpers.hexToByte("02");
-        public static byte SWP08_CMD_TALLY = SWPHelpers.hexToByte("03");
-        public static byte SWP08_CMD_CONNECTED = SWPHelpers.hexToByte("04");
-        public static byte SWP08_CMD_CONNECT_ON_GO = SWPHelpers.hexToByte("05");
-        public static byte SWP08_CMD_GO = SWPHelpers.hexToByte("06");
-        public static byte SWP08_CMD_CONNECT_ON_GO_ACK = SWPHelpers.hexToByte("12");
-        public static byte SWP08_CMD_GO_DONE_ACK = SWPHelpers.hexToByte("01");
+        public static byte SWP08_CMD_CROSSPOINT_INTERROGATE = 1;
+        public static byte SWP08_CMD_CONNECT = 2;
+        public static byte SWP08_CMD_CROSSPOINT_TALLY = 3;
+        public static byte SWP08_CMD_CONNECTED = 4;
+
+        // Only for XD and ECLIPSE router ranges
+        public static byte SWP08_CMD_CONNECT_ON_GO = 120;
+        public static byte SWP08_CMD_GO = 121;
+        public static byte SWP08_CMD_CONNECT_ON_GO_ACK = 122;
+        public static byte SWP08_CMD_GO_DONE_ACK = 123;
         #endregion
     }
 }
