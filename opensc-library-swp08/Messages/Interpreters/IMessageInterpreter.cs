@@ -9,7 +9,7 @@ namespace OpenSC.Library.SWP08Router
     internal interface IMessageInterpreter
     {
         public bool CanInterpret(Byte commandByte);
-        public void InterpretLine(string line);
+        public void InterpretLine(byte[] line);
         public void BlockEnd();
     }
 }

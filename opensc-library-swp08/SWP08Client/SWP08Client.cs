@@ -33,7 +33,6 @@ namespace OpenSC.Library.SWP08Router
                 if (value == inputCount)
                     return;
                 inputCount = value;
-                inputLabels = new string[inputCount];
                 InputCountChanged?.Invoke(inputCount);
             }
         }
@@ -52,8 +51,6 @@ namespace OpenSC.Library.SWP08Router
                     return;
                 outputCount = value;
                 crosspoints = new int?[outputCount];
-                locks = new LockState?[outputCount];
-                outputLabels = new string[outputCount];
                 OutputCountChanged?.Invoke(outputCount);
             }
         }
@@ -96,11 +93,6 @@ namespace OpenSC.Library.SWP08Router
 
         internal void NotifyCrosspointChanged(Crosspoint crosspoint)
         {
-            if ((crosspoint.Output == null) || (crosspoint.Output < 0) || (crosspoint.Output >= outputCount))
-                return;
-            if ((crosspoint.Input < 0) || (crosspoint.Input >= inputCount))
-                crosspoint = crosspoint with { Input = null };
-            crosspoints[(int)crosspoint.Output] = crosspoint.Input;
             CrosspointChanged?.Invoke(crosspoint);
         }
 
@@ -122,13 +114,6 @@ namespace OpenSC.Library.SWP08Router
             scheduleRequest(new VideoOutputRoutingRequest(crosspoint));
         }
 
-        public void SetCrosspoints(IEnumerable<Crosspoint> crosspoints)
-        {
-            foreach (Crosspoint crosspoint in crosspoints)
-                checkCrosspointBeforeSet(crosspoint);
-            scheduleRequest(new VideoOutputRoutingRequest(crosspoints));
-        }
-
         private void checkCrosspointBeforeSet(Crosspoint crosspoint)
         {
             if ((crosspoint.Dest == null) || (crosspoint.Dest < 0) || (crosspoint.Dest >= OutputCount))
@@ -137,7 +122,7 @@ namespace OpenSC.Library.SWP08Router
                 throw new ArgumentOutOfRangeException();
         }
 
-        public void QueryAllCrosspoints() => scheduleRequest(new VideoOutputRoutingRequest(Array.Empty<Crosspoint>()));
+        public void QueryAllCrosspoints() => scheduleRequest(new AllCrosspointsRequest());
         #endregion
 
 
@@ -159,13 +144,13 @@ namespace OpenSC.Library.SWP08Router
         {
             knownInterpeters = new IMessageInterpreter[]
             {
-                new ConnectedCommandInterpreter();
-            }
+                new ConnectedCommandInterpreter()
+            };
         }
 
-        private void lineReceived(string line)
+        private void lineReceived(byte[] line)
         {
-            if (line == string.Empty)
+            if (line.Length == 0)
             {
                 if (currentInterpreter != null)
                 {
@@ -176,7 +161,7 @@ namespace OpenSC.Library.SWP08Router
             }
             if (currentInterpreter == null)
             {
-                currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(line));
+                currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(line[2]));
                 return;
             }
             if (currentInterpreter != null)
@@ -198,4 +183,5 @@ namespace OpenSC.Library.SWP08Router
 
         #endregion
     }
+    
 }
