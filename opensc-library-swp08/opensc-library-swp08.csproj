@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\opensc-library-taskschedulerqueue\opensc-library-taskschedulerqueue.csproj" />
+    <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
   <Import Project="..\CommonCsproj\Global\*.csproj" />
 </Project>

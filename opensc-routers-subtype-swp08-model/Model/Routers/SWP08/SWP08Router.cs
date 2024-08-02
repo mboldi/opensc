@@ -216,13 +216,5 @@ namespace OpenSC
             throw new System.NotImplementedException();
         }
 
-        #region Serial communication & handling
-        private void receivedLineFromSerialPort(SerialPort port, string asciiLine)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
     }
 }

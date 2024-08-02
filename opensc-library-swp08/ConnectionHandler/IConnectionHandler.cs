@@ -20,6 +20,10 @@ namespace OpenSC.Library.SWP08Router
 
         public abstract void SendMessage(Byte[] message);
 
+        public abstract bool getConnectState();
+
+        public abstract string getAddressString();
+
         protected void FireConnectionChanged(bool state)
         {
             ConnectionChanged(state);

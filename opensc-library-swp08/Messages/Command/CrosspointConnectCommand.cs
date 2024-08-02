@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSC.Model.General;
+using System;
 using System.Collections.Generic;
 
 namespace OpenSC.Library.SWP08Router
@@ -8,8 +9,7 @@ namespace OpenSC.Library.SWP08Router
         private byte matrix = 0;
         private byte level = 0;
 
-        private Int16 destination = 0;
-        private Int16 source = 0;
+        private Crosspoint crosspoint;
 
         public CrosspointConnectCommand() { }
 
@@ -27,16 +27,9 @@ namespace OpenSC.Library.SWP08Router
             return this;
         }
 
-        public CrosspointConnectCommand withDestination(Int16 dest)
+        public CrosspointConnectCommand withCrosspoint(Crosspoint crosspoint)
         {
-            this.destination = dest;
-
-            return this;
-        }
-
-        public CrosspointConnectCommand withSource(Int16 src)
-        {
-            this.source = src;
+            this.crosspoint = crosspoint;
 
             return this;
         }
@@ -51,11 +44,8 @@ namespace OpenSC.Library.SWP08Router
             // Matrix - Level
             dataBytes.Add((byte)(level + 16 * matrix));
 
-            dataBytes.Add(SWPHelpers.generateMultiplier(destination, source));
-
-            dataBytes.Add((byte)(destination % 128));
-
-            dataBytes.Add((byte)(source % 128));
+            // Add crosspoints with multiplier
+            dataBytes.AddRange(crosspoint.getProtocolString());
 
             return dataBytes.ToArray();
         }

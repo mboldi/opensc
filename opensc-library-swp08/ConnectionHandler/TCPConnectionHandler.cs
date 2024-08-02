@@ -49,6 +49,11 @@ namespace OpenSC.Library.SWP08Router
             }
         }
 
+        public override bool getConnectState()
+        {
+            return Connected;
+        }
+
         public TCPConnectionHandler(string ipAddressWithPort) { 
             IpAddress = ipAddressWithPort;
 
@@ -70,5 +75,10 @@ namespace OpenSC.Library.SWP08Router
         override public void Connect() => lineReceiver.Connect();
 
         override public void SendMessage(Byte[] message) => lineReceiver.Send(message);
+
+        public override string getAddressString()
+        {
+            return ipAddress.ToString() + ":" + port.ToString();
+        }
     }
 }
