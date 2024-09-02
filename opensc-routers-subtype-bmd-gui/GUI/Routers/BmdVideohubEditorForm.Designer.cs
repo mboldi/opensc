@@ -28,198 +28,192 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.connectionPanel = new System.Windows.Forms.Panel();
-            this.connectionGroupBox = new System.Windows.Forms.GroupBox();
-            this.connectionTable = new System.Windows.Forms.TableLayoutPanel();
-            this.disconnectButton = new System.Windows.Forms.Button();
-            this.ipAddressLabel = new System.Windows.Forms.Label();
-            this.autoReconnectCheckbox = new System.Windows.Forms.CheckBox();
-            this.autoReconnectLabel = new System.Windows.Forms.Label();
-            this.connectButton = new System.Windows.Forms.Button();
-            this.ipAddressInput = new OpenSC.GUI.GeneralComponents.IPAddressControl.IPv4AddressControl();
-            this.baseDataTabPage.SuspendLayout();
-            this.mainContainer.SuspendLayout();
-            this.connectionPanel.SuspendLayout();
-            this.connectionGroupBox.SuspendLayout();
-            this.connectionTable.SuspendLayout();
-            this.SuspendLayout();
+            connectionPanel = new System.Windows.Forms.Panel();
+            connectionGroupBox = new System.Windows.Forms.GroupBox();
+            connectionTable = new System.Windows.Forms.TableLayoutPanel();
+            disconnectButton = new System.Windows.Forms.Button();
+            ipAddressLabel = new System.Windows.Forms.Label();
+            autoReconnectCheckbox = new System.Windows.Forms.CheckBox();
+            autoReconnectLabel = new System.Windows.Forms.Label();
+            connectButton = new System.Windows.Forms.Button();
+            ipAddressInput = new GeneralComponents.IPAddressControl.IPv4AddressControl();
+            baseDataTabPage.SuspendLayout();
+            mainContainer.SuspendLayout();
+            connectionPanel.SuspendLayout();
+            connectionGroupBox.SuspendLayout();
+            connectionTable.SuspendLayout();
+            SuspendLayout();
             // 
             // baseDataTabPage
             // 
-            this.baseDataTabPage.Controls.Add(this.connectionPanel);
-            this.baseDataTabPage.Location = new System.Drawing.Point(4, 29);
-            this.baseDataTabPage.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.baseDataTabPage.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.baseDataTabPage.Size = new System.Drawing.Size(954, 549);
+            baseDataTabPage.Controls.Add(connectionPanel);
+            baseDataTabPage.Location = new System.Drawing.Point(4, 24);
+            baseDataTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            baseDataTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            baseDataTabPage.Size = new System.Drawing.Size(835, 414);
             // 
             // inputsButtonsPanel
             // 
-            this.inputsButtonsPanel.Location = new System.Drawing.Point(3, 317);
-            this.inputsButtonsPanel.Size = new System.Drawing.Size(1048, 55);
+            inputsButtonsPanel.Location = new System.Drawing.Point(3, 234);
+            inputsButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            inputsButtonsPanel.Size = new System.Drawing.Size(913, 41);
             // 
             // outputsButtonsPanel
             // 
-            this.outputsButtonsPanel.Location = new System.Drawing.Point(3, 317);
-            this.outputsButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.outputsButtonsPanel.Size = new System.Drawing.Size(1048, 55);
+            outputsButtonsPanel.Location = new System.Drawing.Point(3, 234);
+            outputsButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            outputsButtonsPanel.Size = new System.Drawing.Size(913, 41);
             // 
             // customElementsPanel
             // 
-            this.customElementsPanel.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.customElementsPanel.Padding = new System.Windows.Forms.Padding(10, 19, 10, 0);
-            this.customElementsPanel.Size = new System.Drawing.Size(982, 708);
+            customElementsPanel.Padding = new System.Windows.Forms.Padding(9, 14, 9, 0);
+            customElementsPanel.Size = new System.Drawing.Size(861, 538);
             // 
             // mainContainer
             // 
-            this.mainContainer.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.mainContainer.Size = new System.Drawing.Size(982, 794);
+            mainContainer.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            mainContainer.Size = new System.Drawing.Size(861, 602);
             // 
             // connectionPanel
             // 
-            this.connectionPanel.AutoSize = true;
-            this.connectionPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionPanel.Controls.Add(this.connectionGroupBox);
-            this.connectionPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.connectionPanel.Location = new System.Drawing.Point(3, 5);
-            this.connectionPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.connectionPanel.Name = "connectionPanel";
-            this.connectionPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 9);
-            this.connectionPanel.Size = new System.Drawing.Size(948, 147);
-            this.connectionPanel.TabIndex = 2;
+            connectionPanel.AutoSize = true;
+            connectionPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionPanel.Controls.Add(connectionGroupBox);
+            connectionPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            connectionPanel.Location = new System.Drawing.Point(3, 4);
+            connectionPanel.Name = "connectionPanel";
+            connectionPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
+            connectionPanel.Size = new System.Drawing.Size(829, 116);
+            connectionPanel.TabIndex = 2;
             // 
             // connectionGroupBox
             // 
-            this.connectionGroupBox.AutoSize = true;
-            this.connectionGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionGroupBox.Controls.Add(this.connectionTable);
-            this.connectionGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.connectionGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.connectionGroupBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.connectionGroupBox.Name = "connectionGroupBox";
-            this.connectionGroupBox.Padding = new System.Windows.Forms.Padding(8, 10, 8, 10);
-            this.connectionGroupBox.Size = new System.Drawing.Size(948, 138);
-            this.connectionGroupBox.TabIndex = 0;
-            this.connectionGroupBox.TabStop = false;
-            this.connectionGroupBox.Text = "Connection";
+            connectionGroupBox.AutoSize = true;
+            connectionGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionGroupBox.Controls.Add(connectionTable);
+            connectionGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            connectionGroupBox.Location = new System.Drawing.Point(0, 0);
+            connectionGroupBox.Name = "connectionGroupBox";
+            connectionGroupBox.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            connectionGroupBox.Size = new System.Drawing.Size(829, 109);
+            connectionGroupBox.TabIndex = 0;
+            connectionGroupBox.TabStop = false;
+            connectionGroupBox.Text = "Connection";
             // 
             // connectionTable
             // 
-            this.connectionTable.AutoSize = true;
-            this.connectionTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionTable.ColumnCount = 4;
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.connectionTable.Controls.Add(this.disconnectButton, 2, 1);
-            this.connectionTable.Controls.Add(this.ipAddressLabel, 0, 0);
-            this.connectionTable.Controls.Add(this.autoReconnectCheckbox, 1, 2);
-            this.connectionTable.Controls.Add(this.autoReconnectLabel, 0, 2);
-            this.connectionTable.Controls.Add(this.connectButton, 1, 1);
-            this.connectionTable.Controls.Add(this.ipAddressInput, 1, 0);
-            this.connectionTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.connectionTable.Location = new System.Drawing.Point(8, 30);
-            this.connectionTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.connectionTable.Name = "connectionTable";
-            this.connectionTable.RowCount = 3;
-            this.connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.connectionTable.Size = new System.Drawing.Size(932, 98);
-            this.connectionTable.TabIndex = 0;
+            connectionTable.AutoSize = true;
+            connectionTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionTable.ColumnCount = 4;
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            connectionTable.Controls.Add(disconnectButton, 2, 1);
+            connectionTable.Controls.Add(ipAddressLabel, 0, 0);
+            connectionTable.Controls.Add(autoReconnectCheckbox, 1, 2);
+            connectionTable.Controls.Add(autoReconnectLabel, 0, 2);
+            connectionTable.Controls.Add(connectButton, 1, 1);
+            connectionTable.Controls.Add(ipAddressInput, 1, 0);
+            connectionTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            connectionTable.Location = new System.Drawing.Point(7, 24);
+            connectionTable.Name = "connectionTable";
+            connectionTable.RowCount = 3;
+            connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            connectionTable.Size = new System.Drawing.Size(815, 77);
+            connectionTable.TabIndex = 0;
             // 
             // disconnectButton
             // 
-            this.disconnectButton.Location = new System.Drawing.Point(240, 37);
-            this.disconnectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.disconnectButton.Name = "disconnectButton";
-            this.disconnectButton.Size = new System.Drawing.Size(100, 32);
-            this.disconnectButton.TabIndex = 1;
-            this.disconnectButton.Text = "Disconnect";
-            this.disconnectButton.UseVisualStyleBackColor = true;
-            this.disconnectButton.Click += new System.EventHandler(this.disconnectButton_Click);
+            disconnectButton.Location = new System.Drawing.Point(205, 30);
+            disconnectButton.Name = "disconnectButton";
+            disconnectButton.Size = new System.Drawing.Size(88, 24);
+            disconnectButton.TabIndex = 1;
+            disconnectButton.Text = "Disconnect";
+            disconnectButton.UseVisualStyleBackColor = true;
+            disconnectButton.Click += disconnectButton_Click;
             // 
             // ipAddressLabel
             // 
-            this.ipAddressLabel.AutoSize = true;
-            this.ipAddressLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ipAddressLabel.Location = new System.Drawing.Point(3, 0);
-            this.ipAddressLabel.Margin = new System.Windows.Forms.Padding(3, 0, 15, 0);
-            this.ipAddressLabel.Name = "ipAddressLabel";
-            this.ipAddressLabel.Size = new System.Drawing.Size(79, 33);
-            this.ipAddressLabel.TabIndex = 0;
-            this.ipAddressLabel.Text = "IP address:";
-            this.ipAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            ipAddressLabel.AutoSize = true;
+            ipAddressLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            ipAddressLabel.Location = new System.Drawing.Point(3, 0);
+            ipAddressLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
+            ipAddressLabel.Name = "ipAddressLabel";
+            ipAddressLabel.Size = new System.Drawing.Size(63, 27);
+            ipAddressLabel.TabIndex = 0;
+            ipAddressLabel.Text = "IP address:";
+            ipAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // autoReconnectCheckbox
             // 
-            this.autoReconnectCheckbox.AutoSize = true;
-            this.autoReconnectCheckbox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.autoReconnectCheckbox.Location = new System.Drawing.Point(134, 77);
-            this.autoReconnectCheckbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.autoReconnectCheckbox.Name = "autoReconnectCheckbox";
-            this.autoReconnectCheckbox.Size = new System.Drawing.Size(18, 17);
-            this.autoReconnectCheckbox.TabIndex = 3;
-            this.autoReconnectCheckbox.UseVisualStyleBackColor = true;
+            autoReconnectCheckbox.AutoSize = true;
+            autoReconnectCheckbox.Dock = System.Windows.Forms.DockStyle.Left;
+            autoReconnectCheckbox.Location = new System.Drawing.Point(111, 60);
+            autoReconnectCheckbox.Name = "autoReconnectCheckbox";
+            autoReconnectCheckbox.Size = new System.Drawing.Size(15, 14);
+            autoReconnectCheckbox.TabIndex = 3;
+            autoReconnectCheckbox.UseVisualStyleBackColor = true;
             // 
             // autoReconnectLabel
             // 
-            this.autoReconnectLabel.AutoSize = true;
-            this.autoReconnectLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.autoReconnectLabel.Location = new System.Drawing.Point(3, 73);
-            this.autoReconnectLabel.Margin = new System.Windows.Forms.Padding(3, 0, 15, 0);
-            this.autoReconnectLabel.Name = "autoReconnectLabel";
-            this.autoReconnectLabel.Size = new System.Drawing.Size(113, 25);
-            this.autoReconnectLabel.TabIndex = 4;
-            this.autoReconnectLabel.Text = "Auto reconnect:";
-            this.autoReconnectLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            autoReconnectLabel.AutoSize = true;
+            autoReconnectLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            autoReconnectLabel.Location = new System.Drawing.Point(3, 57);
+            autoReconnectLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
+            autoReconnectLabel.Name = "autoReconnectLabel";
+            autoReconnectLabel.Size = new System.Drawing.Size(92, 20);
+            autoReconnectLabel.TabIndex = 4;
+            autoReconnectLabel.Text = "Auto reconnect:";
+            autoReconnectLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(134, 37);
-            this.connectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(100, 32);
-            this.connectButton.TabIndex = 0;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            connectButton.Location = new System.Drawing.Point(111, 30);
+            connectButton.Name = "connectButton";
+            connectButton.Size = new System.Drawing.Size(88, 24);
+            connectButton.TabIndex = 0;
+            connectButton.Text = "Connect";
+            connectButton.UseVisualStyleBackColor = true;
+            connectButton.Click += connectButton_Click;
             // 
             // ipAddressInput
             // 
-            this.ipAddressInput.AllowInternalTab = false;
-            this.ipAddressInput.AutoHeight = true;
-            this.ipAddressInput.BackColor = System.Drawing.SystemColors.Window;
-            this.ipAddressInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.connectionTable.SetColumnSpan(this.ipAddressInput, 2);
-            this.ipAddressInput.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.ipAddressInput.Location = new System.Drawing.Point(134, 3);
-            this.ipAddressInput.Name = "ipAddressInput";
-            this.ipAddressInput.ReadOnly = false;
-            this.ipAddressInput.Size = new System.Drawing.Size(206, 27);
-            this.ipAddressInput.TabIndex = 5;
-            this.ipAddressInput.Text = "...";
+            ipAddressInput.AllowInternalTab = false;
+            ipAddressInput.AutoHeight = true;
+            ipAddressInput.BackColor = System.Drawing.SystemColors.Window;
+            ipAddressInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            connectionTable.SetColumnSpan(ipAddressInput, 2);
+            ipAddressInput.Cursor = System.Windows.Forms.Cursors.IBeam;
+            ipAddressInput.Location = new System.Drawing.Point(113, 3);
+            ipAddressInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            ipAddressInput.Name = "ipAddressInput";
+            ipAddressInput.ReadOnly = false;
+            ipAddressInput.Size = new System.Drawing.Size(180, 23);
+            ipAddressInput.TabIndex = 5;
+            ipAddressInput.Text = "...";
             // 
             // BmdVideohubEditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 864);
-            this.DeleteButtonVisible = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.MinimumSize = new System.Drawing.Size(1000, 911);
-            this.Name = "BmdVideohubEditorForm";
-            this.baseDataTabPage.ResumeLayout(false);
-            this.baseDataTabPage.PerformLayout();
-            this.mainContainer.ResumeLayout(false);
-            this.connectionPanel.ResumeLayout(false);
-            this.connectionPanel.PerformLayout();
-            this.connectionGroupBox.ResumeLayout(false);
-            this.connectionGroupBox.PerformLayout();
-            this.connectionTable.ResumeLayout(false);
-            this.connectionTable.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(861, 654);
+            DeleteButtonVisible = true;
+            Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
+            MinimumSize = new System.Drawing.Size(877, 693);
+            Name = "BmdVideohubEditorForm";
+            baseDataTabPage.ResumeLayout(false);
+            baseDataTabPage.PerformLayout();
+            mainContainer.ResumeLayout(false);
+            connectionPanel.ResumeLayout(false);
+            connectionPanel.PerformLayout();
+            connectionGroupBox.ResumeLayout(false);
+            connectionGroupBox.PerformLayout();
+            connectionTable.ResumeLayout(false);
+            connectionTable.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

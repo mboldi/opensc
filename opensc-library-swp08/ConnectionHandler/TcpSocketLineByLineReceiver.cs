@@ -162,10 +162,10 @@ namespace OpenSC.Library.SWP08Router
 
         }
 
-        public delegate void LineReceivedDelegate(Byte[] line);
+        public delegate void LineReceivedDelegate(byte[] line);
         public event LineReceivedDelegate LineReceived;
 
-        private void processReceivedCommand(Byte[] line)
+        private void processReceivedCommand(byte[] line)
         {
             LineReceived?.Invoke(line);
         }

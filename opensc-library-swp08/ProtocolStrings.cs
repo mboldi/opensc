@@ -25,6 +25,7 @@ namespace OpenSC.Library.SWP08Router
         public static byte SWP08_CMD_CONNECT = 2;
         public static byte SWP08_CMD_CROSSPOINT_TALLY = 3;
         public static byte SWP08_CMD_CONNECTED = 4;
+        public static byte SWP08_CMD_DUAL_CTRL_STATUS = 8;
         public static byte SWP08_CMD_CROSSPOINT_DUMP_REQ = 21;
         public static byte SWP08_CMD_CROSSPOINT_DUMP = 22;
         public static byte SWP08_CMD_CROSSPOINT_DUMP_WORD = 23;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    internal interface ICommand
+    public interface ICommand
     {
         public Byte[] getCommand();
     }

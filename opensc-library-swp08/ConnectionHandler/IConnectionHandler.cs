@@ -28,5 +28,10 @@ namespace OpenSC.Library.SWP08Router
         {
             ConnectionChanged?.Invoke(state);
         }
+        
+        protected void FireMessageReceived(Byte[] message)
+        {
+            MessageReceived?.Invoke(message);
+        }
     }
 }

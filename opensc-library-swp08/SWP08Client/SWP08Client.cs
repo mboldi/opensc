@@ -15,11 +15,14 @@ namespace OpenSC.Library.SWP08Router
 
         private IConnectionHandler connectionHandler;
 
-        public SWP08Client(IConnectionHandler connectionHandler) {
+        public SWP08Client(IConnectionHandler newConnectionHandler) {
             requestScheduler = new(sendRequest, invalidRequest);
 
-            this.connectionHandler = connectionHandler;
-            this.connectionHandler.ConnectionChanged += value => this.Connected = value;
+            connectionHandler = newConnectionHandler;
+            connectionHandler.ConnectionChanged += value => this.Connected = value;
+            connectionHandler.MessageReceived += lineReceived;
+
+            createInterpreters();
         }
 
         public void setConnectionHandler(IConnectionHandler newConnectionHandler)
@@ -28,6 +31,7 @@ namespace OpenSC.Library.SWP08Router
 
             connectionHandler = newConnectionHandler;
             connectionHandler.ConnectionChanged += value => this.Connected = value;
+            connectionHandler.MessageReceived += lineReceived;
         }
 
 
@@ -153,7 +157,8 @@ namespace OpenSC.Library.SWP08Router
         {
             knownInterpeters = new IMessageInterpreter[]
             {
-                new ConnectedCommandInterpreter()
+                new ConnectedCommandInterpreter(),
+                new DualControllerStatusInterpreter(this)
             };
         }
 
@@ -170,6 +175,8 @@ namespace OpenSC.Library.SWP08Router
             }
             if (currentInterpreter == null)
             {
+                var asd = knownInterpeters.FirstOrDefault();
+
                 currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(line[2]));
                 return;
             }
@@ -183,11 +190,16 @@ namespace OpenSC.Library.SWP08Router
             }
         }
 
-        public void sendCommand(Byte command, Byte[] data)
+        public void SendCommand(Byte command, Byte[] data)
         {
             connectionHandler.SendMessage(new MessageBuilder()
                 .withCommand(new GenericCommand(command, data))
                 .BuildMessage());
+        }
+
+        public void SendCommand(ICommand command)
+        {
+            connectionHandler.SendMessage(command.getCommand());
         }
 
         #endregion

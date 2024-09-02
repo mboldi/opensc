@@ -58,12 +58,15 @@ namespace OpenSC.Library.SWP08Router
             return Connected;
         }
 
+
+
         public TCPConnectionHandler(string ipAddressWithPort) { 
             IpAddress = ipAddressWithPort;
 
             lineReceiver = new TcpSocketLineByLineReceiver(ipAddress, port);
 
             lineReceiver.ConnectedStateChanged += state => FireConnectionChanged(state);
+            lineReceiver.LineReceived += value => FireMessageReceived(value);
         }
 
         public TCPConnectionHandler(string ipAddress, int port) {
