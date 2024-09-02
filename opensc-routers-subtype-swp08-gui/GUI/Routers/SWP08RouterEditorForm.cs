@@ -58,7 +58,12 @@ namespace OpenSC.GUI.Routers
 
             swpRouter.ConnectionModeChanged += connectionModeChangedHandler;
 
-            ipAddressInput.Text = swpRouter.IpAddress;
+            if (swpRouter.IpAddress != null)
+            {
+                ipAddressInput.Text = swpRouter.IpAddress.Split(":")[0];
+                ipPortNumeric.Value = int.Parse(swpRouter.IpAddress.Split(":")[1]);
+            }
+            
             autoReconnectCheckBox.Checked = swpRouter.AutoReconnect;
 
             serialPortDropDown.SelectByValue(swpRouter.SerialPort);
