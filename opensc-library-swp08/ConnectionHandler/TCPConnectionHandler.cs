@@ -24,7 +24,9 @@ namespace OpenSC.Library.SWP08Router
 
             set
             {
-                if (value == ipAddress.ToString() + ":" + port.ToString())
+                if (value == null) return;
+                if (ipAddress != null && port != null &&
+                    value == ipAddress.ToString() + ":" + port.ToString())
                     return;
                 bool wasConnected = Connected;
                 if (wasConnected)
@@ -45,6 +47,8 @@ namespace OpenSC.Library.SWP08Router
         {
             get
             {
+                if(lineReceiver == null) return false;
+
                 return lineReceiver.Connected;
             }
         }

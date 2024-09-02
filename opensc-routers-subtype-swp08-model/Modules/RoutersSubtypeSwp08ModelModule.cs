@@ -1,4 +1,5 @@
 ﻿using OpenSC.Model.Routers;
+using OpenSC.Model.Routers.SWP08;
 using System;
 
 namespace OpenSC.Modules

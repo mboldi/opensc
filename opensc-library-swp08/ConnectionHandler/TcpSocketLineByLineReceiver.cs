@@ -16,10 +16,11 @@ namespace OpenSC.Library.SWP08Router
 
         public TcpSocketLineByLineReceiver(string ipAddress, int port)
         {
-            if ((port < 1) || (port >= 65535))
-                throw new ArgumentOutOfRangeException();
-            this.ipAddress = ipAddress;
-            this.port = port;
+            if ((port >= 1) || (port < 65535))
+            {
+                this.ipAddress = ipAddress;
+                this.port = port;
+            }
         }
 
         public void Dispose()
@@ -142,7 +143,7 @@ namespace OpenSC.Library.SWP08Router
 
             try
             {
-                int charsRead = socket.EndReceive(ar);
+                int charsRead = socket.EndReceive(ar);      //TODO modify to bytes
                 string receivedText = Encoding.ASCII.GetString(buffer, 0, charsRead);
                 bufferBuilder.Append(receivedText);
                 string totalText = bufferBuilder.ToString();

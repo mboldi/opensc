@@ -10,15 +10,24 @@ using OpenSC.Model.SerialPorts;
 
 namespace OpenSC.Library.SWP08Router
 {
-    internal class SWP08Client
+    public class SWP08Client
     {
 
         private IConnectionHandler connectionHandler;
 
         public SWP08Client(IConnectionHandler connectionHandler) {
-            this.connectionHandler = connectionHandler;
+            requestScheduler = new(sendRequest, invalidRequest);
 
+            this.connectionHandler = connectionHandler;
             this.connectionHandler.ConnectionChanged += value => this.Connected = value;
+        }
+
+        public void setConnectionHandler(IConnectionHandler newConnectionHandler)
+        {
+            connectionHandler.Disconnect();
+
+            connectionHandler = newConnectionHandler;
+            connectionHandler.ConnectionChanged += value => this.Connected = value;
         }
 
 
@@ -96,8 +105,8 @@ namespace OpenSC.Library.SWP08Router
             CrosspointChanged?.Invoke(crosspoint);
         }
 
-        public delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
-        public event CrosspointChangedDelegate CrosspointChanged;
+        internal delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
+        internal event CrosspointChangedDelegate CrosspointChanged;
 
         public int? GetCrosspoint(int output)
         {
@@ -108,7 +117,7 @@ namespace OpenSC.Library.SWP08Router
 
         public void SetCrosspoint(short output, short input) => SetCrosspoint(new Crosspoint(output, input));
 
-        public void SetCrosspoint(Crosspoint crosspoint)
+        internal void SetCrosspoint(Crosspoint crosspoint)
         {
             checkCrosspointBeforeSet(crosspoint);
             scheduleRequest(new VideoOutputRoutingRequest(crosspoint));
@@ -129,7 +138,7 @@ namespace OpenSC.Library.SWP08Router
         #region Request scheduler
         private readonly TaskQueue<Request, bool> requestScheduler;
         private void sendRequest(Request request) => request.Send(this);
-        private void invalidRequest(Request request) => Debug.WriteLine($"Dropped an invalid request for BMD Videohub [{connectionHandler.getAddressString()}]");
+        private void invalidRequest(Request request) => Debug.WriteLine($"Dropped an invalid request for SW-P-08 protocol [{connectionHandler.getAddressString()}]");
         private void scheduleRequest(Request request) => requestScheduler.Enqueue(request);
         internal void AckLastRequest() => requestScheduler.LastDequeuedTaskReady(true);
         internal void NakLastRequest() => requestScheduler.LastDequeuedTaskReady(false);

@@ -3,16 +3,15 @@ using OpenSC.Logger;
 using OpenSC.Model;
 using OpenSC.Model.General;
 using OpenSC.Model.Persistence;
-using OpenSC.Model.Routers;
-using OpenSC.Model.Routers.SWP08;
 using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using OpenSC.Library.SWP08Router;
+using System.Numerics;
 
-namespace OpenSC
+namespace OpenSC.Model.Routers.SWP08
 {
     [TypeLabel("Pro-Bel SW-P-08")]
     [TypeCode("swp08")]
@@ -20,6 +19,24 @@ namespace OpenSC
     {
         private new const string LOG_TAG = "Router/SW-P-08";
 
+        private SWP08Client swpClient = null;
+
+        public SWP08Router() 
+        {
+            initSWPRouter(); 
+        }
+
+        private void initSWPRouter()
+        {
+            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress));
+
+            swpClient.ConnectionStateChanged += value => Connected = value;
+        }
+
+        private void ConnectionChangedHandler(bool newState)
+        {
+            Connected = newState;
+        }
 
         #region Property: Connection mode
         public event PropertyChangedTwoValuesDelegate<SWP08Router, RouterConnectionMode> ConnectionModeChanged;
@@ -30,8 +47,23 @@ namespace OpenSC
         public RouterConnectionMode ConnectionMode
         {
             get => connectionMode;
-            set => this.setProperty(ref connectionMode, value, ConnectionModeChanged,
-                null, null, null);
+            set
+            {
+                if (connectionMode != value)
+                {
+                    connectionMode = value;
+
+                    switch (connectionMode)
+                    {
+                        case RouterConnectionMode.Serial:
+                            throw new NotImplementedException();
+                            break;
+                        case RouterConnectionMode.IP:
+                            swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
+                            break;
+                    }
+                }
+            }
         }
         #endregion
 
@@ -44,8 +76,21 @@ namespace OpenSC
         public string IpAddress
         {
             get => ipAddress;
-            set => this.setProperty(ref ipAddress, value, IpAddressChanged,
-                null, null, ValidateIpAddress);
+            set
+            {
+                if (ipAddress != value)
+                {
+                    ipAddress = value;
+
+                    if(connectionMode == RouterConnectionMode.IP)
+                    {
+                        if(swpClient == null)
+                            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress));
+                        else 
+                            swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
+                    }
+                }
+            }
         }
 
         public void ValidateIpAddress(string ipAddress)
@@ -66,6 +111,8 @@ namespace OpenSC
             set => this.setProperty(ref autoReconnect, value, AutoReconnectChanged);
         }
 
+
+        // TODO átrakni connectionhadlerbe
         private const int RECONNECT_TRY_INTERVAL = 10000;
 
         private Thread autoReconnectThread = null;
@@ -101,7 +148,10 @@ namespace OpenSC
         }
         #endregion
 
-        public void Connect() { }
+
+        public void Connect() => swpClient.Connect();
+
+        public void Disconnect() => swpClient.Disconnect();
 
         #region Property: Serial Port
         [AutoProperty]
@@ -112,9 +162,22 @@ namespace OpenSC
 
         public SerialPort SerPort
         {
-            get; set;
+            get => serialPort;
+            set
+            {
+                if (serialPort != value)
+                {
+                    serialPort = value;
+
+                    if(connectionMode == RouterConnectionMode.Serial)
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+            }
         }
 
+        // TODO ezek is connectionHandlerbe kellenek
         private void _serial_port_beforeChange(SerialPort oldValue, SerialPort newValue, BeforeChangePropertyArgs args)
         {
             if (oldValue != null)
@@ -150,6 +213,11 @@ namespace OpenSC
         {
             queryAllStates();
         }
+
+        private void receivedLineFromSerialPort(SerialPort port, string line)
+        {
+
+        }
         #endregion
 
         #region Property: Connected
@@ -184,6 +252,38 @@ namespace OpenSC
                 this.setProperty(ref connected, value, ConnectionStateChanged, null, afterChangeDelegate);
             }
         }
+
+
+        #endregion
+
+        #region Matrix & Level
+
+        private int matrix = 0;
+        private int level = 0;
+
+        public int Matrix
+        {
+            get { return matrix; }
+            set
+            {
+                if (value >= 0 && value < 16)
+                {
+                    matrix = value;
+                }
+            }
+        }
+
+        public int Level
+        {
+            get { return level; }
+            set
+            {
+                if (value >= 0 && value < 16)
+                {
+                    level = value;
+                }
+            }
+        }
         #endregion
 
         public override RouterInput CreateInput(string name, int index)
@@ -198,7 +298,7 @@ namespace OpenSC
 
         protected override void queryAllStates()
         {
-            
+            swpClient.QueryAllCrosspoints();
         }
 
         protected override void requestCrosspointUpdateImpl(RouterOutput output, RouterInput input)

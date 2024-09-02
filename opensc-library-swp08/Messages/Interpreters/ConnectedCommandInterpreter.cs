@@ -12,7 +12,7 @@ namespace OpenSC.Library.SWP08Router
 
         public bool CanInterpret(byte commandByte) => commandByte == ProtocolStrings.SWP08_CMD_CONNECTED;
 
-        public void InterpretLine(string line)
+        public void InterpretLine(byte[] line)
         {
             throw new NotImplementedException();
         }

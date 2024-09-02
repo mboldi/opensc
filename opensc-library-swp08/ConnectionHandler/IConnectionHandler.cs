@@ -26,7 +26,7 @@ namespace OpenSC.Library.SWP08Router
 
         protected void FireConnectionChanged(bool state)
         {
-            ConnectionChanged(state);
+            ConnectionChanged?.Invoke(state);
         }
     }
 }

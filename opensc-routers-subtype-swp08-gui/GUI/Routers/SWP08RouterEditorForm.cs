@@ -15,7 +15,7 @@ namespace OpenSC.GUI.Routers
 
         public SWP08RouterEditorForm() : base() => InitializeComponent();
 
-        public SWP08RouterEditorForm(Router router): base(router)
+        public SWP08RouterEditorForm(Router router) : base(router)
         {
             InitializeComponent();
 
@@ -42,7 +42,7 @@ namespace OpenSC.GUI.Routers
             if (swpRouter == null)
                 return;
 
-            switch(swpRouter.ConnectionMode)
+            switch (swpRouter.ConnectionMode)
             {
                 case RouterConnectionMode.Serial:
                     serialControlRadioButton.Checked = true;
@@ -60,9 +60,39 @@ namespace OpenSC.GUI.Routers
 
             ipAddressInput.Text = swpRouter.IpAddress;
             autoReconnectCheckBox.Checked = swpRouter.AutoReconnect;
+
+            serialPortDropDown.SelectByValue(swpRouter.SerialPort);
+
             swpRouter.ConnectionStateChanged += connectionStateChangedHandler;
             connectButton.Enabled = !swpRouter.Connected;
             disconnectButton.Enabled = swpRouter.Connected;
+        }
+
+        protected override void writeFields()
+        {
+            base.writeFields();
+            SWP08Router swpRouter = (SWP08Router)EditedModel;
+            if (swpRouter == null)
+                return;
+
+            if (serialControlRadioButton.Checked)
+            {
+                swpRouter.SerialPort = serialPortDropDown.SelectedValue as SerialPort;
+
+                swpRouter.ConnectionMode = RouterConnectionMode.Serial;
+            }
+            else if (ethernetControlRadioButton.Checked)
+            {
+                swpRouter.IpAddress = ipAddressInput.Text + ":" + ipPortNumeric.Value;
+                swpRouter.AutoReconnect = autoReconnectCheckBox.Checked;
+
+                swpRouter.ConnectionMode = RouterConnectionMode.IP;
+                swpRouter.AutoReconnect = autoReconnectCheckBox.Checked;
+            }
+
+            swpRouter.Matrix = (int)matrixNumeric.Value;
+            swpRouter.Level = (int)levelNumeric.Value;
+
         }
 
         private void connectionModeChangedHandler(SWP08Router router, RouterConnectionMode oldState, RouterConnectionMode newState)
@@ -73,14 +103,23 @@ namespace OpenSC.GUI.Routers
                 return;
             }
 
-            if(newState == RouterConnectionMode.Serial)
+            SWP08Router swpRouter = (SWP08Router)EditedModel;
+
+            if (newState == RouterConnectionMode.Serial)
             {
                 serialControlRadioButton.Checked = true;
                 ethernetControlRadioButton.Checked = false;
-            } else
+
+                swpRouter.SerialPort = serialPortDropDown.SelectedValue as SerialPort;
+                swpRouter.ConnectionMode = RouterConnectionMode.Serial;
+            }
+            else
             {
                 ethernetControlRadioButton.Checked = true;
                 serialControlRadioButton.Checked = false;
+
+                swpRouter.IpAddress = ipAddressInput.Text + ":" + ipPortNumeric.Value;
+                swpRouter.ConnectionMode = RouterConnectionMode.IP;
             }
         }
 
@@ -95,5 +134,12 @@ namespace OpenSC.GUI.Routers
             disconnectButton.Enabled = newState;
         }
 
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            writeFields();
+            (EditedModel as SWP08Router)?.Connect();
+        }
+
+        private void disconnectButton_Click(object sender, EventArgs e) => (EditedModel as SWP08Router)?.Disconnect();
     }
 }

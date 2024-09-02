@@ -132,7 +132,10 @@ namespace OpenSC.Model.Settings
             {
                 if (!registeredSettings.TryGetValue(node.Attributes[ATTRIBUTE_KEY_KEY].Value, out ISetting setting))
                     return;
-                convertForDeserialization(setting, node.Attributes[ATTRIBUTE_KEY_VALUE].Value);
+                if (node.Attributes[ATTRIBUTE_KEY_VALUE] != null)
+                {
+                    convertForDeserialization(setting, node.Attributes[ATTRIBUTE_KEY_VALUE].Value);
+                }
             }
             catch
             { }

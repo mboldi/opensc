@@ -1,4 +1,5 @@
 ﻿using OpenSC.GUI.Routers;
+using OpenSC.Model.Routers.SWP08;
 
 namespace OpenSC.Modules
 {
