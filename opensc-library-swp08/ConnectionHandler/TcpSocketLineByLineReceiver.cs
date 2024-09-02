@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -144,26 +145,9 @@ namespace OpenSC.Library.SWP08Router
             try
             {
                 int charsRead = socket.EndReceive(ar);      //TODO modify to bytes
-                string receivedText = Encoding.ASCII.GetString(buffer, 0, charsRead);
-                bufferBuilder.Append(receivedText);
-                string totalText = bufferBuilder.ToString();
-                totalText = totalText.Replace("\r", "");
-                bufferBuilder.Clear();
-
-                string[] parts = totalText.Split('\n');
-                for (int i = 0; i < parts.Length; i++)
-                {
-                    if (i == parts.Length - 1)
-                    {
-                        if (parts[i] != string.Empty)
-                            bufferBuilder.Append(parts[i]);
-                    }
-                    else
-                    {
-                        processReceivedLine(parts[i]);
-                    }
-
-                }
+                Byte[] receivedBytes = buffer.Take(charsRead).ToArray();
+    
+                processReceivedCommand(receivedBytes);
 
                 socketReceive();
             }
@@ -178,10 +162,10 @@ namespace OpenSC.Library.SWP08Router
 
         }
 
-        public delegate void LineReceivedDelegate(string line);
+        public delegate void LineReceivedDelegate(Byte[] line);
         public event LineReceivedDelegate LineReceived;
 
-        private void processReceivedLine(string line)
+        private void processReceivedCommand(Byte[] line)
         {
             LineReceived?.Invoke(line);
         }
