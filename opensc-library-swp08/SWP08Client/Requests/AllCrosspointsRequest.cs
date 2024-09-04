@@ -8,6 +8,14 @@ namespace OpenSC.Library.SWP08Router
 {
     internal class AllCrosspointsRequest : Request
     {
-        protected override void _send() => sendBlock(ProtocolStrings.SWP08_CMD_CROSSPOINT_DUMP_REQ, new byte[0]);
+        byte matrix, level;
+
+        public AllCrosspointsRequest(byte matrix, byte level) 
+        {
+            this.matrix = matrix;
+            this.level = level;
+        }
+
+        protected override void _send() => sendCommand(new CrosspointDumpRequestCommand(matrix, level));
     }
 }

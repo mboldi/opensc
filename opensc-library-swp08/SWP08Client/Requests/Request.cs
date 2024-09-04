@@ -22,7 +22,9 @@ namespace OpenSC.Library.SWP08Router
         }
         protected abstract void _send();
 
-        protected void sendBlock(Byte command, Byte[] data) => client.SendCommand(command, data);
+        protected void sendCommand(Byte command, Byte[] data) => client.SendCommand(new GenericCommand(command, data));
+
+        protected void sendCommand(ICommand command) => client.SendBlock(new MessageBuilder().withCommand(command).BuildMessage());
 
         protected override void _ready(bool result)
         {

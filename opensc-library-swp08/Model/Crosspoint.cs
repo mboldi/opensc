@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    internal record Crosspoint(short Dest, short Source)
+    public record Crosspoint(short Dest, short Source)
     {
         public Byte[] getProtocolString()
         {

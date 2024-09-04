@@ -11,7 +11,16 @@ namespace OpenSC.Library.SWP08Router
 
         private Crosspoint crosspoint;
 
-        public CrosspointConnectCommand() { }
+        public CrosspointConnectCommand() { 
+            matrix = 0;
+            level = 0;
+        }
+
+        public CrosspointConnectCommand(byte matrix, byte level)
+        {
+            this.matrix = matrix;
+            this.level = level;
+        }
 
         public CrosspointConnectCommand withMatrixId(byte matrixId)
         {

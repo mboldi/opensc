@@ -27,12 +27,15 @@ namespace OpenSC.Library.SWP08Router
             byte BTC = (byte)DATA.Length;
             var CHK = SWPHelpers.calcCHK(DATA, BTC);
 
+            // Start of message
+            message.AddRange(ProtocolStrings.SOM);
+
             message.AddRange(DATA);
 
             message.Add(BTC);
             message.Add((byte)CHK);
 
-            for (int i = 0; i < message.Count; i++)
+            for (int i = 2; i < message.Count; i++)
             {
                 if (message[i] == ProtocolStrings.DLE)
                 {
@@ -40,13 +43,8 @@ namespace OpenSC.Library.SWP08Router
                 }
             }
 
-            // Start of message
-            message.Insert(0, ProtocolStrings.STX);
-            message.Insert(0, ProtocolStrings.DLE);
-
             // End of message
-            message.Add(ProtocolStrings.DLE);
-            message.Add(ProtocolStrings.ETX);
+            message.AddRange(ProtocolStrings.EOM);
 
             return message.ToArray();
         }

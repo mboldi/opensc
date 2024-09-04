@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using OpenSC.Library.SWP08Router;
 using System.Numerics;
+using System.Linq;
 
 namespace OpenSC.Model.Routers.SWP08
 {
@@ -23,19 +24,24 @@ namespace OpenSC.Model.Routers.SWP08
 
         public SWP08Router() 
         {
-            initSWPRouter(); 
+            initSWPRouter();
         }
 
         private void initSWPRouter()
         {
-            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress));
+            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
 
-            swpClient.ConnectionStateChanged += value => Connected = value;
+            swpClient.ConnectionStateChanged += ConnectionStateChangedHandler;
         }
 
-        private void ConnectionChangedHandler(bool newState)
+        private void ConnectionStateChangedHandler(bool newState)
         {
             Connected = newState;
+
+            if(Connected)
+            {
+                queryAllStates();
+            }
         }
 
         #region Property: Connection mode
@@ -85,7 +91,7 @@ namespace OpenSC.Model.Routers.SWP08
                     if(connectionMode == RouterConnectionMode.IP)
                     {
                         if(swpClient == null)
-                            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress));
+                            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
                         else 
                             swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
                     }
@@ -270,6 +276,7 @@ namespace OpenSC.Model.Routers.SWP08
                 if (value >= 0 && value < 16)
                 {
                     matrix = value;
+                    swpClient.Matrix = (byte)matrix;
                 }
             }
         }
@@ -283,6 +290,7 @@ namespace OpenSC.Model.Routers.SWP08
                 if (value >= 0 && value < 16)
                 {
                     level = value;
+                    swpClient.Level = (byte)level;
                 }
             }
         }
@@ -310,7 +318,11 @@ namespace OpenSC.Model.Routers.SWP08
 
         protected override void requestCrosspointUpdatesImpl(IEnumerable<RouterCrosspoint> crosspoints)
         {
-            throw new System.NotImplementedException();
+            if(crosspoints.Any(cp => cp.Output.Index > short.MaxValue || cp.Input.Index > short.MaxValue)) throw new ArgumentOutOfRangeException();
+
+            IEnumerable<Crosspoint> swpCrosspoints = crosspoints.Select(crosspoint => new Crosspoint((short)crosspoint.Output.Index, (short)crosspoint.Output.Index));
+
+            swpClient.SetCrosspoints(swpCrosspoints);
         }
 
         protected override void requestLockOperationImpl(RouterOutput output, RouterOutputLockType lockType, RouterOutputLockOperationType lockOperationType)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenSC.Messages.Command
+namespace OpenSC.Library.SWP08Router
 {
     internal class AckCommand : ICommand
     {

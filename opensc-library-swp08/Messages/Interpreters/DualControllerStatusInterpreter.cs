@@ -1,5 +1,4 @@
-﻿using OpenSC.Messages.Command;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +15,7 @@ namespace OpenSC.Library.SWP08Router
             swpClient = client;
         }
 
-        public void BlockEnd()
-        {
-            throw new NotImplementedException();
-        }
+        public void BlockEnd() { }
 
         public bool CanInterpret(byte commandByte) => commandByte == ProtocolStrings.SWP08_CMD_DUAL_CTRL_STATUS;
 

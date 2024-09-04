@@ -15,8 +15,11 @@ namespace OpenSC.Library.SWP08Router
 
         private IConnectionHandler connectionHandler;
 
-        public SWP08Client(IConnectionHandler newConnectionHandler) {
+        public SWP08Client(IConnectionHandler newConnectionHandler, byte matrix, byte level) {
             requestScheduler = new(sendRequest, invalidRequest);
+
+            this.matrix = matrix;
+            this.level = level;
 
             connectionHandler = newConnectionHandler;
             connectionHandler.ConnectionChanged += value => this.Connected = value;
@@ -70,6 +73,20 @@ namespace OpenSC.Library.SWP08Router
 
         public delegate void OutputCountChangedDelegate(int outputCount);
         public event OutputCountChangedDelegate OutputCountChanged;
+
+        private byte matrix, level;
+
+        public byte Matrix
+        {
+            get;
+            set;
+        }
+
+        public byte Level
+        {
+            get;
+            set;
+        }
         #endregion
 
 
@@ -81,6 +98,11 @@ namespace OpenSC.Library.SWP08Router
             get => connectionHandler.getConnectState();
             internal set {
                 connected = value;
+
+                if (value)
+                    requestScheduler.Start();
+                else
+                    requestScheduler.Stop();
 
                 ConnectionStateChanged?.Invoke(connected);
             }
@@ -123,8 +145,17 @@ namespace OpenSC.Library.SWP08Router
 
         internal void SetCrosspoint(Crosspoint crosspoint)
         {
-            checkCrosspointBeforeSet(crosspoint);
-            scheduleRequest(new VideoOutputRoutingRequest(crosspoint));
+            //checkCrosspointBeforeSet(crosspoint);
+            scheduleRequest(new CrosspointConnectRequest(matrix, level, crosspoint));
+        }
+
+        public void SetCrosspoints(IEnumerable<Crosspoint> crosspoints)
+        {
+            foreach (var crosspoint in crosspoints)
+            {
+                //checkCrosspointBeforeSet(crosspoint);
+                scheduleRequest(new CrosspointConnectRequest(matrix, level, crosspoint));
+            }
         }
 
         private void checkCrosspointBeforeSet(Crosspoint crosspoint)
@@ -135,7 +166,7 @@ namespace OpenSC.Library.SWP08Router
                 throw new ArgumentOutOfRangeException();
         }
 
-        public void QueryAllCrosspoints() => scheduleRequest(new AllCrosspointsRequest());
+        public void QueryAllCrosspoints() => scheduleRequest(new AllCrosspointsRequest(matrix, level));
         #endregion
 
 
@@ -143,7 +174,12 @@ namespace OpenSC.Library.SWP08Router
         private readonly TaskQueue<Request, bool> requestScheduler;
         private void sendRequest(Request request) => request.Send(this);
         private void invalidRequest(Request request) => Debug.WriteLine($"Dropped an invalid request for SW-P-08 protocol [{connectionHandler.getAddressString()}]");
-        private void scheduleRequest(Request request) => requestScheduler.Enqueue(request);
+        private void scheduleRequest(Request request)
+        {
+            requestScheduler.Enqueue(request);
+
+            return;
+        }
         internal void AckLastRequest() => requestScheduler.LastDequeuedTaskReady(true);
         internal void NakLastRequest() => requestScheduler.LastDequeuedTaskReady(false);
         #endregion
@@ -190,17 +226,15 @@ namespace OpenSC.Library.SWP08Router
             }
         }
 
-        public void SendCommand(Byte command, Byte[] data)
-        {
-            connectionHandler.SendMessage(new MessageBuilder()
-                .withCommand(new GenericCommand(command, data))
-                .BuildMessage());
-        }
-
         public void SendCommand(ICommand command)
         {
             connectionHandler.SendMessage(command.getCommand());
         }
+        public void SendBlock(Byte[] messageData)
+        {
+            connectionHandler.SendMessage(messageData);
+        }
+
 
         #endregion
     }
