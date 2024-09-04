@@ -68,6 +68,9 @@ namespace OpenSC.GUI.Routers
 
             serialPortDropDown.SelectByValue(swpRouter.SerialPort);
 
+            matrixNumeric.Value = swpRouter.Matrix;
+            levelNumeric.Value = swpRouter.Level;
+
             swpRouter.ConnectionStateChanged += connectionStateChangedHandler;
             connectButton.Enabled = !swpRouter.Connected;
             disconnectButton.Enabled = swpRouter.Connected;

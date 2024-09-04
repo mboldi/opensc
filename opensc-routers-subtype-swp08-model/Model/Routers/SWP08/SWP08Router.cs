@@ -261,6 +261,7 @@ namespace OpenSC.Model.Routers.SWP08
         private int matrix = 0;
         private int level = 0;
 
+        [PersistAs("matrix")]
         public int Matrix
         {
             get { return matrix; }
@@ -273,6 +274,7 @@ namespace OpenSC.Model.Routers.SWP08
             }
         }
 
+        [PersistAs("level")]
         public int Level
         {
             get { return level; }
