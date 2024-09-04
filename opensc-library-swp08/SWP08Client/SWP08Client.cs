@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using OpenSC.Library.TaskSchedulerQueue;
+using OpenSC.Messages.Interpreters;
 using OpenSC.Model.SerialPorts;
 
 namespace OpenSC.Library.SWP08Router
@@ -180,7 +181,11 @@ namespace OpenSC.Library.SWP08Router
 
             return;
         }
-        internal void AckLastRequest() => requestScheduler.LastDequeuedTaskReady(true);
+        internal void AckLastRequest()
+        {
+            requestScheduler.LastDequeuedTaskReady(true);
+            currentInterpreter = null;
+        }
         internal void NakLastRequest() => requestScheduler.LastDequeuedTaskReady(false);
         #endregion
 
@@ -194,6 +199,7 @@ namespace OpenSC.Library.SWP08Router
             knownInterpeters = new IMessageInterpreter[]
             {
                 new ConnectedCommandInterpreter(),
+                new AckInterpreter(this),
                 new DualControllerStatusInterpreter(this)
             };
         }
@@ -211,9 +217,7 @@ namespace OpenSC.Library.SWP08Router
             }
             if (currentInterpreter == null)
             {
-                var asd = knownInterpeters.FirstOrDefault();
-
-                currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(line[2]));
+                currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret((byte)(line[1] == 6 ? 99 : line[2])));
                 return;
             }
             if (currentInterpreter != null)
