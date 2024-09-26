@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    public abstract class IConnectionHandler
+    public abstract class IConnectionHandler: IDisposable
     {
         public delegate void ConnectionChangedDelegate(bool state);
         public event ConnectionChangedDelegate ConnectionChanged;
@@ -23,6 +23,8 @@ namespace OpenSC.Library.SWP08Router
         public abstract bool getConnectState();
 
         public abstract string getAddressString();
+
+        public abstract void Dispose();
 
         protected void FireConnectionChanged(bool state)
         {
