@@ -31,49 +31,24 @@ namespace OpenSC.Library.SWP08Router
 
         public void setConnectionHandler(IConnectionHandler newConnectionHandler)
         {
-            connectionHandler.Disconnect();
+            if (connectionHandler != null)
+            {
+                connectionHandler.Disconnect();
+            }
 
             connectionHandler = newConnectionHandler;
-            connectionHandler.ConnectionChanged += value => this.Connected = value;
-            connectionHandler.MessageReceived += lineReceived;
-        }
 
-
-        #region Videorouter properties
-        private int inputCount;
-
-        public int InputCount
-        {
-            get => inputCount;
-            internal set
+            if (connectionHandler != null)
             {
-                if (value == inputCount)
-                    return;
-                inputCount = value;
-                InputCountChanged?.Invoke(inputCount);
+
+                connectionHandler.ConnectionChanged += value => this.Connected = value;
+                connectionHandler.MessageReceived += lineReceived;
             }
+
+            this.Connected = false;
         }
 
-        public delegate void InputCountChangedDelegate(int inputCount);
-        public event InputCountChangedDelegate InputCountChanged;
-
-        private int outputCount;
-
-        public int OutputCount
-        {
-            get => outputCount;
-            internal set
-            {
-                if (value == outputCount)
-                    return;
-                outputCount = value;
-                crosspoints = new int?[outputCount];
-                OutputCountChanged?.Invoke(outputCount);
-            }
-        }
-
-        public delegate void OutputCountChangedDelegate(int outputCount);
-        public event OutputCountChangedDelegate OutputCountChanged;
+        #region Video router properties
 
         private byte matrix, level;
 
@@ -96,7 +71,11 @@ namespace OpenSC.Library.SWP08Router
 
         public bool Connected
         {
-            get => connectionHandler.getConnectState();
+            get {
+                if (connectionHandler == null) return false;
+
+                return connectionHandler.getConnectState();
+            }
             internal set {
                 connected = value;
 
@@ -116,6 +95,8 @@ namespace OpenSC.Library.SWP08Router
 
         public void Disconnect() => this.connectionHandler.Disconnect();
 
+        public bool HasConnectionHandler() => this.connectionHandler != null;
+
         public class NotConnectedException : Exception
         {
             public NotConnectedException() { }
@@ -125,22 +106,15 @@ namespace OpenSC.Library.SWP08Router
         #endregion
 
         #region Crosspoints
-        private int?[] crosspoints = null;
 
         internal void NotifyCrosspointChanged(Crosspoint crosspoint)
         {
             CrosspointChanged?.Invoke(crosspoint);
         }
 
-        internal delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
-        internal event CrosspointChangedDelegate CrosspointChanged;
+        public delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
+        public event CrosspointChangedDelegate CrosspointChanged;
 
-        public int? GetCrosspoint(int output)
-        {
-            if ((output < 0) || (output >= OutputCount))
-                throw new ArgumentOutOfRangeException();
-            return crosspoints[output];
-        }
 
         public void SetCrosspoint(short output, short input) => SetCrosspoint(new Crosspoint(output, input));
 
@@ -159,13 +133,6 @@ namespace OpenSC.Library.SWP08Router
             }
         }
 
-        private void checkCrosspointBeforeSet(Crosspoint crosspoint)
-        {
-            if ((crosspoint.Dest == null) || (crosspoint.Dest < 0) || (crosspoint.Dest >= OutputCount))
-                throw new ArgumentOutOfRangeException();
-            if ((crosspoint.Source == null) || (crosspoint.Source < 0) || (crosspoint.Source >= InputCount))
-                throw new ArgumentOutOfRangeException();
-        }
 
         public void QueryAllCrosspoints() => scheduleRequest(new AllCrosspointsRequest(matrix, level));
         #endregion
@@ -198,7 +165,7 @@ namespace OpenSC.Library.SWP08Router
         {
             knownInterpeters = new IMessageInterpreter[]
             {
-                new ConnectedCommandInterpreter(),
+                new ConnectedCommandInterpreter(this, matrix, level),
                 new AckInterpreter(this),
                 new DualControllerStatusInterpreter(this)
             };
@@ -206,27 +173,23 @@ namespace OpenSC.Library.SWP08Router
 
         private void lineReceived(byte[] line)
         {
-            if (line.Length == 0)
-            {
-                if (currentInterpreter != null)
-                {
-                    currentInterpreter.BlockEnd();
-                    currentInterpreter = null;
-                }
-                return;
-            }
-            if (currentInterpreter == null)
-            {
-                currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret((byte)(line[1] == 6 ? 99 : line[2])));
-                return;
-            }
+            if (line.Length == 0) return;
+
+            Console.WriteLine(line);
+
+            byte commandByte = (byte)(line[1] == 6 ? 99 : line[2]);
+
+            currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(commandByte));
+               
             if (currentInterpreter != null)
             {
                 try
                 {
-                    currentInterpreter.InterpretLine(line);
+                    currentInterpreter.InterpretLine(unpackMessage(line));
                 }
-                catch (MessageInterpreterException) { }
+                catch (MessageInterpreterException) {
+                    
+                }
             }
         }
 
@@ -237,6 +200,36 @@ namespace OpenSC.Library.SWP08Router
         public void SendBlock(Byte[] messageData)
         {
             connectionHandler.SendMessage(messageData);
+        }
+
+        private Byte[] unpackMessage(Byte[] messageData)
+        {
+            List<Byte> unpackedMessage = new List<Byte>();
+
+            Byte lastByte = 0;
+
+            for (int i = 2; i < messageData.Length-2; i++)      // +/-2 to remove SOM & EOM
+            {
+                byte currByte = messageData[i];
+
+                if(currByte == ProtocolStrings.DLE)             // replace DLE DLE with DLE
+                {
+                    if(lastByte == ProtocolStrings.DLE)
+                    {
+                        unpackedMessage.Add(currByte);
+                    }
+                } else
+                {
+                    unpackedMessage.Add(currByte);
+                }
+
+                lastByte = currByte;
+            }
+
+            // Check checksum
+            // Check byte count
+
+            return unpackedMessage.ToArray();
         }
 
 

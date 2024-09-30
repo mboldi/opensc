@@ -108,7 +108,7 @@
             tableLayoutPanel4.ColumnCount = 3;
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.92228F));
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.07772F));
-            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 677F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 678F));
             tableLayoutPanel4.Controls.Add(matrixNumeric, 1, 0);
             tableLayoutPanel4.Controls.Add(label4, 0, 0);
             tableLayoutPanel4.Controls.Add(label5, 0, 1);
@@ -127,7 +127,7 @@
             matrixNumeric.Location = new System.Drawing.Point(79, 3);
             matrixNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             matrixNumeric.Name = "matrixNumeric";
-            matrixNumeric.Size = new System.Drawing.Size(57, 23);
+            matrixNumeric.Size = new System.Drawing.Size(56, 23);
             matrixNumeric.TabIndex = 8;
             // 
             // label4
@@ -153,7 +153,7 @@
             levelNumeric.Location = new System.Drawing.Point(79, 29);
             levelNumeric.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
             levelNumeric.Name = "levelNumeric";
-            levelNumeric.Size = new System.Drawing.Size(57, 23);
+            levelNumeric.Size = new System.Drawing.Size(56, 23);
             levelNumeric.TabIndex = 10;
             // 
             // ethernetGroup

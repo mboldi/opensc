@@ -15,14 +15,13 @@ namespace OpenSC.Library.SWP08Router
             swpClient = client;
         }
 
-        public void BlockEnd() => swpClient.AckLastRequest();
+        public void BlockEnd() { }
 
         public bool CanInterpret(byte commandByte) => commandByte == ProtocolStrings.SWP08_CMD_DUAL_CTRL_STATUS;
 
         public void InterpretLine(byte[] line)
         {
             swpClient.SendCommand(new AckCommand());
-            swpClient.AckLastRequest();
         }
     }
 }

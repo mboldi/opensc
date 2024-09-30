@@ -58,6 +58,21 @@ namespace OpenSC.Library.SWP08Router
             return outBytes.ToArray();
         }
 
+        public static byte destFromMult(byte multiplier)
+        {
+            return (byte)(multiplier / 16);
+        }
+
+        public static byte srcFromMult(byte multiplier)
+        {
+            return (byte)(multiplier & 0b_11100000);
+        }
+
+        public static byte statusFromMult(byte multiplier)
+        {
+            return (byte)((multiplier & 0b_00010000) / 8);
+        }
+
         // Everything indexed from 0!        
     }
 }

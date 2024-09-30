@@ -32,6 +32,18 @@ namespace OpenSC.Model.Routers.SWP08
             swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
 
             swpClient.ConnectionStateChanged += ConnectionStateChangedHandler;
+            swpClient.CrosspointChanged += HandleCrosspointChange;
+        }
+
+        private void HandleCrosspointChange(Crosspoint crosspoint)
+        {
+            if ((crosspoint.Source == null) || (crosspoint.Dest == null))
+                return;
+            try
+            {
+                notifyCrosspointChanged(crosspoint.Dest, crosspoint.Source);
+            }
+            catch { }
         }
 
         private void ConnectionStateChangedHandler(bool newState)
@@ -114,7 +126,19 @@ namespace OpenSC.Model.Routers.SWP08
         public bool AutoReconnect
         {
             get => autoReconnect;
-            set => this.setProperty(ref autoReconnect, value, AutoReconnectChanged);
+            set {
+                bool ov = autoReconnect;
+
+                autoReconnect = value;
+
+                if(!ov && autoReconnect)
+                {
+                    startAutoReconnectThread();
+                } else if(ov && !autoReconnect)
+                {
+                    autoReconnectThread.Abort();
+                }
+            }
         }
 
 
@@ -155,9 +179,24 @@ namespace OpenSC.Model.Routers.SWP08
         #endregion
 
 
-        public void Connect() => swpClient.Connect();
+        public void Connect()
+        {
+            if(connected) return;
 
-        public void Disconnect() => swpClient.Disconnect();
+            if(!swpClient.HasConnectionHandler() && connectionMode == RouterConnectionMode.IP)
+            {
+                swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
+            }
+
+            swpClient.Connect();
+        }
+
+        public void Disconnect()
+        {
+            swpClient.Disconnect();
+
+            //swpClient.setConnectionHandler(null);
+        }
 
         #region Property: Serial Port
         [AutoProperty]
@@ -236,26 +275,28 @@ namespace OpenSC.Model.Routers.SWP08
             get => connected;
             set
             {
-                AfterChangePropertyDelegate<bool> afterChangeDelegate = (ov, nv) =>
+                bool ov = connected;
+
+                if (value)
                 {
-                    if (nv)
-                    {
-                        State = RouterState.Ok;
-                        StateString = "connected";
-                        string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
-                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
-                        LogDispatcher.I(LOG_TAG, logMessage);
-                    }
-                    else
-                    {
-                        State = RouterState.Warning;
-                        StateString = "disconnected";
-                        string logMessage = string.Format("Disconnected from an SW-P-08 router (ID: {0}) {1}.", ID,
-                            ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
-                        LogDispatcher.I(LOG_TAG, logMessage);
-                    }
-                };
-                this.setProperty(ref connected, value, ConnectionStateChanged, null, afterChangeDelegate);
+                    State = RouterState.Ok;
+                    StateString = "connected";
+                    string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
+                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
+                    LogDispatcher.I(LOG_TAG, logMessage);
+
+                    queryAllStates();
+                }
+                else
+                {
+                    State = RouterState.Warning;
+                    StateString = "disconnected";
+                    string logMessage = string.Format("Disconnected from an SW-P-08 router (ID: {0}) {1}.", ID,
+                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
+                    LogDispatcher.I(LOG_TAG, logMessage);
+                }
+
+                ConnectionStateChanged?.Invoke(this, ov, value);
             }
         }
 
