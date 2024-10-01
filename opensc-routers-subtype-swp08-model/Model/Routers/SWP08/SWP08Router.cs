@@ -353,7 +353,10 @@ namespace OpenSC.Model.Routers.SWP08
 
         protected override void requestCrosspointUpdateImpl(RouterOutput output, RouterInput input)
         {
-            throw new System.NotImplementedException();
+            var crosspointList = new List<RouterCrosspoint>();
+            crosspointList.Add(new RouterCrosspoint(output, input));
+
+            requestCrosspointUpdatesImpl(crosspointList);
         }
 
         protected override void requestCrosspointUpdatesImpl(IEnumerable<RouterCrosspoint> crosspoints)
