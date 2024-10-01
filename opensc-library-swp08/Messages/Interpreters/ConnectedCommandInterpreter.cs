@@ -27,7 +27,7 @@ namespace OpenSC.Library.SWP08Router
             byte _matrix = (byte)(line[1] / 16);
             byte _level = (byte)(line[1] % 16);
 
-            //if (matrix != _matrix || level != _level) return;
+            if (matrix != _matrix || level != _level) return;
 
             Crosspoint newCrosspoint = new Crosspoint(
                 (short)(SWPHelpers.destFromMult(line[2]) * 128 + line[3]),

@@ -41,11 +41,16 @@ namespace OpenSC.Library.SWP08Router
             if (connectionHandler != null)
             {
 
-                connectionHandler.ConnectionChanged += value => this.Connected = value;
+                connectionHandler.ConnectionChanged += handleConnectionChange;
                 connectionHandler.MessageReceived += lineReceived;
             }
 
             this.Connected = false;
+        }
+
+        private void handleConnectionChange(bool value)
+        {
+            this.Connected = value;
         }
 
         #region Video router properties
@@ -85,6 +90,8 @@ namespace OpenSC.Library.SWP08Router
                     requestScheduler.Stop();
 
                 ConnectionStateChanged?.Invoke(connected);
+
+                //QueryAllCrosspoints();
             }
         }
 
@@ -167,7 +174,8 @@ namespace OpenSC.Library.SWP08Router
             {
                 new ConnectedCommandInterpreter(this, matrix, level),
                 new AckInterpreter(this),
-                new DualControllerStatusInterpreter(this)
+                new DualControllerStatusInterpreter(this),
+                new CrosspointTallyDumpInterpreter(this, matrix, level)
             };
         }
 
@@ -180,7 +188,8 @@ namespace OpenSC.Library.SWP08Router
             byte commandByte = (byte)(line[1] == 6 ? 99 : line[2]);
 
             currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(commandByte));
-               
+           
+
             if (currentInterpreter != null)
             {
                 try
@@ -190,6 +199,9 @@ namespace OpenSC.Library.SWP08Router
                 catch (MessageInterpreterException) {
                     
                 }
+            } else
+            {
+                AckLastRequest();
             }
         }
 

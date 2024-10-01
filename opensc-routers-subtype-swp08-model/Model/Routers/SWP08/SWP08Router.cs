@@ -284,8 +284,6 @@ namespace OpenSC.Model.Routers.SWP08
                     string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
                         ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
                     LogDispatcher.I(LOG_TAG, logMessage);
-
-                    queryAllStates();
                 }
                 else
                 {
@@ -297,6 +295,7 @@ namespace OpenSC.Model.Routers.SWP08
                 }
 
                 ConnectionStateChanged?.Invoke(this, ov, value);
+                connected = value;
             }
         }
 
