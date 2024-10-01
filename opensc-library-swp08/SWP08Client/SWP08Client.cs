@@ -86,7 +86,7 @@ namespace OpenSC.Library.SWP08Router
 
                 if (value)
                     requestScheduler.Start();
-                else
+                else if(requestScheduler.Running)
                     requestScheduler.Stop();
 
                 ConnectionStateChanged?.Invoke(connected);
