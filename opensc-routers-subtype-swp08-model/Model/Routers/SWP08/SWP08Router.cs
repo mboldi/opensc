@@ -363,7 +363,7 @@ namespace OpenSC.Model.Routers.SWP08
         {
             if(crosspoints.Any(cp => cp.Output.Index > short.MaxValue || cp.Input.Index > short.MaxValue)) throw new ArgumentOutOfRangeException();
 
-            IEnumerable<Crosspoint> swpCrosspoints = crosspoints.Select(crosspoint => new Crosspoint((short)crosspoint.Output.Index, (short)crosspoint.Output.Index));
+            IEnumerable<Crosspoint> swpCrosspoints = crosspoints.Select(crosspoint => new Crosspoint((short)crosspoint.Output.Index, (short)crosspoint.Input.Index));
 
             swpClient.SetCrosspoints(swpCrosspoints);
         }
