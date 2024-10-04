@@ -37,7 +37,7 @@ namespace OpenSC.Model.Routers.SWP08
 
         private void HandleCrosspointChange(Crosspoint crosspoint)
         {
-            if ((crosspoint.Source == null) || (crosspoint.Dest == null))
+            if (crosspoint == null)
                 return;
             try
             {
@@ -69,6 +69,7 @@ namespace OpenSC.Model.Routers.SWP08
             {
                 if (connectionMode != value)
                 {
+                    ConnectionModeChanged?.Invoke(this, connectionMode, value);
                     connectionMode = value;
 
                     switch (connectionMode)
@@ -194,8 +195,6 @@ namespace OpenSC.Model.Routers.SWP08
         public void Disconnect()
         {
             swpClient.Disconnect();
-
-            //swpClient.setConnectionHandler(null);
         }
 
         #region Property: Serial Port

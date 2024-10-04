@@ -11,8 +11,7 @@ namespace OpenSC.Library.SWP08Router
 {
     public class TCPConnectionHandler : IConnectionHandler
     {
-        //private TcpSocketLineByLineReceiver lineReceiver;
-        private Socket socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+        private Socket socket;
 
         #region IP Address & port
         private string ipAddress;
@@ -48,9 +47,9 @@ namespace OpenSC.Library.SWP08Router
         {
             try
             {
-                if (socket.Connected)
+                if (socket != null && socket.Connected)
                     socket.Disconnect(false);
-                FireConnectionChanged(socket.Connected);
+                FireConnectionChanged(false);
                 socket.Dispose();
             }
             catch (ObjectDisposedException) { }
@@ -117,11 +116,13 @@ namespace OpenSC.Library.SWP08Router
 
             try
             {
+                socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+
                 socket.ReceiveTimeout = -1;
                 socket.BeginConnect(ipAddress, port, connectedCallback, null);
             }
             catch (SocketException)
-            { }
+            {}
         }
 
         private void connectedCallback(IAsyncResult ar)
@@ -135,8 +136,13 @@ namespace OpenSC.Library.SWP08Router
 
         override public void Disconnect()
         {
-            if (Connected && (socket.Connected))
-                socket.Disconnect(true);
+            if (socket != null && Connected && (socket.Connected))
+            {
+                socket.Disconnect(false);
+                socket.Close();
+                socket.Dispose();
+            }
+                
             stopDisconnectDetectorThread();
             Connected = false;
         }
@@ -159,7 +165,7 @@ namespace OpenSC.Library.SWP08Router
         #region Receiving
         private void socketReceive()
         {
-            if (!(Connected && socket.Connected))
+            if (socket == null || !(Connected && socket.Connected))
                 return;
             try
             {
@@ -180,7 +186,7 @@ namespace OpenSC.Library.SWP08Router
 
             try
             {
-                int charsRead = socket.EndReceive(ar);      //TODO modify to bytes
+                int charsRead = socket.EndReceive(ar);
                 Byte[] receivedBytes = buffer.Take(charsRead).ToArray();
 
                 processReceivedCommand(receivedBytes);

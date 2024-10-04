@@ -33,6 +33,9 @@ namespace OpenSC.Library.SWP08Router
         {
             if (connectionHandler != null)
             {
+                connectionHandler.ConnectionChanged -= handleConnectionChange;
+                connectionHandler.MessageReceived -= lineReceived;
+
                 connectionHandler.Disconnect();
             }
 
@@ -77,7 +80,8 @@ namespace OpenSC.Library.SWP08Router
         public bool Connected
         {
             get {
-                if (connectionHandler == null) return false;
+                if (connectionHandler == null) 
+                    return false;
 
                 return connectionHandler.getConnectState();
             }
@@ -90,8 +94,6 @@ namespace OpenSC.Library.SWP08Router
                     requestScheduler.Stop();
 
                 ConnectionStateChanged?.Invoke(connected);
-
-                //QueryAllCrosspoints();
             }
         }
 
@@ -183,12 +185,10 @@ namespace OpenSC.Library.SWP08Router
         {
             if (line.Length == 0) return;
 
-            Console.WriteLine(line);
-
             byte commandByte = (byte)(line[1] == 6 ? 99 : line[2]);
 
             currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(commandByte));
-           
+
 
             if (currentInterpreter != null)
             {
@@ -238,8 +238,8 @@ namespace OpenSC.Library.SWP08Router
                 lastByte = currByte;
             }
 
-            // Check checksum
-            // Check byte count
+            // TODO Check checksum
+            // TODO Check byte count
 
             return unpackedMessage.ToArray();
         }
