@@ -53,7 +53,7 @@ namespace OpenSC.Model.Labelsets.DynamicTextFunctions
                     return;
                 }
 
-                output = router.GetOutput((int)argumentObjects[1]);
+                output = router.GetOutput(((RouterOutput)argumentObjects[1]).Index);
                 if (output == null)
                 {
                     CurrentValue = "?";
@@ -61,7 +61,7 @@ namespace OpenSC.Model.Labelsets.DynamicTextFunctions
                 }
                 output.CurrentInputChanged += currentInputChangedHandler;
 
-                Labelset labelset = argumentObjects[2] as Labelset;
+                labelset = argumentObjects[2] as Labelset;
                 if (labelset == null)
                 {
                     CurrentValue = "?";
