@@ -129,9 +129,10 @@ namespace OpenSC.Library.SWP08Router
         {
             if (socket.Connected)
             {
-                Connected = true;
                 socketReceive();
             }
+
+            Connected = socket.Connected;
         }
 
         override public void Disconnect()

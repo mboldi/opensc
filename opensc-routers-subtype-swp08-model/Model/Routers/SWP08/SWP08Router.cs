@@ -33,6 +33,36 @@ namespace OpenSC.Model.Routers.SWP08
 
             swpClient.ConnectionStateChanged += ConnectionStateChangedHandler;
             swpClient.CrosspointChanged += HandleCrosspointChange;
+
+            if(AutoReconnect)
+            {
+                swpClient.Connect();
+            }
+        }
+
+        public override void RestoredOwnFields()
+        {
+            base.RestoredOwnFields();
+
+            initSWPRouter();
+            startAutoReconnectThread();
+        }
+
+        public override void Removed()
+        {
+            base.Removed();
+
+            Disconnect();
+            swpClient.ConnectionStateChanged -= ConnectionStateChangedHandler;
+            swpClient.CrosspointChanged -= HandleCrosspointChange;
+            swpClient = null;
+
+            IpAddressChanged = null;
+            ConnectionStateChanged = null;
+            AutoReconnectChanged = null;
+
+            autoReconnectThreadWorking = false;
+            autoReconnectThread = null;
         }
 
         private void HandleCrosspointChange(Crosspoint crosspoint)
@@ -53,6 +83,9 @@ namespace OpenSC.Model.Routers.SWP08
             if(Connected)
             {
                 queryAllStates();
+            } else if(autoReconnect)
+            {
+                startAutoReconnectThread();
             }
         }
 
@@ -137,13 +170,12 @@ namespace OpenSC.Model.Routers.SWP08
                     startAutoReconnectThread();
                 } else if(ov && !autoReconnect)
                 {
-                    autoReconnectThread.Abort();
+                    autoReconnectThread.Interrupt();
                 }
             }
         }
 
 
-        // TODO átrakni connectionhadlerbe
         private const int RECONNECT_TRY_INTERVAL = 10000;
 
         private Thread autoReconnectThread = null;
