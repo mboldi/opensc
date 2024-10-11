@@ -102,13 +102,13 @@ namespace OpenSC.Model.Routers.SWP08
             {
                 if (connectionMode != value)
                 {
-                    ConnectionModeChanged?.Invoke(this, connectionMode, value);
+                    //ConnectionModeChanged?.Invoke(this, connectionMode, value);
                     connectionMode = value;
 
                     switch (connectionMode)
                     {
                         case RouterConnectionMode.Serial:
-                            throw new NotImplementedException();
+                            swpClient.setConnectionHandler(new SerialConnectionHandler(serialPort));
                             break;
                         case RouterConnectionMode.IP:
                             swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
@@ -170,6 +170,7 @@ namespace OpenSC.Model.Routers.SWP08
                     startAutoReconnectThread();
                 } else if(ov && !autoReconnect)
                 {
+                    autoReconnectThreadWorking = false;
                     autoReconnectThread.Interrupt();
                 }
             }
