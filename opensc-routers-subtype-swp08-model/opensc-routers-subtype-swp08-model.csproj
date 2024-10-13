@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+      <OutputType>Library</OutputType>
+    <RootNamespace>OpenSC</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <ProjectReference Include="..\opensc-library-swp08\opensc-library-swp08.csproj" />
+      <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
+    <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\opensc-routers-model\RoutersSubtypeModelModuleBase.csproj" />
+</Project>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace OpenSC.Library.TaskSchedulerQueue
 {
@@ -11,8 +12,14 @@ namespace OpenSC.Library.TaskSchedulerQueue
         public void Cancel() => taskCompletionSource.SetCanceled();
         public void Ready(TResult result)
         {
-            taskCompletionSource.SetResult(result);
-            _ready(result);
+            try
+            {
+                taskCompletionSource.TrySetResult(result);
+                _ready(result);
+            } catch
+            {
+                
+            }
         }
         protected virtual void _ready(TResult result) { }
     }

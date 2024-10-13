@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OpenSC</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\opensc-routers-gui\opensc-routers-gui.csproj" />
+    <ProjectReference Include="..\opensc-routers-model\opensc-routers-model.csproj" />
+    <ProjectReference Include="..\opensc-routers-subtype-swp08-model\opensc-routers-subtype-swp08-model.csproj" />
+    <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
+  </ItemGroup>
+
+</Project>
