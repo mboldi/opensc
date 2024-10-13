@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OpenSC</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\opensc-carousels-model\opensc-carousels-model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="GUI\Carousels\CarouselSyncGroupEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\Carousels\CarouselEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\Carousels\CarouselSyncGroupList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\Carousels\CarouselList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Icons.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Icons.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="..\CommonCsproj\GuiModuleBase.csproj" />
+</Project>
