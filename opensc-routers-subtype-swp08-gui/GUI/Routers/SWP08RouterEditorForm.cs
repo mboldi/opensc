@@ -58,7 +58,7 @@ namespace OpenSC.GUI.Routers
 
             swpRouter.ConnectionModeChanged += connectionModeChangedHandler;
 
-            if (swpRouter.IpAddress != null)
+            if (swpRouter.IpAddress != null && swpRouter.IpAddress.Contains(":"))
             {
                 ipAddressInput.Text = swpRouter.IpAddress.Split(":")[0];
                 ipPortNumeric.Value = int.Parse(swpRouter.IpAddress.Split(":")[1]);

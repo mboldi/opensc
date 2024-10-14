@@ -1,33 +1,36 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using OpenSC.Library.SWP08Router;
-using OpenSC.Model.General;
+﻿using OpenSC.Model.General;
 using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace OpenSC.Library.SWP08Router
 {
     public class SerialConnectionHandler : IConnectionHandler
     {
-        [AutoProperty]
-        [AutoProperty.BeforeChange(nameof(_serialPort_beforeChange))]
-        [AutoProperty.AfterChange(nameof(_serialPort_afterChange))]
-        private SerialPort serialPort = null;
+        
+        private SerialPort port = null;
+
+        private SerialPort Port
+        {
+            get => port;
+            set
+            {
+                var ov = Port;
+                
+                _serialPort_beforeChange(ov, value);
+                port = value;
+                _serialPort_afterChange(ov, value);
+            }
+        }
 
         public SerialConnectionHandler(SerialPort serialPort)
         {
-            this.serialPort = serialPort;
+            Port = serialPort;
 
+            //Console.WriteLine("initialized with port " + serialPort.ComPortName);
         }
 
-        private void _serialPort_beforeChange(SerialPort oldValue, SerialPort newValue, BeforeChangePropertyArgs args)
+        private void _serialPort_beforeChange(SerialPort oldValue, SerialPort newValue)
         {
             if (oldValue != null)
             {
@@ -37,7 +40,7 @@ namespace OpenSC.Library.SWP08Router
         }
 
 
-        private void _serialPort_afterChange(SerialPort oldValue, SerialPort newValue, BeforeChangePropertyArgs args)
+        private void _serialPort_afterChange(SerialPort oldValue, SerialPort newValue)
         {
             if (newValue != null)
             {
@@ -54,7 +57,7 @@ namespace OpenSC.Library.SWP08Router
 
         private void portInitializedChangedHandler(SerialPort item, bool oldValue, bool newValue)
         {
-            
+            FireConnectionChanged(newValue);
         }
 
         public override void Connect()
@@ -84,20 +87,20 @@ namespace OpenSC.Library.SWP08Router
 
         public override string getAddressString()
         {
-            return serialPort.ToString();
+            return Port.ToString();
         }
 
         public override bool getConnectState()
         {
-            return serialPort.Initialized;
+            return Port.Initialized;
         }
 
         public override void SendMessage(byte[] message)
         {
-            if (serialPort.Initialized)
+            if (Port.Initialized)
             {
                 DateTime validUntil = DateTime.Now + TimeSpan.FromSeconds(2);
-                serialPort.SendData(message, validUntil);
+                Port.SendData(message, validUntil);
             }
         }
     }

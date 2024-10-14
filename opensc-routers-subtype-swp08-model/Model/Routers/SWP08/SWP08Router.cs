@@ -29,7 +29,14 @@ namespace OpenSC.Model.Routers.SWP08
 
         private void initSWPRouter()
         {
-            swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
+            if(connectionMode == RouterConnectionMode.IP)
+            {
+                swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
+            } else if (connectionMode == RouterConnectionMode.Serial)
+            {
+                swpClient = new SWP08Client(new SerialConnectionHandler(serialPort), (byte)matrix, (byte)level);
+            }
+            
 
             swpClient.ConnectionStateChanged += ConnectionStateChangedHandler;
             swpClient.CrosspointChanged += HandleCrosspointChange;
@@ -102,13 +109,13 @@ namespace OpenSC.Model.Routers.SWP08
             {
                 if (connectionMode != value)
                 {
-                    //ConnectionModeChanged?.Invoke(this, connectionMode, value);
+                    ConnectionModeChanged?.Invoke(this, connectionMode, value);
                     connectionMode = value;
 
                     switch (connectionMode)
                     {
                         case RouterConnectionMode.Serial:
-                            swpClient.setConnectionHandler(new SerialConnectionHandler(serialPort));
+                            swpClient.setConnectionHandler(new SerialConnectionHandler(SerialPort));
                             break;
                         case RouterConnectionMode.IP:
                             swpClient.setConnectionHandler(new TCPConnectionHandler(IpAddress));
@@ -231,69 +238,21 @@ namespace OpenSC.Model.Routers.SWP08
         }
 
         #region Property: Serial Port
-        [AutoProperty]
-        [AutoProperty.BeforeChange(nameof(_serial_port_beforeChange))]
-        [AutoProperty.AfterChange(nameof(_serial_port_afterChange))]
         [PersistAs("serial_port")]
         private SerialPort serialPort;
 
-        public SerialPort SerPort
+        public SerialPort SerialPort
         {
             get => serialPort;
             set
             {
-                if (serialPort != value)
-                {
-                    serialPort = value;
+                serialPort = value;
 
-                    if(connectionMode == RouterConnectionMode.Serial)
-                    {
-                        throw new NotImplementedException();
-                    }
+                if(connectionMode == RouterConnectionMode.Serial)
+                {
+                    swpClient.setConnectionHandler(new SerialConnectionHandler(SerialPort));
                 }
             }
-        }
-
-        // TODO ezek is connectionHandlerbe kellenek
-        private void _serial_port_beforeChange(SerialPort oldValue, SerialPort newValue, BeforeChangePropertyArgs args)
-        {
-            if (oldValue != null)
-            {
-                oldValue.ReceivedDataAsciiLine -= receivedLineFromSerialPort;
-                oldValue.InitializedChanged -= serialPortInitializedChangedHandler;
-            }
-        }
-
-        private void _serial_port_afterChange(SerialPort oldValue, SerialPort newValue)
-        {
-            if (newValue != null)
-            {
-                newValue.ReceivedDataAsciiLine += receivedLineFromSerialPort;
-                newValue.InitializedChanged += serialPortInitializedChangedHandler;
-                initSerial();
-            }
-        }
-
-        private void serialPortInitializedChangedHandler(SerialPort port, bool oldState, bool newState)
-        {
-            if (newState)
-            {
-                initSerial();
-                Connected = true;
-            } else
-            {
-                Connected = false;
-            }
-        }
-
-        private void initSerial()
-        {
-            queryAllStates();
-        }
-
-        private void receivedLineFromSerialPort(SerialPort port, string line)
-        {
-
         }
         #endregion
 
@@ -314,7 +273,7 @@ namespace OpenSC.Model.Routers.SWP08
                     State = RouterState.Ok;
                     StateString = "connected";
                     string logMessage = string.Format("Connected to an SW-P-08 router (ID: {0}) {1}.", ID, 
-                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
+                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
                     LogDispatcher.I(LOG_TAG, logMessage);
                 }
                 else
@@ -322,7 +281,7 @@ namespace OpenSC.Model.Routers.SWP08
                     State = RouterState.Warning;
                     StateString = "disconnected";
                     string logMessage = string.Format("Disconnected from an SW-P-08 router (ID: {0}) {1}.", ID,
-                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerPort : "with IP " + IpAddress);
+                        ConnectionMode == RouterConnectionMode.Serial ? "on serial port " + SerialPort : "with IP " + IpAddress);
                     LogDispatcher.I(LOG_TAG, logMessage);
                 }
 
