@@ -1,6 +1,6 @@
 ﻿namespace OpenSC.GUI.UMDs
 {
-    partial class Tsl50ScreenEditorForm
+    partial class ImageVideoScreenEditorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -169,7 +169,7 @@
             ipAddressInput.TabIndex = 7;
             ipAddressInput.Text = "...";
             // 
-            // Tsl50ScreenEditorForm
+            // ImageVideoScreenEditorForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,7 +178,7 @@
             HeaderText = "New TSL 5.0 screen";
             Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             MinimumSize = new System.Drawing.Size(440, 224);
-            Name = "Tsl50ScreenEditorForm";
+            Name = "ImageVideoScreenEditorForm";
             SubjectPlural = "TSL 5.0 screens";
             SubjectSingular = "TSL 5.0 screen";
             Text = "New TSL 5.0 screen";
