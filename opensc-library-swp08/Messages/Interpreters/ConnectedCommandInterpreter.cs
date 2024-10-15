@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSC.Logger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,8 @@ namespace OpenSC.Library.SWP08Router
                 (short)(SWPHelpers.srcFromMult(line[2]) * 128 + line[4]));
 
             client.NotifyCrosspointChanged(newCrosspoint);
+
+            client.AckLastRequest();
         }
     }
 }

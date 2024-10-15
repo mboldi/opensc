@@ -34,7 +34,7 @@ namespace OpenSC.Model.Routers.SWP08
                 swpClient = new SWP08Client(new TCPConnectionHandler(IpAddress), (byte)matrix, (byte)level);
             } else if (connectionMode == RouterConnectionMode.Serial)
             {
-                swpClient = new SWP08Client(new SerialConnectionHandler(serialPort), (byte)matrix, (byte)level);
+                swpClient = new SWP08Client(new SerialConnectionHandler(SerialPort), (byte)matrix, (byte)level);
             }
             
 
@@ -52,7 +52,11 @@ namespace OpenSC.Model.Routers.SWP08
             base.RestoredOwnFields();
 
             initSWPRouter();
-            startAutoReconnectThread();
+
+            if (connectionMode == RouterConnectionMode.IP)
+            {
+                startAutoReconnectThread();
+            }
         }
 
         public override void Removed()
@@ -191,6 +195,8 @@ namespace OpenSC.Model.Routers.SWP08
 
         private void startAutoReconnectThread()
         {
+            if (connectionMode != RouterConnectionMode.IP) return;
+
             autoReconnectThread = new Thread(autoReconnectThreadMethod)
             {
                 IsBackground = true
@@ -238,9 +244,10 @@ namespace OpenSC.Model.Routers.SWP08
         }
 
         #region Property: Serial Port
-        [PersistAs("serial_port")]
         private SerialPort serialPort;
 
+
+        [PersistAs("serial_port")]
         public SerialPort SerialPort
         {
             get => serialPort;

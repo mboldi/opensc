@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSC.Logger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace OpenSC.Library.SWP08Router
 
         public void InterpretLine(byte[] line)
         {
+            LogDispatcher.I("SW-P-08/DumpInterpreter", "Line received: " + BitConverter.ToString(line).Replace("-", ""));
+
             byte _matrix = (byte)(line[1] / 16);
             byte _level = (byte)(line[1] % 16);
 
@@ -32,11 +35,15 @@ namespace OpenSC.Library.SWP08Router
             byte numOfTallies = (byte)(line[2]);
             short firstDest = (short)(line[3]);
 
+            LogDispatcher.I("SW-P-08/DumpInterpreter", "Num of dump elements: " + numOfTallies);
+
             for (byte i = 0; i < numOfTallies; i++)
             {
                 Crosspoint newCrosspoint = new Crosspoint(
                 (short)(firstDest + i),
                 (short)(line[4+i]));
+
+                LogDispatcher.I("SW-P-08/DumpInterpreter", "Current crosspoint: " + (line[4 + i]) + "->" + (firstDest + i));
 
                 client.NotifyCrosspointChanged(newCrosspoint);
             }

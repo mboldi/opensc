@@ -1,4 +1,5 @@
-﻿using OpenSC.Model.General;
+﻿using OpenSC.Logger;
+using OpenSC.Model.General;
 using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
@@ -46,7 +47,9 @@ namespace OpenSC.Library.SWP08Router
             {
                 newValue.ReceivedDataBytes += receivedLineFromPort;
                 newValue.InitializedChanged += portInitializedChangedHandler;
-                // initSerial();
+
+                LogDispatcher.I("SW-P-08/SerialHandler", "Port status on init: " + newValue.Initialized);
+                FireConnectionChanged(newValue.Initialized);
             }
         }
 
@@ -57,6 +60,8 @@ namespace OpenSC.Library.SWP08Router
 
         private void portInitializedChangedHandler(SerialPort item, bool oldValue, bool newValue)
         {
+            LogDispatcher.I("SW-P-08/SerialHandler", "Port status on change: " + newValue);
+
             FireConnectionChanged(newValue);
         }
 
@@ -82,7 +87,8 @@ namespace OpenSC.Library.SWP08Router
 
         public override void Dispose()
         {
-            
+            Port.ReceivedDataBytes -= receivedLineFromPort;
+            Port.InitializedChanged -= portInitializedChangedHandler;
         }
 
         public override string getAddressString()
@@ -92,6 +98,8 @@ namespace OpenSC.Library.SWP08Router
 
         public override bool getConnectState()
         {
+            if (port == null) return false;
+
             return Port.Initialized;
         }
 

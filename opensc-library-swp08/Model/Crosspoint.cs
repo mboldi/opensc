@@ -21,5 +21,10 @@ namespace OpenSC.Library.SWP08Router
             return SrcDestWithMult.ToArray();
         }
 
+        public override string ToString()
+        {
+            return "Crosspoint: { Dest: " + Dest.ToString() + ", Source: " + Source.ToString() + " }";
+        }
+
     }
 }
