@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using OpenSC.Library.TaskSchedulerQueue;
+using OpenSC.Logger;
 using OpenSC.Messages.Interpreters;
 using OpenSC.Model.SerialPorts;
 
@@ -48,7 +49,7 @@ namespace OpenSC.Library.SWP08Router
                 connectionHandler.MessageReceived += lineReceived;
             }
 
-            this.Connected = false;
+            Connected = connectionHandler.getConnectState();
         }
 
         private void handleConnectionChange(bool value)
@@ -119,6 +120,8 @@ namespace OpenSC.Library.SWP08Router
         internal void NotifyCrosspointChanged(Crosspoint crosspoint)
         {
             CrosspointChanged?.Invoke(crosspoint);
+
+            LogDispatcher.I("SW-P-08/Client", "crosspoint update received in client, event fired");
         }
 
         public delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
@@ -143,7 +146,16 @@ namespace OpenSC.Library.SWP08Router
         }
 
 
-        public void QueryAllCrosspoints() => scheduleRequest(new AllCrosspointsRequest(matrix, level));
+        public void QueryAllCrosspoints()
+        {
+            //scheduleRequest(new AllCrosspointsRequest(matrix, level));
+        }
+
+        public void QueryCrosspoint(short dest)
+        {
+            requestScheduler.Enqueue(new CrosspointInterrogateRequest(Matrix, Level, dest));
+        }
+
         #endregion
 
 
@@ -159,6 +171,8 @@ namespace OpenSC.Library.SWP08Router
         }
         internal void AckLastRequest()
         {
+            SendCommand(new AckCommand());
+
             requestScheduler.LastDequeuedTaskReady(true);
             currentInterpreter = null;
         }
@@ -177,7 +191,8 @@ namespace OpenSC.Library.SWP08Router
                 new ConnectedCommandInterpreter(this, matrix, level),
                 new AckInterpreter(this),
                 new DualControllerStatusInterpreter(this),
-                new CrosspointTallyDumpInterpreter(this, matrix, level)
+                new CrosspointTallyDumpInterpreter(this, matrix, level),
+                new CrosspointTallyInterpreter(this, matrix, level)
             };
         }
 
@@ -185,10 +200,15 @@ namespace OpenSC.Library.SWP08Router
         {
             if (line.Length == 0) return;
 
+            if (line.Length > 2 && 
+                line[0] == ProtocolStrings.DLE && line[1] == 6)         // Check if line contains sneaky ACK 
+            {
+                line = line.Skip(2).ToArray();
+            }
+
             byte commandByte = (byte)(line[1] == 6 ? 99 : line[2]);
 
             currentInterpreter = knownInterpeters.FirstOrDefault(mi => mi.CanInterpret(commandByte));
-
 
             if (currentInterpreter != null)
             {
@@ -203,6 +223,7 @@ namespace OpenSC.Library.SWP08Router
             {
                 AckLastRequest();
             }
+
         }
 
         public void SendCommand(ICommand command)

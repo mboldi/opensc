@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Library.SWP08Router
 {
-    internal class ConnectedCommandInterpreter : IMessageInterpreter
+    internal class CrosspointTallyInterpreter : IMessageInterpreter
     {
         private SWP08Client client;
         private byte matrix, level = 0;
 
-        public ConnectedCommandInterpreter(SWP08Client client, byte matrix, byte level)
+        public CrosspointTallyInterpreter(SWP08Client client, byte matrix, byte level)
         {
             this.client = client;
             this.matrix = matrix;
@@ -21,7 +21,7 @@ namespace OpenSC.Library.SWP08Router
 
         public void BlockEnd() {}
 
-        public bool CanInterpret(byte commandByte) => commandByte == ProtocolStrings.SWP08_CMD_CONNECTED;
+        public bool CanInterpret(byte commandByte) => commandByte == ProtocolStrings.SWP08_CMD_CROSSPOINT_TALLY;
 
         public void InterpretLine(byte[] line)
         {

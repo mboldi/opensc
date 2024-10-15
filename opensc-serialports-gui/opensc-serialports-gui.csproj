@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
       <TargetFramework>net5.0-windows</TargetFramework>
+      <RuntimeIdentifier>win</RuntimeIdentifier>
       <OutputType>Library</OutputType>
       <RootNamespace>OpenSC</RootNamespace>
       <UseWindowsForms>true</UseWindowsForms>
