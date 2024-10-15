@@ -150,6 +150,12 @@ namespace OpenSC.Library.SWP08Router
         {
             //scheduleRequest(new AllCrosspointsRequest(matrix, level));
         }
+
+        public void QueryCrosspoint(short dest)
+        {
+            requestScheduler.Enqueue(new CrosspointInterrogateRequest(Matrix, Level, dest));
+        }
+
         #endregion
 
 
@@ -185,7 +191,8 @@ namespace OpenSC.Library.SWP08Router
                 new ConnectedCommandInterpreter(this, matrix, level),
                 new AckInterpreter(this),
                 new DualControllerStatusInterpreter(this),
-                new CrosspointTallyDumpInterpreter(this, matrix, level)
+                new CrosspointTallyDumpInterpreter(this, matrix, level),
+                new CrosspointTallyInterpreter(this, matrix, level)
             };
         }
 

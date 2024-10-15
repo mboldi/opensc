@@ -346,7 +346,10 @@ namespace OpenSC.Model.Routers.SWP08
 
         protected override void queryAllStates()
         {
-            swpClient.QueryAllCrosspoints();
+            for(short i = 0; i < Outputs.Count; i++)
+            {
+                swpClient.QueryCrosspoint(i);
+            }
         }
 
         protected override void requestCrosspointUpdateImpl(RouterOutput output, RouterInput input)
