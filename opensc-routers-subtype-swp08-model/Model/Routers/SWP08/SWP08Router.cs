@@ -113,7 +113,7 @@ namespace OpenSC.Model.Routers.SWP08
             {
                 if (connectionMode != value)
                 {
-                    ConnectionModeChanged?.Invoke(this, connectionMode, value);
+                    //ConnectionModeChanged?.Invoke(this, connectionMode, value);
                     connectionMode = value;
 
                     switch (connectionMode)
