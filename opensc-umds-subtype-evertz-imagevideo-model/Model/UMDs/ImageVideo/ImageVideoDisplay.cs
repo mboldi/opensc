@@ -39,7 +39,7 @@ namespace OpenSC.Model.UMDs.ImageVideo
         #region Info
         public override UmdTextInfo[] TextInfo => new UmdTextInfo[]
         {
-           new("Text", false, true, false, UmdTextAlignment.Left)
+           new("Text", false, true, true, UmdTextAlignment.Left)
         };
 
         public override UmdTallyInfo[] TallyInfo => new UmdTallyInfo[]
