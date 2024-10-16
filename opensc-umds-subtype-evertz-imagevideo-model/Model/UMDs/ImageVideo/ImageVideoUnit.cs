@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OpenSC.Model.UMDs.ImageVideo
@@ -25,15 +26,15 @@ namespace OpenSC.Model.UMDs.ImageVideo
         public override void Removed()
         {
             base.Removed();
-            try
-            {
-                socket.Dispose();
-            }
-            catch { }
-            socket = null;
+
+            stopSocketStatusCheckTask();
+            disposeExistingSocket();
+
             IpAddressChanged = null;
             PortChanged = null;
-            IndexChanged = null;
+            AutoConnectChanged = null;
+            AutoReconnectChanged = null;
+            ConnectedChanged = null;
         }
         #endregion
 
@@ -53,7 +54,7 @@ namespace OpenSC.Model.UMDs.ImageVideo
         [AutoProperty.AfterChange(nameof(updateEndpoint))]
         [AutoProperty.Validator(nameof(ValidatePort))]
         [PersistAs("port")]
-        private int port = 1024;
+        private int port = 9800;
 
         public void ValidatePort(int port)
         {
@@ -62,57 +63,250 @@ namespace OpenSC.Model.UMDs.ImageVideo
         }
         #endregion
 
-        #region Property: Index
-        [AutoProperty]
-        [AutoProperty.Validator(nameof(ValidateIndex))]
-        [PersistAs("index")]
-        private int index = 1;
+        #region Property: AutoConnect
+        public event PropertyChangedTwoValuesDelegate<ImageVideoUnit, bool> AutoConnectChanged;
 
-        public void ValidateIndex(int index)
+        [PersistAs("auto_connect")]
+        private bool autoConnect = true;
+
+        public bool AutoConnect
         {
-            if ((index < 0) || (index > 65534))
-                throw new ArgumentOutOfRangeException();
+            get => autoConnect;
+            set => this.setProperty(ref autoConnect, value, AutoConnectChanged, null, (ov, nv) => {
+                if (nv)
+                    shouldBeConnected = true;
+            });
         }
         #endregion
 
-        #region Sending data to screen
-        internal void SendDisplayData(byte[] displayData) => sendUdpPacket(getBytesForPacket(displayData));
+        #region Property: AutoReconnect
+        public event PropertyChangedTwoValuesDelegate<ImageVideoUnit, bool> AutoReconnectChanged;
 
-        private byte[] getBytesForPacket(byte[] displayData)
+        [PersistAs("auto_reconnect")]
+        private bool autoReconnect = true;
+
+        public bool AutoReconnect
         {
-            int totalByteCount = 6 + displayData.Length;
-            byte[] totalBytes = new byte[totalByteCount]; // LITTLE ENDIAN!
-            totalBytes[0] = (byte)(totalByteCount & 0xFF); // PBC LSB
-            totalBytes[1] = (byte)((totalByteCount >> 8) & 0xFF); // PBC MSB
-            totalBytes[2] = 0; // VER
-            totalBytes[3] = 0; // FLAGS (ASCII, DMSG)
-            totalBytes[4] = (byte)(index & 0xFF); // SCREEN INDEX LSB
-            totalBytes[5] = (byte)((index >> 8) & 0xFF); // SCREEN INDEX MSB
-            displayData.CopyTo(totalBytes, 6);
-            return totalBytes;
+            get => autoReconnect;
+            set => this.setProperty(ref autoReconnect, value, AutoReconnectChanged);
         }
         #endregion
 
-        #region Socket, IP endpoint, UDP datagram sending
-        private Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        #region Property: AutoReconnectInterval
+        public event PropertyChangedTwoValuesDelegate<ImageVideoUnit, int> AutoReconnectIntervalChanged;
 
-        private void sendUdpPacket(byte[] data)
+        [PersistAs("auto_reconnect_interval")]
+        private int autoReconnectInterval = 5;
+
+        public int AutoReconnectInterval
+        {
+            get => autoReconnectInterval;
+            set => this.setProperty(ref autoReconnectInterval, value, AutoReconnectIntervalChanged);
+        }
+        #endregion
+
+        #region Property: Connected
+        public event PropertyChangedTwoValuesDelegate<ImageVideoUnit, bool> ConnectedChanged;
+
+        private bool connected = false;
+
+        public bool Connected
+        {
+            get => connected;
+            private set => this.setProperty(ref connected, value, ConnectedChanged);
+        }
+        #endregion
+
+        #region Socket - connection basics
+        private Socket tcpSocket;
+
+        public async Task Connect()
         {
             if (ipEndpoint == null)
+            {
+                Connected = false;
                 return;
-            socket?.SendTo(data, ipEndpoint);
+            }
+            shouldBeConnected = true;
+            disposeExistingSocket();
+            tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            await tcpSocket.ConnectAsync(ipEndpoint);
+            Connected = tcpSocket.Connected;
         }
 
+        public void Disconnect()
+        {
+            shouldBeConnected = false;
+            if (tcpSocket != null)
+            {
+                try
+                {
+                    tcpSocket.DisconnectAsync(new());
+                }
+                catch { }
+            }
+            disposeExistingSocket();
+        }
+
+        public async void Reconnect()
+        {
+            Disconnect();
+            await Connect();
+        }
+
+        private void disposeExistingSocket()
+        {
+            if (tcpSocket == null)
+                return;
+            try
+            {
+                tcpSocket.Dispose();
+            }
+            catch { }
+            tcpSocket = null;
+            Connected = false;
+        }
+        #endregion
+
+        #region Socket - status checking, auto connection and reconnection
+        bool shouldBeConnected = false;
+        int timeSinceLastConnectAttempt = -1;
+
+        private async Task socketStatusCheckTaskMethod()
+        {
+            while (true)
+            {
+                try
+                {
+                    if (Connected)
+                    {
+                        checkSocketStatus();
+                    }
+                    else if (shouldBeConnected)
+                    {
+                        if ((timeSinceLastConnectAttempt < 0) || (timeSinceLastConnectAttempt >= autoReconnectInterval))
+                        {
+                            await Connect();
+                            timeSinceLastConnectAttempt = 0;
+                        }
+                        else
+                        {
+                            timeSinceLastConnectAttempt++;
+                        }
+                    }
+                    await Task.Delay(1000);
+                }
+                catch (OperationCanceledException)
+                { }
+            }
+        }
+
+        private CancellationTokenSource socketStatusCheckTasCancellationTokenSource;
+        private Task socketStatusCheckTask;
+
+        private void startSocketStatusCheckTask()
+        {
+            socketStatusCheckTasCancellationTokenSource = new();
+            socketStatusCheckTask = Task.Run(socketStatusCheckTaskMethod);
+        }
+
+        private async void stopSocketStatusCheckTask()
+        {
+            if (socketStatusCheckTask == null)
+                return;
+            try
+            {
+                socketStatusCheckTasCancellationTokenSource.Cancel();
+                await socketStatusCheckTask;
+                socketStatusCheckTask.Dispose();
+                socketStatusCheckTask = null;
+                socketStatusCheckTasCancellationTokenSource.Dispose();
+                socketStatusCheckTasCancellationTokenSource = null;
+            }
+            catch (ObjectDisposedException)
+            { }
+        }
+
+        private void notifySocketDisconnected()
+        {
+            timeSinceLastConnectAttempt = 0;
+            disposeExistingSocket();
+        }
+
+        private bool checkSocketStatus()
+        {
+            try
+            {
+                return tcpSocket.Poll(1, SelectMode.SelectWrite);
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
+            catch (ObjectDisposedException)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Socket - sending
+        private void sendTcpPacket(string packet)
+        {
+            if (tcpSocket == null)
+                return;
+            byte[] data = Encoding.ASCII.GetBytes(packet);
+            try
+            {
+                tcpSocket.Send(data, 0, data.Length, SocketFlags.None);
+            }
+            catch (SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.NotConnected)
+                    notifySocketDisconnected();
+            }
+        }
+
+        internal void SendDisplayCommands(char monitorLetter, Dictionary<string, string> commands)
+        {
+            StringBuilder commandBuilder = new();
+            commandBuilder.AppendLine($"MONITOR {monitorLetter}:");
+            foreach (KeyValuePair<string, string> command in commands)
+                commandBuilder.AppendLine($"{command.Key}: {command.Value}");
+            commandBuilder.AppendLine();
+            sendTcpPacket(commandBuilder.ToString());
+        }
+        #endregion
+
+        #region Socket - endpoint
         private IPEndPoint ipEndpoint;
 
         private void updateEndpoint()
         {
+            bool wasConnected = Connected;
             if (!IPAddress.TryParse(ipAddress, out IPAddress typedIpAddress))
             {
                 ipEndpoint = null;
                 return;
             }
             ipEndpoint = new IPEndPoint(typedIpAddress, port);
+            if (wasConnected)
+                Reconnect();
+        }
+
+        string ipAddressBeforeUpdate;
+        int portBeforeUpdate;
+
+        private void ipEndpointBeforeUpdate()
+        {
+            ipAddressBeforeUpdate = ipAddress;
+            portBeforeUpdate = port;
+        }
+
+        private void ipEndpointAfterUpdate()
+        {
+            if ((ipAddressBeforeUpdate != ipAddress) || (portBeforeUpdate != port))
+                updateEndpoint();
         }
         #endregion
 

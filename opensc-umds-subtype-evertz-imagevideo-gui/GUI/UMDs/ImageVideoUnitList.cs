@@ -1,6 +1,7 @@
 ﻿using OpenSC.GUI.GeneralComponents.Tables;
 using OpenSC.GUI.WorkspaceManager;
 using OpenSC.Model.UMDs.ImageVideo;
+using System.Drawing;
 
 namespace OpenSC.GUI.UMDs
 {
@@ -27,7 +28,7 @@ namespace OpenSC.GUI.UMDs
             idColumnCreator(table, builderGetterMethod);
             nameColumnCreator(table, builderGetterMethod);
 
-            // Column: state image
+            // Column: IP/Port
             builder = builderGetterMethod();
             builder.Type(DataGridViewColumnType.TextBox);
             builder.Header("IP:port");
@@ -35,20 +36,51 @@ namespace OpenSC.GUI.UMDs
             builder.UpdaterMethod((imagevideoUnit, cell) => { cell.Value = $"{imagevideoUnit.IpAddress}:{imagevideoUnit.Port}"; });
             builder.AddChangeEvent(nameof(ImageVideoUnit.IpAddress));
 
-            // Column: state label
+            // Column: connection state
             builder = builderGetterMethod();
             builder.Type(DataGridViewColumnType.TextBox);
-            builder.Header("Index");
-            builder.Width(60);
+            builder.Header("State");
+            builder.Width(100);
             builder.DividerWidth(DEFAULT_DIVIDER_WIDTH);
-            builder.UpdaterMethod((imagevideoScreen, cell) => { cell.Value = imagevideoScreen.Index; });
-            builder.AddChangeEvent(nameof(ImageVideoUnit.Index));
+            builder.UpdaterMethod((bmdSmartViewUnit, cell) => {
+                if (bmdSmartViewUnit.Connected)
+                {
+                    cell.Style.BackColor = CELL_BG_CONNECTED;
+                    cell.Value = "connected";
+                }
+                else
+                {
+                    cell.Style.BackColor = CELL_BG_DISCONNECTED;
+                    cell.Value = "disconnected";
+                }
+            });
+            builder.AddChangeEvent(nameof(ImageVideoUnit.Connected));
+
+            // Column: connect button
+            builder = builderGetterMethod();
+            builder.Type(DataGridViewColumnType.Button);
+            builder.Header("Connect");
+            builder.Width(70);
+            builder.ButtonText("Connect");
+            builder.CellContentClickHandlerMethod(async (imagevideoUnit, cell, e) => await imagevideoUnit.Connect());
+
+            // Column: disconnect button
+            builder = builderGetterMethod();
+            builder.Type(DataGridViewColumnType.Button);
+            builder.Header("Disconnect");
+            builder.Width(70);
+            builder.DividerWidth(DEFAULT_DIVIDER_WIDTH);
+            builder.ButtonText("Disconnect");
+            builder.CellContentClickHandlerMethod((imagevideoUnit, cell, e) => imagevideoUnit.Disconnect());
 
             // Column: edit, delete
             editButtonColumnCreator(table, builderGetterMethod);
             deleteButtonColumnCreator(table, builderGetterMethod);
 
         }
+
+        private static readonly Color CELL_BG_CONNECTED = Color.LightPink;
+        private static readonly Color CELL_BG_DISCONNECTED = Color.LightPink;
 
     }
 

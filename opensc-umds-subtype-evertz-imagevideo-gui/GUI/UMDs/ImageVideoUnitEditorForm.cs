@@ -25,7 +25,6 @@ namespace OpenSC.GUI.UMDs
                 return;
             ipAddressInput.Text = imageVideoUnit.IpAddress;
             portNumericInput.Value = imageVideoUnit.Port;
-            indexNumericInput.Value = imageVideoUnit.Index;
         }
 
         protected override void validateFields()
@@ -36,7 +35,6 @@ namespace OpenSC.GUI.UMDs
                 return;
             imageVideoUnit.IpAddress = ipAddressInput.Text;
             imageVideoUnit.Port = (int)portNumericInput.Value;
-            imageVideoUnit.Index = (int)indexNumericInput.Value;
         }
 
         protected override void writeFields()
@@ -46,7 +44,6 @@ namespace OpenSC.GUI.UMDs
             if (imageVideoUnit == null)
                 return;
             imageVideoUnit.ValidatePort((int)portNumericInput.Value);
-            imageVideoUnit.ValidateIndex((int)indexNumericInput.Value);
         }
 
     }

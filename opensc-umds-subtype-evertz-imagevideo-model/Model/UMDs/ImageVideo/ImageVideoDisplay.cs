@@ -15,10 +15,10 @@ namespace OpenSC.Model.UMDs.ImageVideo
     public partial class ImageVideoDisplay : Umd
     {
 
-        #region Property: Screen
+        #region Property: Unit
         [AutoProperty]
         [AutoProperty.AfterChange(nameof(UpdateEverything))]
-        [PersistAs("screen")]
+        [PersistAs("unit")]
         private ImageVideoUnit unit;
         #endregion
 
@@ -44,12 +44,7 @@ namespace OpenSC.Model.UMDs.ImageVideo
 
         public override UmdTallyInfo[] TallyInfo => new UmdTallyInfo[]
         {
-            new("Left tally 1 (red)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Red),
-            new("Left tally 2 (green)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Green),
-            new("Text tally 1 (red)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Red),
-            new("Text tally 2 (green)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Green),
-            new("Right tally 1 (red)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Red),
-            new("Right tally 2 (green)", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Green)
+            new("Tally", UmdTallyInfo.ColorSettingMode.LocalChangeable, Color.Red)
         };
         #endregion
 
@@ -80,24 +75,14 @@ namespace OpenSC.Model.UMDs.ImageVideo
 
         protected virtual byte[] getAllBytesToSend(bool sendText = true)
         {
-            int byteCount = 4; // INDEX + CONTROL
-            if (sendText)
-                byteCount += 2 + textBytesToHardware.Length; // LENGTH + TEXT
-            byte[] bytes = new byte[byteCount]; // LITTLE ENDIAN!
-            bytes[0] = (byte)(index & 0xFF); // DISPLAY INDEX LSB
-            bytes[1] = (byte)((index >> 8) & 0xFF); // DISPLAY INDEX MSB
-            bytes[2] = tallyByteToHardware; // CONTROL LSB (tallies, brightness)
-            bytes[3] = 0; // CONTROL MSB (control bit, reserved)
-            if (sendText)
-            {
-                bytes[4] = (byte)(textBytesToHardware.Length & 0xFF); // LENGTH MSB
-                bytes[5] = (byte)((textBytesToHardware.Length >> 8) & 0xFF); // LENGTH LSB
-                textBytesToHardware.CopyTo(bytes, 6);
-            }
-            return bytes;
+            throw new NotImplementedException();
         }
 
-        private void sendData(bool sendText) => unit?.SendDisplayData(getAllBytesToSend(sendText));
+        private void sendData(bool sendText) 
+        {
+            
+            // => unit?.SendDisplayData(getAllBytesToSend(sendText));
+        }
         #endregion
 
     }
