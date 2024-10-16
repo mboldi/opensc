@@ -6,8 +6,8 @@ namespace OpenSC.Modules
 {
 
     [Module("umds-subtype-evertz-imagevideo-gui", "UMDs / Evertz ImageVideo (GUI)", "TODO")]
-    [DependsOnModule(typeof(UmdsSubtypeTsl50ModelModule))]
-    public class UmdsSubtypeImageVideoGuiModule : SubtypeGuiModuleBase<UmdsSubtypeTsl50ModelModule>
+    [DependsOnModule(typeof(UmdsSubtypeImageVideoModelModule))]
+    public class UmdsSubtypeImageVideoGuiModule : SubtypeGuiModuleBase<UmdsSubtypeImageVideoModelModule>
     {
 
         public override void Initialize()
@@ -28,7 +28,7 @@ namespace OpenSC.Modules
         public const string TOPMENU_LABEL = UmdsGuiModule.TOPMENU_LABEL;
         public const string MENUGROUP_ID = "subtypes";
         public const int MENUGROUP_WEIGHT = UmdsGuiModule.MENUGROUP_WEIGHT + 10;
-        public const string SUBMENU_LABEL = "Evertz ImageVideo Units";
+        public const string SUBMENU_LABEL = "Evertz ImageVideo";
         public const string SUBMENU_GROUP_ID = "base";
         public const int SUBMENU_GROUP_WEIGHT = 10;
         public const string SUBMENU_ITEM_SCREENLIST_LABEL = "Unit list";
@@ -41,7 +41,7 @@ namespace OpenSC.Modules
             MenuItem subMenu = menuGroup[SUBMENU_LABEL];
             MenuItemGroup subMenuGroup = subMenu[SUBMENU_GROUP_ID];
             subMenuGroup.Weight = SUBMENU_GROUP_WEIGHT;
-            subMenuGroup[SUBMENU_ITEM_SCREENLIST_LABEL].ClickHandler = (menu, tag) => new ImageVideoScreenList().ShowAsChild();
+            subMenuGroup[SUBMENU_ITEM_SCREENLIST_LABEL].ClickHandler = (menu, tag) => new ImageVideoUnitList().ShowAsChild();
         }
 
     }

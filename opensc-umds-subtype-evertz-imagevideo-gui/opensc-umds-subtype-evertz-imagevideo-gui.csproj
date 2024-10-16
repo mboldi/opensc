@@ -9,8 +9,8 @@
       <ProjectReference Include="..\opensc-umds-subtype-tsl50-model\opensc-umds-subtype-tsl50-model.csproj" />
   </ItemGroup>
   <ItemGroup>
-      <Compile Update="GUI\UMDs\ImageVideoScreenEditorForm.cs" />
-      <Compile Update="GUI\UMDs\ImageVideoScreenList.cs" />
+      <Compile Update="GUI\UMDs\ImageVideoUnitEditorForm.cs" />
+      <Compile Update="GUI\UMDs\ImageVideoUnitList.cs" />
       <Compile Update="GUI\UMDs\ImageVideoDisplayUmdEditorForm.cs" />
   </ItemGroup>
   <Import Project="..\opensc-umds-gui\UmdsSubtypeGuiModuleBase.csproj" />

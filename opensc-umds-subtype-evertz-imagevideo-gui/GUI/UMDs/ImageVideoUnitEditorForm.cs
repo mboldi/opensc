@@ -5,14 +5,14 @@ using System.Windows.Forms;
 namespace OpenSC.GUI.UMDs
 {
 
-    public partial class ImageVideoScreenEditorForm : ModelEditorFormBase, IModelEditorForm<ImageVideoUnit>
+    public partial class ImageVideoUnitEditorForm : ModelEditorFormBase, IModelEditorForm<ImageVideoUnit>
     {
 
         public IModelEditorForm GetInstance(object modelInstance) => GetInstanceT(modelInstance as ImageVideoUnit);
-        public IModelEditorForm<ImageVideoUnit> GetInstanceT(ImageVideoUnit modelInstance) => new ImageVideoScreenEditorForm(modelInstance);
+        public IModelEditorForm<ImageVideoUnit> GetInstanceT(ImageVideoUnit modelInstance) => new ImageVideoUnitEditorForm(modelInstance);
 
-        public ImageVideoScreenEditorForm() : base() => InitializeComponent();
-        public ImageVideoScreenEditorForm(ImageVideoUnit tsl50screen) : base(tsl50screen) =>InitializeComponent();
+        public ImageVideoUnitEditorForm() : base() => InitializeComponent();
+        public ImageVideoUnitEditorForm(ImageVideoUnit imagevideoScreen) : base(imagevideoScreen) =>InitializeComponent();
 
         protected override IModelEditorFormDataManager createManager()
             => new ModelEditorFormDataManager<ImageVideoUnit, ImageVideoUnit>(this, ImageVideoUnitDatabase.Instance);

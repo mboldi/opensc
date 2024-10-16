@@ -1,6 +1,6 @@
 ﻿namespace OpenSC.GUI.UMDs
 {
-    partial class ImageVideoScreenList
+    partial class ImageVideoUnitList
     {
         /// <summary>
         /// Required designer variable.

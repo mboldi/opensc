@@ -7,7 +7,7 @@ namespace OpenSC.Model.UMDs.ImageVideo
 {
 
     [DatabaseName(ImageVideoUnitDatabase.DBNAME)]
-    [XmlTagNames("screens", "screen")]
+    [XmlTagNames("units", "unit")]
     public class ImageVideoUnitDatabase: DatabaseBase<ImageVideoUnit>
     {
         public static ImageVideoUnitDatabase Instance { get; } = new ImageVideoUnitDatabase();

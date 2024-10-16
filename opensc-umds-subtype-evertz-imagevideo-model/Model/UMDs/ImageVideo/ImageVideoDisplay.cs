@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace OpenSC.Model.UMDs.ImageVideo
 {
-    [TypeLabel("TSL 5.0")]
-    [TypeCode("tsl50")]
+    [TypeLabel("Evertz ImageVideo")]
+    [TypeCode("imagevideo")]
     public partial class ImageVideoDisplay : Umd
     {
 

@@ -1,6 +1,6 @@
 ﻿using OpenSC.GUI.GeneralComponents.DropDowns;
 using OpenSC.Model.UMDs;
-using OpenSC.Model.UMDs.Tsl50;
+using OpenSC.Model.UMDs.ImageVideo;
 using System;
 
 namespace OpenSC.GUI.UMDs
@@ -17,47 +17,47 @@ namespace OpenSC.GUI.UMDs
         public ImageVideoDisplayUmdEditorForm(Umd umd) : base(umd)
         {
             InitializeComponent();
-            if ((umd != null) && !(umd is Tsl50Display))
-                throw new ArgumentException($"Type of UMD should be {nameof(Tsl50Display)}.", nameof(umd));
+            if ((umd != null) && !(umd is ImageVideoDisplay))
+                throw new ArgumentException($"Type of UMD should be {nameof(ImageVideoDisplay)}.", nameof(umd));
             initScreenDropDown();
         }
 
         protected override IModelEditorFormDataManager createManager()
-            => new ModelEditorFormDataManager<Umd, Tsl50Display>(this, UmdDatabase.Instance);
+            => new ModelEditorFormDataManager<Umd, ImageVideoDisplay>(this, UmdDatabase.Instance);
 
         protected override void loadData()
         {
             base.loadData();
-            Tsl50Display tsl50Display = (Tsl50Display)EditedModel;
-            if (tsl50Display == null)
+            ImageVideoDisplay imageVideoDisplay = (ImageVideoDisplay)EditedModel;
+            if (imageVideoDisplay == null)
                 return;
-            screenDropDown.SelectByValue(tsl50Display.Screen);
-            indexNumericInput.Value = tsl50Display.Index;
+            screenDropDown.SelectByValue(imageVideoDisplay.Unit);
+            indexNumericInput.Value = imageVideoDisplay.Index;
         }
 
         protected override void writeFields()
         {
             base.writeFields();
-            Tsl50Display tsl50Display = (Tsl50Display)EditedModel;
-            if (tsl50Display == null)
+            ImageVideoDisplay imageVideoDisplay = (ImageVideoDisplay)EditedModel;
+            if (imageVideoDisplay == null)
                 return;
-            tsl50Display.Screen = screenDropDown.SelectedValue as Tsl50Screen;
-            tsl50Display.Index = (int)indexNumericInput.Value;
+            imageVideoDisplay.Unit = screenDropDown.SelectedValue as ImageVideoUnit;
+            imageVideoDisplay.Index = (int)indexNumericInput.Value;
         }
 
         protected override void validateFields()
         {
             base.validateFields();
-            Tsl50Display tsl50Display = (Tsl50Display)EditedModel;
-            if (tsl50Display == null)
+            ImageVideoDisplay imageVideoDisplay = (ImageVideoDisplay)EditedModel;
+            if (imageVideoDisplay == null)
                 return;
-            tsl50Display.ValidateIndex((int)indexNumericInput.Value);
+            imageVideoDisplay.ValidateIndex((int)indexNumericInput.Value);
         }
 
         private void initScreenDropDown()
         {
-            screenDropDown.CreateAdapterAsDataSource(Tsl50ScreenDatabase.Instance, null, true, "(not associated)");
-            screenDropDown.ReceiveObjectDrop().FilterByType<Tsl50Screen>();
+            screenDropDown.CreateAdapterAsDataSource(ImageVideoUnitDatabase.Instance, null, true, "(not associated)");
+            screenDropDown.ReceiveObjectDrop().FilterByType<ImageVideoUnit>();
         }
 
     }
