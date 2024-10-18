@@ -120,8 +120,6 @@ namespace OpenSC.Library.SWP08Router
         internal void NotifyCrosspointChanged(Crosspoint crosspoint)
         {
             CrosspointChanged?.Invoke(crosspoint);
-
-            LogDispatcher.I("SW-P-08/Client", "crosspoint update received in client, event fired");
         }
 
         public delegate void CrosspointChangedDelegate(Crosspoint crosspoint);
