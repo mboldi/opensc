@@ -31,17 +31,17 @@
             connectionPanel = new System.Windows.Forms.Panel();
             connectionGroupBox = new System.Windows.Forms.GroupBox();
             connectionTable = new System.Windows.Forms.TableLayoutPanel();
-            disconnectButton = new System.Windows.Forms.Button();
-            ipAddressLabel = new System.Windows.Forms.Label();
-            autoReconnectCheckbox = new System.Windows.Forms.CheckBox();
-            autoReconnectLabel = new System.Windows.Forms.Label();
-            connectButton = new System.Windows.Forms.Button();
-            ipAddressInput = new GeneralComponents.IPAddressControl.IPv4AddressControl();
+            connectionTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            matrixSizeComboBox = new System.Windows.Forms.ComboBox();
+            matrixSizeLabel = new System.Windows.Forms.Label();
+            portLabel = new System.Windows.Forms.Label();
+            serialPortComboBox = new System.Windows.Forms.ComboBox();
             baseDataTabPage.SuspendLayout();
             mainContainer.SuspendLayout();
             connectionPanel.SuspendLayout();
             connectionGroupBox.SuspendLayout();
             connectionTable.SuspendLayout();
+            connectionTableLayout.SuspendLayout();
             SuspendLayout();
             // 
             // baseDataTabPage
@@ -50,11 +50,11 @@
             baseDataTabPage.Location = new System.Drawing.Point(4, 24);
             baseDataTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             baseDataTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            baseDataTabPage.Size = new System.Drawing.Size(704, 297);
+            baseDataTabPage.Size = new System.Drawing.Size(704, 295);
             // 
             // inputsButtonsPanel
             // 
-            inputsButtonsPanel.Location = new System.Drawing.Point(3, 254);
+            inputsButtonsPanel.Location = new System.Drawing.Point(3, 155);
             inputsButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             inputsButtonsPanel.Size = new System.Drawing.Size(698, 41);
             // 
@@ -77,7 +77,7 @@
             connectionPanel.Location = new System.Drawing.Point(3, 4);
             connectionPanel.Name = "connectionPanel";
             connectionPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
-            connectionPanel.Size = new System.Drawing.Size(698, 116);
+            connectionPanel.Size = new System.Drawing.Size(698, 97);
             connectionPanel.TabIndex = 2;
             // 
             // connectionGroupBox
@@ -89,7 +89,7 @@
             connectionGroupBox.Location = new System.Drawing.Point(0, 0);
             connectionGroupBox.Name = "connectionGroupBox";
             connectionGroupBox.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            connectionGroupBox.Size = new System.Drawing.Size(698, 109);
+            connectionGroupBox.Size = new System.Drawing.Size(698, 90);
             connectionGroupBox.TabIndex = 0;
             connectionGroupBox.TabStop = false;
             connectionGroupBox.Text = "Connection";
@@ -103,12 +103,7 @@
             connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            connectionTable.Controls.Add(disconnectButton, 2, 1);
-            connectionTable.Controls.Add(ipAddressLabel, 0, 0);
-            connectionTable.Controls.Add(autoReconnectCheckbox, 1, 2);
-            connectionTable.Controls.Add(autoReconnectLabel, 0, 2);
-            connectionTable.Controls.Add(connectButton, 1, 1);
-            connectionTable.Controls.Add(ipAddressInput, 1, 0);
+            connectionTable.Controls.Add(connectionTableLayout, 3, 2);
             connectionTable.Dock = System.Windows.Forms.DockStyle.Fill;
             connectionTable.Location = new System.Drawing.Point(7, 24);
             connectionTable.Name = "connectionTable";
@@ -116,81 +111,65 @@
             connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            connectionTable.Size = new System.Drawing.Size(684, 77);
+            connectionTable.Size = new System.Drawing.Size(684, 58);
             connectionTable.TabIndex = 0;
             // 
-            // disconnectButton
+            // connectionTableLayout
             // 
-            disconnectButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            disconnectButton.Location = new System.Drawing.Point(205, 30);
-            disconnectButton.Name = "disconnectButton";
-            disconnectButton.Size = new System.Drawing.Size(88, 24);
-            disconnectButton.TabIndex = 1;
-            disconnectButton.Text = "Disconnect";
-            disconnectButton.UseVisualStyleBackColor = true;
-            disconnectButton.Click += disconnectButton_Click;
+            connectionTableLayout.ColumnCount = 2;
+            connectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.241888F));
+            connectionTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.75811F));
+            connectionTableLayout.Controls.Add(matrixSizeComboBox, 1, 1);
+            connectionTableLayout.Controls.Add(matrixSizeLabel, 0, 1);
+            connectionTableLayout.Controls.Add(portLabel, 0, 0);
+            connectionTableLayout.Controls.Add(serialPortComboBox, 1, 0);
+            connectionTableLayout.Location = new System.Drawing.Point(3, 3);
+            connectionTableLayout.Name = "connectionTableLayout";
+            connectionTableLayout.RowCount = 2;
+            connectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            connectionTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            connectionTableLayout.Size = new System.Drawing.Size(678, 52);
+            connectionTableLayout.TabIndex = 1;
             // 
-            // ipAddressLabel
+            // matrixSizeComboBox
             // 
-            ipAddressLabel.AutoSize = true;
-            ipAddressLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            ipAddressLabel.Location = new System.Drawing.Point(3, 0);
-            ipAddressLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
-            ipAddressLabel.Name = "ipAddressLabel";
-            ipAddressLabel.Size = new System.Drawing.Size(63, 27);
-            ipAddressLabel.TabIndex = 0;
-            ipAddressLabel.Text = "IP address:";
-            ipAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            matrixSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            matrixSizeComboBox.FormattingEnabled = true;
+            matrixSizeComboBox.Location = new System.Drawing.Point(86, 29);
+            matrixSizeComboBox.Name = "matrixSizeComboBox";
+            matrixSizeComboBox.Size = new System.Drawing.Size(291, 23);
+            matrixSizeComboBox.TabIndex = 3;
             // 
-            // autoReconnectCheckbox
+            // matrixSizeLabel
             // 
-            autoReconnectCheckbox.AutoSize = true;
-            autoReconnectCheckbox.Dock = System.Windows.Forms.DockStyle.Left;
-            autoReconnectCheckbox.Location = new System.Drawing.Point(111, 60);
-            autoReconnectCheckbox.Name = "autoReconnectCheckbox";
-            autoReconnectCheckbox.Size = new System.Drawing.Size(15, 14);
-            autoReconnectCheckbox.TabIndex = 3;
-            autoReconnectCheckbox.UseVisualStyleBackColor = true;
+            matrixSizeLabel.AutoSize = true;
+            matrixSizeLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            matrixSizeLabel.Location = new System.Drawing.Point(3, 26);
+            matrixSizeLabel.Name = "matrixSizeLabel";
+            matrixSizeLabel.Size = new System.Drawing.Size(66, 26);
+            matrixSizeLabel.TabIndex = 2;
+            matrixSizeLabel.Text = "Matrix size:";
+            matrixSizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // autoReconnectLabel
+            // portLabel
             // 
-            autoReconnectLabel.AutoSize = true;
-            autoReconnectLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            autoReconnectLabel.Location = new System.Drawing.Point(3, 57);
-            autoReconnectLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
-            autoReconnectLabel.Name = "autoReconnectLabel";
-            autoReconnectLabel.Size = new System.Drawing.Size(92, 20);
-            autoReconnectLabel.TabIndex = 4;
-            autoReconnectLabel.Text = "Auto reconnect:";
-            autoReconnectLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            portLabel.AutoSize = true;
+            portLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            portLabel.Location = new System.Drawing.Point(3, 0);
+            portLabel.Name = "portLabel";
+            portLabel.Size = new System.Drawing.Size(32, 26);
+            portLabel.TabIndex = 0;
+            portLabel.Text = "Port:";
+            portLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // connectButton
+            // serialPortComboBox
             // 
-            connectButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            connectButton.Location = new System.Drawing.Point(111, 30);
-            connectButton.Name = "connectButton";
-            connectButton.Size = new System.Drawing.Size(88, 24);
-            connectButton.TabIndex = 0;
-            connectButton.Text = "Connect";
-            connectButton.UseVisualStyleBackColor = true;
-            connectButton.Click += connectButton_Click;
-            // 
-            // ipAddressInput
-            // 
-            ipAddressInput.AllowInternalTab = false;
-            ipAddressInput.AutoHeight = true;
-            ipAddressInput.BackColor = System.Drawing.SystemColors.Window;
-            ipAddressInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            connectionTable.SetColumnSpan(ipAddressInput, 2);
-            ipAddressInput.Cursor = System.Windows.Forms.Cursors.IBeam;
-            ipAddressInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            ipAddressInput.Location = new System.Drawing.Point(113, 3);
-            ipAddressInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            ipAddressInput.Name = "ipAddressInput";
-            ipAddressInput.ReadOnly = false;
-            ipAddressInput.Size = new System.Drawing.Size(182, 19);
-            ipAddressInput.TabIndex = 5;
-            ipAddressInput.Text = "...";
+            serialPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            serialPortComboBox.FormattingEnabled = true;
+            serialPortComboBox.Location = new System.Drawing.Point(86, 3);
+            serialPortComboBox.Name = "serialPortComboBox";
+            serialPortComboBox.Size = new System.Drawing.Size(291, 23);
+            serialPortComboBox.TabIndex = 1;
             // 
             // SonySerialtallyMixerEditorForm
             // 
@@ -209,7 +188,8 @@
             connectionGroupBox.ResumeLayout(false);
             connectionGroupBox.PerformLayout();
             connectionTable.ResumeLayout(false);
-            connectionTable.PerformLayout();
+            connectionTableLayout.ResumeLayout(false);
+            connectionTableLayout.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -218,11 +198,10 @@
         private System.Windows.Forms.Panel connectionPanel;
         private System.Windows.Forms.GroupBox connectionGroupBox;
         private System.Windows.Forms.TableLayoutPanel connectionTable;
-        private System.Windows.Forms.Label ipAddressLabel;
-        private System.Windows.Forms.Button disconnectButton;
-        private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.CheckBox autoReconnectCheckbox;
-        private System.Windows.Forms.Label autoReconnectLabel;
-        private GeneralComponents.IPAddressControl.IPv4AddressControl ipAddressInput;
+        private System.Windows.Forms.TableLayoutPanel connectionTableLayout;
+        private System.Windows.Forms.Label portLabel;
+        private System.Windows.Forms.ComboBox serialPortComboBox;
+        private System.Windows.Forms.ComboBox matrixSizeComboBox;
+        private System.Windows.Forms.Label matrixSizeLabel;
     }
 }

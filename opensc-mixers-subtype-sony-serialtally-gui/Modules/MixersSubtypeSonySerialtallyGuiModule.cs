@@ -5,7 +5,7 @@ namespace OpenSC.Modules
 {
 
     [Module("mixers-subtype-sony-serialtally", "Mixers / Sony Serial Tally (GUI)", "TODO")]
-    [DependsOnModule(typeof(MixersSubtypeBmdModelModule))]
+    [DependsOnModule(typeof(MixersSubtypeSonySerialtallyModelModule))]
     public class BooleantalliesGuiModule : SubtypeGuiModuleBase<MixersSubtypeSonySerialtallyModelModule>
     {
 
