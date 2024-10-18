@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+      <TargetFramework>net5.0-windows7.0</TargetFramework>
+      <RootNamespace>OpenSC</RootNamespace>
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+      <ProjectReference Include="..\opensc-umds-subtype-evertz-imagevideo-model\opensc-umds-subtype-evertz-imagevideo-model.csproj" />
+      <ProjectReference Include="..\opensc-umds-subtype-tsl50-model\opensc-umds-subtype-tsl50-model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+      <Compile Update="GUI\UMDs\ImageVideoUnitEditorForm.cs" />
+      <Compile Update="GUI\UMDs\ImageVideoUnitList.cs" />
+      <Compile Update="GUI\UMDs\ImageVideoDisplayUmdEditorForm.cs" />
+  </ItemGroup>
+  <Import Project="..\opensc-umds-gui\UmdsSubtypeGuiModuleBase.csproj" />
+</Project>
