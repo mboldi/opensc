@@ -242,6 +242,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-mixers-subtype-sony-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-mixers-subtype-sony-serialtally-model", "opensc-mixers-subtype-sony-serialtally-model\opensc-mixers-subtype-sony-serialtally-model.csproj", "{689D17D1-B7EE-4E62-95F7-32CB655F59C6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-library-sony-serialtally-switcher", "opensc-library-sony-serialtally-switcher\opensc-library-sony-serialtally-switcher.csproj", "{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1620,6 +1622,18 @@ Global
 		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x64.Build.0 = Release|Any CPU
 		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x86.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x64.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x64.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

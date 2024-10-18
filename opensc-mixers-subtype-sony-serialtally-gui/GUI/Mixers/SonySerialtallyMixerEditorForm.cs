@@ -1,5 +1,8 @@
-﻿using OpenSC.Model.Mixers;
+﻿using OpenSC.GUI.GeneralComponents.DropDowns;
+using OpenSC.Model.Mixers;
 using OpenSC.Model.Mixers.SonySerialTally;
+using OpenSC.Model.SerialPorts;
+using OpenSC.Model.SonySerialTally;
 using System;
 
 namespace OpenSC.GUI.Mixers
@@ -18,6 +21,16 @@ namespace OpenSC.GUI.Mixers
             InitializeComponent();
             if ((mixer != null) && !(mixer is SonySerialTallyMixer))
                 throw new ArgumentException($"Type of mixer should be {nameof(SonySerialTallyMixer)}.", nameof(mixer));
+
+            initDropDowns();
+        }
+        private void initDropDowns()
+        {
+            serialPortComboBox.CreateAdapterAsDataSource(SerialPortDatabase.Instance, port => port.Name, true, "(not connected)");
+            serialPortComboBox.ReceiveObjectDrop().FilterByType<SerialPort>();
+
+            matrixSizeComboBox.Items.Add("128x128");
+            matrixSizeComboBox.Items.Add("256x256");
         }
 
         protected override IModelEditorFormDataManager createManager()
@@ -29,11 +42,7 @@ namespace OpenSC.GUI.Mixers
             SonySerialTallyMixer sonyMixer = (SonySerialTallyMixer)EditedModel;
             if (sonyMixer == null)
                 return;
-            ipAddressInput.Text = sonyMixer.IpAddress;
-            autoReconnectCheckbox.Checked = sonyMixer.AutoReconnect;
-            sonyMixer.ConnectionStateChanged += connectionStateChangedHandler;
-            connectButton.Enabled = !sonyMixer.ConnectionState;
-            disconnectButton.Enabled = sonyMixer.ConnectionState;
+            
         }
 
         protected override void writeFields()
@@ -42,8 +51,7 @@ namespace OpenSC.GUI.Mixers
             SonySerialTallyMixer sonyMixer = (SonySerialTallyMixer)EditedModel;
             if (sonyMixer == null)
                 return;
-            sonyMixer.IpAddress = ipAddressInput.Text;
-            sonyMixer.AutoReconnect = autoReconnectCheckbox.Checked;
+            
         }
 
         protected override void validateFields()
@@ -52,11 +60,8 @@ namespace OpenSC.GUI.Mixers
             SonySerialTallyMixer sonyMixer = (SonySerialTallyMixer)EditedModel;
             if (sonyMixer == null)
                 return;
-            sonyMixer.ValidateIpAddress(ipAddressInput.Text);
+            
         }
-
-        private void connectButton_Click(object sender, EventArgs e) => (EditedModel as SonySerialTallyMixer)?.Connect();
-        private void disconnectButton_Click(object sender, EventArgs e) => (EditedModel as SonySerialTallyMixer)?.Disconnect();
 
         private void connectionStateChangedHandler(SonySerialTallyMixer mixer, bool oldState, bool newState)
         {
@@ -65,8 +70,6 @@ namespace OpenSC.GUI.Mixers
                 Invoke(new Action(() => connectionStateChangedHandler(mixer, oldState, newState)));
                 return;
             }
-            connectButton.Enabled = !newState;
-            disconnectButton.Enabled = newState;
         }
 
     }

@@ -8,7 +8,7 @@
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-      <ProjectReference Include="..\opensc-mixers-subtype-bmd-model\opensc-mixers-subtype-bmd-model.csproj" />
+      <ProjectReference Include="..\opensc-library-sony-serialtally-switcher\opensc-library-sony-serialtally-switcher.csproj" />
       <ProjectReference Include="..\opensc-mixers-subtype-sony-serialtally-model\opensc-mixers-subtype-sony-serialtally-model.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -7,22 +7,12 @@
       <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-      <COMReference Include="BMDSwitcherAPI">
-         <Guid>{8A92B919-156C-4D61-94EF-03F9BE4004B0}</Guid>
-         <VersionMajor>1</VersionMajor>
-         <VersionMinor>0</VersionMinor>
-         <Lcid>0</Lcid>
-         <WrapperTool>tlbimp</WrapperTool>
-         <Isolated>False</Isolated>
-         <EmbedInteropTypes>True</EmbedInteropTypes>
-      </COMReference>
+      <ProjectReference Include="..\opensc-mixers-subtype-sony-serialtally-model\opensc-mixers-subtype-sony-serialtally-model.csproj" />
+      <ProjectReference Include="..\ThreadHelpers\ThreadHelpers.csproj" />
   </ItemGroup>
   <ItemGroup>
-      <ProjectReference Include="..\ThreadHelpers\ThreadHelpers.csproj"/>
+      <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+      <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
-  <ItemGroup>
-      <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
-      <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0"/>
-  </ItemGroup>
-  <Import Project="..\CommonCsproj\Global\*.csproj"/>
+  <Import Project="..\CommonCsproj\Global\*.csproj" />
 </Project>
