@@ -79,7 +79,7 @@ namespace OpenSC.GUI.UMDs
 
         }
 
-        private static readonly Color CELL_BG_CONNECTED = Color.LightPink;
+        private static readonly Color CELL_BG_CONNECTED = Color.LightGreen;
         private static readonly Color CELL_BG_DISCONNECTED = Color.LightPink;
 
     }
