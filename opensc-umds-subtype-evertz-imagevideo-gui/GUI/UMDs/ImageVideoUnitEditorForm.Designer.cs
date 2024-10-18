@@ -99,7 +99,7 @@
             portNumericInput.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             portNumericInput.Name = "portNumericInput";
             portNumericInput.Size = new System.Drawing.Size(132, 23);
-            portNumericInput.TabIndex = 6;
+            portNumericInput.TabIndex = 7;
             portNumericInput.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // portLabel
@@ -139,7 +139,7 @@
             ipAddressInput.Name = "ipAddressInput";
             ipAddressInput.ReadOnly = false;
             ipAddressInput.Size = new System.Drawing.Size(186, 23);
-            ipAddressInput.TabIndex = 7;
+            ipAddressInput.TabIndex = 6;
             ipAddressInput.Text = "...";
             // 
             // ImageVideoUnitEditorForm

@@ -1,4 +1,5 @@
-﻿using OpenSC.Model.General;
+﻿using OpenSC.Logger;
+using OpenSC.Model.General;
 using OpenSC.Model.Persistence;
 using OpenSC.Model.SourceGenerators;
 using System;
@@ -130,8 +131,16 @@ namespace OpenSC.Model.UMDs.ImageVideo
             shouldBeConnected = true;
             disposeExistingSocket();
             tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            await tcpSocket.ConnectAsync(ipEndpoint);
-            Connected = tcpSocket.Connected;
+
+            try
+            {
+                await tcpSocket.ConnectAsync(ipEndpoint);
+                Connected = tcpSocket.Connected;
+                LogDispatcher.I("ImageVideo", string.Format("Connected to  Imagevideo unit with IP {0}:{1}", IpAddress, Port));
+            } catch (Exception ex)
+            {
+                LogDispatcher.W("ImageVideo", string.Format("Couldn't connect to  Imagevideo unit with IP {0}:{1}", IpAddress, Port));
+            }
         }
 
         public void Disconnect()
@@ -267,14 +276,10 @@ namespace OpenSC.Model.UMDs.ImageVideo
             }
         }
 
-        internal void SendDisplayCommands(char monitorLetter, Dictionary<string, string> commands)
+        internal void SendDisplayCommand(string command)
         {
-            StringBuilder commandBuilder = new();
-            commandBuilder.AppendLine($"MONITOR {monitorLetter}:");
-            foreach (KeyValuePair<string, string> command in commands)
-                commandBuilder.AppendLine($"{command.Key}: {command.Value}");
-            commandBuilder.AppendLine();
-            sendTcpPacket(commandBuilder.ToString());
+            if(Connected)
+                sendTcpPacket(command);
         }
         #endregion
 

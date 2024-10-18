@@ -31,7 +31,7 @@ namespace OpenSC.Model.UMDs.ImageVideo
 
         public void ValidateIndex(int index)
         {
-            if ((index < 0) || (index > 65534))
+            if ((index < 1) || (index > 2048))
                 throw new ArgumentOutOfRangeException();
         }
         #endregion
@@ -52,37 +52,66 @@ namespace OpenSC.Model.UMDs.ImageVideo
         protected override void calculateTextFields()
         {
             string text = UseFullStaticText ? FullStaticText : Texts[0].CurrentValue;
-            textBytesToHardware = Encoding.ASCII.GetBytes(text);
             DisplayableCompactText = text;
             DisplayableRawText = text;
         }
 
-        protected byte[] textBytesToHardware = Array.Empty<byte>();
-
         protected override void calculateTallyFields()
         {
-            tallyByteToHardware = 0;
-            for (int i = 0, t = 32; i < TallyInfo.Length; i++, t /= 2)
-                if (Tallies[i].CurrentState)
-                    tallyByteToHardware += (byte)t;
+            tallyStateToHardware = Tallies[0].CurrentState ? "1" : "0";
         }
 
-        private byte tallyByteToHardware;
+        private string tallyStateToHardware;
+
+        protected string getAlignmentString()
+        {
+            var alignment = UseFullStaticText ? AlignmentWithFullStaticText : Texts[0].Alignment;
+
+            string alignmentString = "1";
+            switch (alignment)
+            {
+                case UmdTextAlignment.Left:
+                    alignmentString = "0";
+                    break;
+                case UmdTextAlignment.Center:
+                    alignmentString = "1";
+                    break;
+                case UmdTextAlignment.Right:
+                    alignmentString = "2";
+                    break;
+            }
+
+            return alignmentString;
+        }
 
         protected override void sendTextsToHardware() => sendData(true);
         protected override void sendTalliesToHardware() => sendData(false);
         protected override void sendEverythingToHardware() => sendData(true);
 
-        protected virtual byte[] getAllBytesToSend(bool sendText = true)
+        protected virtual string getCommandStringToSend(bool sendText = true)
         {
-            throw new NotImplementedException();
+            string command = "";
+
+            command += string.Format("%{0}D", Index);                       // PiP ID
+            command += string.Format("%1S");                                // valami
+
+            if(sendText)
+            {
+                var alignment = getAlignmentString();
+
+                command += string.Format("%{0}J", alignment);               // alignment
+                command += DisplayableRawText;                              // label text
+            }
+
+            command += string.Format("%16S1={0}", tallyStateToHardware);    // tally
+
+            command += "%Z";                                                // vége
+
+            return command;
         }
 
-        private void sendData(bool sendText) 
-        {
-            
-            // => unit?.SendDisplayData(getAllBytesToSend(sendText));
-        }
+        private void sendData(bool sendText) => unit?.SendDisplayCommand(getCommandStringToSend(sendText));
+       
         #endregion
 
     }
