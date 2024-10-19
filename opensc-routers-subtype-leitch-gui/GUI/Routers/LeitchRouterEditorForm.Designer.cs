@@ -28,150 +28,152 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.connectionPanel = new System.Windows.Forms.Panel();
-            this.connectionGroupBox = new System.Windows.Forms.GroupBox();
-            this.connectionTable = new System.Windows.Forms.TableLayoutPanel();
-            this.levelLabel = new System.Windows.Forms.Label();
-            this.portLabel = new System.Windows.Forms.Label();
-            this.levelNumericField = new System.Windows.Forms.NumericUpDown();
-            this.portDropDown = new System.Windows.Forms.ComboBox();
-            this.baseDataTabPage.SuspendLayout();
-            this.mainContainer.SuspendLayout();
-            this.connectionPanel.SuspendLayout();
-            this.connectionGroupBox.SuspendLayout();
-            this.connectionTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.levelNumericField)).BeginInit();
-            this.SuspendLayout();
+            connectionPanel = new System.Windows.Forms.Panel();
+            connectionGroupBox = new System.Windows.Forms.GroupBox();
+            connectionTable = new System.Windows.Forms.TableLayoutPanel();
+            levelLabel = new System.Windows.Forms.Label();
+            portLabel = new System.Windows.Forms.Label();
+            levelNumericField = new System.Windows.Forms.NumericUpDown();
+            portDropDown = new System.Windows.Forms.ComboBox();
+            baseDataTabPage.SuspendLayout();
+            mainContainer.SuspendLayout();
+            connectionPanel.SuspendLayout();
+            connectionGroupBox.SuspendLayout();
+            connectionTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)levelNumericField).BeginInit();
+            SuspendLayout();
             // 
             // baseDataTabPage
             // 
-            this.baseDataTabPage.Controls.Add(this.connectionPanel);
-            this.baseDataTabPage.Size = new System.Drawing.Size(954, 389);
-            this.baseDataTabPage.Controls.SetChildIndex(this.connectionPanel, 0);
+            baseDataTabPage.Controls.Add(connectionPanel);
+            baseDataTabPage.Location = new System.Drawing.Point(4, 24);
+            baseDataTabPage.Size = new System.Drawing.Size(835, 280);
+            // 
+            // inputsButtonsPanel
+            // 
+            inputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            inputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // outputsButtonsPanel
             // 
-            this.outputsButtonsPanel.Location = new System.Drawing.Point(3, 342);
-            this.outputsButtonsPanel.Size = new System.Drawing.Size(1048, 44);
+            outputsButtonsPanel.Location = new System.Drawing.Point(3, 241);
+            outputsButtonsPanel.Size = new System.Drawing.Size(915, 41);
             // 
             // customElementsPanel
             // 
-            this.customElementsPanel.Size = new System.Drawing.Size(982, 428);
+            customElementsPanel.Padding = new System.Windows.Forms.Padding(8, 10, 8, 0);
+            customElementsPanel.Size = new System.Drawing.Size(859, 402);
             // 
             // mainContainer
             // 
-            this.mainContainer.Size = new System.Drawing.Size(982, 497);
+            mainContainer.Size = new System.Drawing.Size(859, 466);
             // 
             // connectionPanel
             // 
-            this.connectionPanel.AutoSize = true;
-            this.connectionPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionPanel.Controls.Add(this.connectionGroupBox);
-            this.connectionPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.connectionPanel.Location = new System.Drawing.Point(3, 97);
-            this.connectionPanel.Name = "connectionPanel";
-            this.connectionPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
-            this.connectionPanel.Size = new System.Drawing.Size(948, 96);
-            this.connectionPanel.TabIndex = 2;
+            connectionPanel.AutoSize = true;
+            connectionPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionPanel.Controls.Add(connectionGroupBox);
+            connectionPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            connectionPanel.Location = new System.Drawing.Point(3, 3);
+            connectionPanel.Name = "connectionPanel";
+            connectionPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
+            connectionPanel.Size = new System.Drawing.Size(829, 97);
+            connectionPanel.TabIndex = 2;
             // 
             // connectionGroupBox
             // 
-            this.connectionGroupBox.AutoSize = true;
-            this.connectionGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionGroupBox.Controls.Add(this.connectionTable);
-            this.connectionGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.connectionGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.connectionGroupBox.Name = "connectionGroupBox";
-            this.connectionGroupBox.Padding = new System.Windows.Forms.Padding(8);
-            this.connectionGroupBox.Size = new System.Drawing.Size(948, 89);
-            this.connectionGroupBox.TabIndex = 0;
-            this.connectionGroupBox.TabStop = false;
-            this.connectionGroupBox.Text = "Connection";
+            connectionGroupBox.AutoSize = true;
+            connectionGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionGroupBox.Controls.Add(connectionTable);
+            connectionGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            connectionGroupBox.Location = new System.Drawing.Point(0, 0);
+            connectionGroupBox.Name = "connectionGroupBox";
+            connectionGroupBox.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            connectionGroupBox.Size = new System.Drawing.Size(829, 90);
+            connectionGroupBox.TabIndex = 0;
+            connectionGroupBox.TabStop = false;
+            connectionGroupBox.Text = "Connection";
             // 
             // connectionTable
             // 
-            this.connectionTable.AutoSize = true;
-            this.connectionTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.connectionTable.ColumnCount = 2;
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.connectionTable.Controls.Add(this.levelLabel, 0, 1);
-            this.connectionTable.Controls.Add(this.portLabel, 0, 0);
-            this.connectionTable.Controls.Add(this.levelNumericField, 1, 1);
-            this.connectionTable.Controls.Add(this.portDropDown, 1, 0);
-            this.connectionTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.connectionTable.Location = new System.Drawing.Point(8, 23);
-            this.connectionTable.Name = "connectionTable";
-            this.connectionTable.RowCount = 2;
-            this.connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.connectionTable.Size = new System.Drawing.Size(932, 58);
-            this.connectionTable.TabIndex = 0;
+            connectionTable.AutoSize = true;
+            connectionTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            connectionTable.ColumnCount = 2;
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            connectionTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            connectionTable.Controls.Add(levelLabel, 0, 1);
+            connectionTable.Controls.Add(portLabel, 0, 0);
+            connectionTable.Controls.Add(levelNumericField, 1, 1);
+            connectionTable.Controls.Add(portDropDown, 1, 0);
+            connectionTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            connectionTable.Location = new System.Drawing.Point(7, 24);
+            connectionTable.Name = "connectionTable";
+            connectionTable.RowCount = 2;
+            connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            connectionTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            connectionTable.Size = new System.Drawing.Size(815, 58);
+            connectionTable.TabIndex = 0;
             // 
             // levelLabel
             // 
-            this.levelLabel.AutoSize = true;
-            this.levelLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.levelLabel.Location = new System.Drawing.Point(3, 30);
-            this.levelLabel.Margin = new System.Windows.Forms.Padding(3, 0, 15, 0);
-            this.levelLabel.Name = "levelLabel";
-            this.levelLabel.Size = new System.Drawing.Size(46, 28);
-            this.levelLabel.TabIndex = 3;
-            this.levelLabel.Text = "Level:";
-            this.levelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            levelLabel.AutoSize = true;
+            levelLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            levelLabel.Location = new System.Drawing.Point(3, 29);
+            levelLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
+            levelLabel.Name = "levelLabel";
+            levelLabel.Size = new System.Drawing.Size(37, 29);
+            levelLabel.TabIndex = 3;
+            levelLabel.Text = "Level:";
+            levelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // portLabel
             // 
-            this.portLabel.AutoSize = true;
-            this.portLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.portLabel.Location = new System.Drawing.Point(3, 0);
-            this.portLabel.Margin = new System.Windows.Forms.Padding(3, 0, 15, 0);
-            this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(38, 30);
-            this.portLabel.TabIndex = 0;
-            this.portLabel.Text = "Port:";
-            this.portLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            portLabel.AutoSize = true;
+            portLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            portLabel.Location = new System.Drawing.Point(3, 0);
+            portLabel.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
+            portLabel.Name = "portLabel";
+            portLabel.Size = new System.Drawing.Size(32, 29);
+            portLabel.TabIndex = 0;
+            portLabel.Text = "Port:";
+            portLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // levelNumericField
             // 
-            this.levelNumericField.Location = new System.Drawing.Point(67, 33);
-            this.levelNumericField.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.levelNumericField.Name = "levelNumericField";
-            this.levelNumericField.Size = new System.Drawing.Size(120, 22);
-            this.levelNumericField.TabIndex = 2;
+            levelNumericField.Location = new System.Drawing.Point(56, 32);
+            levelNumericField.Maximum = new decimal(new int[] { 9, 0, 0, 0 });
+            levelNumericField.Name = "levelNumericField";
+            levelNumericField.Size = new System.Drawing.Size(105, 23);
+            levelNumericField.TabIndex = 2;
             // 
             // portDropDown
             // 
-            this.portDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.portDropDown.FormattingEnabled = true;
-            this.portDropDown.Location = new System.Drawing.Point(67, 3);
-            this.portDropDown.Name = "portDropDown";
-            this.portDropDown.Size = new System.Drawing.Size(342, 24);
-            this.portDropDown.TabIndex = 4;
+            portDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            portDropDown.FormattingEnabled = true;
+            portDropDown.Location = new System.Drawing.Point(56, 3);
+            portDropDown.Name = "portDropDown";
+            portDropDown.Size = new System.Drawing.Size(300, 23);
+            portDropDown.TabIndex = 4;
             // 
             // LeitchRouterEditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 553);
-            this.DeleteButtonVisible = true;
-            this.Name = "LeitchRouterEditorForm";
-            this.baseDataTabPage.ResumeLayout(false);
-            this.baseDataTabPage.PerformLayout();
-            this.mainContainer.ResumeLayout(false);
-            this.connectionPanel.ResumeLayout(false);
-            this.connectionPanel.PerformLayout();
-            this.connectionGroupBox.ResumeLayout(false);
-            this.connectionGroupBox.PerformLayout();
-            this.connectionTable.ResumeLayout(false);
-            this.connectionTable.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.levelNumericField)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(859, 518);
+            DeleteButtonVisible = true;
+            MinimumSize = new System.Drawing.Size(769, 530);
+            Name = "LeitchRouterEditorForm";
+            baseDataTabPage.ResumeLayout(false);
+            baseDataTabPage.PerformLayout();
+            mainContainer.ResumeLayout(false);
+            connectionPanel.ResumeLayout(false);
+            connectionPanel.PerformLayout();
+            connectionGroupBox.ResumeLayout(false);
+            connectionGroupBox.PerformLayout();
+            connectionTable.ResumeLayout(false);
+            connectionTable.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)levelNumericField).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

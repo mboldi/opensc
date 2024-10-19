@@ -244,6 +244,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-umds-subtype-evertz-
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-umds-subtype-evertz-imagevideo-model", "opensc-umds-subtype-evertz-imagevideo-model\opensc-umds-subtype-evertz-imagevideo-model.csproj", "{A0F68424-98C4-4C0D-9E6A-E968DEBEA188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-mixers-subtype-sony-serialtally-gui", "opensc-mixers-subtype-sony-serialtally-gui\opensc-mixers-subtype-sony-serialtally-gui.csproj", "{02388568-FB3C-4FBD-B122-C7269F52EE91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-mixers-subtype-sony-serialtally-model", "opensc-mixers-subtype-sony-serialtally-model\opensc-mixers-subtype-sony-serialtally-model.csproj", "{689D17D1-B7EE-4E62-95F7-32CB655F59C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "opensc-library-sony-serialtally-switcher", "opensc-library-sony-serialtally-switcher\opensc-library-sony-serialtally-switcher.csproj", "{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1623,6 +1628,42 @@ Global
 		{A0F68424-98C4-4C0D-9E6A-E968DEBEA188}.Release|x64.Build.0 = Release|Any CPU
 		{A0F68424-98C4-4C0D-9E6A-E968DEBEA188}.Release|x86.ActiveCfg = Release|Any CPU
 		{A0F68424-98C4-4C0D-9E6A-E968DEBEA188}.Release|x86.Build.0 = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|x64.Build.0 = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Debug|x86.Build.0 = Debug|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|x64.ActiveCfg = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|x64.Build.0 = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|x86.ActiveCfg = Release|Any CPU
+		{02388568-FB3C-4FBD-B122-C7269F52EE91}.Release|x86.Build.0 = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x64.Build.0 = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{689D17D1-B7EE-4E62-95F7-32CB655F59C6}.Release|x86.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x64.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x64.Build.0 = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BDFC4F0-5AB2-45E6-9CFA-9A91FDE7FAEF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
