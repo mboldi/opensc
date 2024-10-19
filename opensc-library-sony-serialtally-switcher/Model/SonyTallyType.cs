@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenSC.Model.SonySerialTally
+namespace OpenSC.Library.SonySerialTally
 {
-    public enum SonyTallyMatrixSize
+    public enum SonyTallyType
     {
-        Matrix256,
-        Matrix128
+        RED,
+        GREEN,
+        YELLOW
     }
 }

@@ -7,7 +7,7 @@
       <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-      <ProjectReference Include="..\opensc-mixers-subtype-sony-serialtally-model\opensc-mixers-subtype-sony-serialtally-model.csproj" />
+      <ProjectReference Include="..\opensc-library-taskschedulerqueue\opensc-library-taskschedulerqueue.csproj" />
       <ProjectReference Include="..\ThreadHelpers\ThreadHelpers.csproj" />
   </ItemGroup>
   <ItemGroup>

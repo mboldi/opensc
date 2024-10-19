@@ -1,15 +1,10 @@
-﻿using OpenSC.Logger;
+﻿using OpenSC.Library.SonySerialTally;
+using OpenSC.Logger;
 using OpenSC.Model.General;
 using OpenSC.Model.Persistence;
 using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace OpenSC.Model.Mixers.SonySerialTally
 {
@@ -21,8 +16,12 @@ namespace OpenSC.Model.Mixers.SonySerialTally
 
         private const string LOG_TAG = "Mixer/SonySerial";
 
+        private Switcher sonySwitcher;
+
         public SonySerialTallyMixer()
         {
+            sonySwitcher = new Switcher();
+
             initSwitcher();
         }
 
@@ -41,37 +40,157 @@ namespace OpenSC.Model.Mixers.SonySerialTally
 
         }
 
-        
-
         private void initSwitcher()
         {
-            
-            State = MixerState.Warning;
+            State = MixerState.Unknown;
             StateString = "disconnected";
+
+            ComPort.InitializedChanged += handlePortInitChanged;
+            ComPort.ReceivedDataBytes += handleIncomingMessage;
+
+            sonySwitcher.TallyStateChanged += handleTallyStateChange;
+            sonySwitcher.SendMessageTrigger += sendMessage;
         }
 
         private void deinitSwitcher()
         {
-            
+            ComPort.InitializedChanged -= handlePortInitChanged;
+            ComPort.ReceivedDataBytes -= handleIncomingMessage;
+
+            sonySwitcher.TallyStateChanged -= handleTallyStateChange;
+            sonySwitcher.SendMessageTrigger -= sendMessage;
         }
 
-        #region Property: SerialPort
+        #region SerialPort & Sending/Receiving
         public event PropertyChangedTwoValuesDelegate<SonySerialTallyMixer, string> SerialPortChanged;
 
+        private SerialPort comPort;
 
-        [AutoProperty]
         [PersistAs("serial_port")]
-        public SerialPort SerialPort;
+        public SerialPort ComPort
+        {
+            get => comPort;
+            set {
+                var ov = comPort;
+
+                if (ov != null)
+                {
+                    ov.InitializedChanged -= handlePortInitChanged;
+                    ov.ReceivedDataBytes -= handleIncomingMessage;
+                }
+
+                comPort = value;
+
+                if (comPort != null)
+                {
+                    comPort.InitializedChanged += handlePortInitChanged;
+                    comPort.ReceivedDataBytes += handleIncomingMessage;
+                }
+            }
+        }
+
+        private void handlePortInitChanged(SerialPort item, bool oldValue, bool newValue)
+        {
+            if(!oldValue && newValue)
+            {
+                ComPort.BreakForTime(1);
+            }
+        }
+
+        private void handleIncomingMessage(SerialPort port, byte[] data)
+        {
+            sonySwitcher.HandleIncomingMessage(data);
+        }
+
+        private void sendMessage(byte[] message)
+        {
+            DateTime validUntil = DateTime.Now + TimeSpan.FromSeconds(2);
+            comPort.SendData(message, validUntil);
+        }
+
+        #endregion
+
+        #region Tally & Matrix properties
+        private SonyTallyDataSize tallyDataSize;
+
+        [PersistAs("tally_data_size")]
+        public SonyTallyDataSize TallyDataSize
+        {
+            get => tallyDataSize;
+            set => tallyDataSize = value;
+        }
 
 
+        private SonyTallyType redTallySourceType;
+
+        [PersistAs("red_tally_source_type")]
+        public SonyTallyType RedTallySourceType
+        {
+            get => redTallySourceType;
+            set => redTallySourceType = value;
+        }
+
+
+        private int redTallySourceGroup;
+
+        [PersistAs("red_tally_source_group")]
+        public int RedTallySourceGroup
+        {
+            get => redTallySourceGroup;
+            set => redTallySourceGroup = value;
+        }
+
+
+        private SonyTallyType greenTallySourceType;
+
+        [PersistAs("green_tally_source_type")]
+        public SonyTallyType GreenTallySourceType
+        {
+            get => greenTallySourceType; 
+            set => greenTallySourceType = value;
+        }
+
+
+        private int greenTallySourceGroup;
+
+        [PersistAs("green_tally_source_group")]
+        public int GreenTallySourceGroup
+        {
+            get => greenTallySourceGroup; 
+            set => greenTallySourceGroup = value;
+        }
+
+
+        private SonySwitcherMatrixMode matrixMode;
+
+        [PersistAs("matrix_mode")]
+        public SonySwitcherMatrixMode MatrixMode
+        {
+            get => matrixMode; 
+            set => matrixMode = value;
+        }
 
         #endregion
 
 
-        
+        private void handleTallyStateChange(byte group, SonyTallyType type, int inputIndex, bool tallyState)
+        {
+            if(group == RedTallySourceGroup && type == RedTallySourceType)
+            {
+                if(inputIndex < Inputs.Count)
+                {
+                    Inputs[inputIndex].RedTally = tallyState;
+                }
+            }
 
-        
-
+            if (group == GreenTallySourceGroup && type == GreenTallySourceType)
+            {
+                if (inputIndex < Inputs.Count)
+                {
+                    Inputs[inputIndex].GreenTally = tallyState;
+                }
+            }
+        }
     }
 
 }

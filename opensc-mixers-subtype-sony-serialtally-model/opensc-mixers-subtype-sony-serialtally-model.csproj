@@ -9,6 +9,7 @@
       <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\opensc-library-sony-serialtally-switcher\opensc-library-sony-serialtally-switcher.csproj" />
     <ProjectReference Include="..\opensc-serialports-model\opensc-serialports-model.csproj" />
   </ItemGroup>
   <Import Project="..\opensc-mixers-model\MixersSubtypeModelModuleBase.csproj" />

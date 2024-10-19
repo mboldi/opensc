@@ -197,6 +197,13 @@ namespace OpenSC.Model.SerialPorts
             DroppedInvalidPacket?.Invoke(this, packet);
         }
 
+        public void BreakForTime(int ms)
+        {
+            serialPort.BreakState = true;
+            Thread.Sleep(ms);
+            serialPort.BreakState = false;
+        }
+
         public delegate void PacketEventDelegate(SerialPort port, Packet packet);
         public event PacketEventDelegate SentPacket;
         public event PacketEventDelegate DroppedInvalidPacket;
