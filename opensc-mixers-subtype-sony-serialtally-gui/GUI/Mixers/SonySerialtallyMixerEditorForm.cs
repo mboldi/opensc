@@ -24,6 +24,7 @@ namespace OpenSC.GUI.Mixers
 
             initDropDowns();
         }
+
         private void initDropDowns()
         {
             serialPortDropdown.CreateAdapterAsDataSource(SerialPortDatabase.Instance, port => port.Name, true, "(not connected)");
@@ -62,7 +63,7 @@ namespace OpenSC.GUI.Mixers
 
             serialPortDropdown.SelectByValue(sonyMixer.ComPort);
 
-            switch(sonyMixer.TallyDataSize)
+            switch (sonyMixer.TallyDataSize)
             {
                 case SonyTallyDataSize.Matrix128:
                     tallySizeDropdown.SelectedIndex = 0;
@@ -101,7 +102,7 @@ namespace OpenSC.GUI.Mixers
                     break;
             }
 
-            redTallyGroupSelectorNumeric.Value = sonyMixer.RedTallySourceGroup;
+            redTallyGroupSelectorNumeric.Value = sonyMixer.RedTallySourceGroup > 0 ? sonyMixer.RedTallySourceGroup : 1;
 
 
             switch (sonyMixer.GreenTallySourceType)
@@ -117,7 +118,7 @@ namespace OpenSC.GUI.Mixers
                     break;
             }
 
-            greenTallyGroupSelectorNumeric.Value = sonyMixer.GreenTallySourceGroup;
+            greenTallyGroupSelectorNumeric.Value = sonyMixer.GreenTallySourceGroup > 0 ? sonyMixer.GreenTallySourceGroup : 1;
 
 
         }
@@ -192,18 +193,8 @@ namespace OpenSC.GUI.Mixers
             SonySerialTallyMixer sonyMixer = (SonySerialTallyMixer)EditedModel;
             if (sonyMixer == null)
                 return;
-            
+
         }
 
-        private void connectionStateChangedHandler(SonySerialTallyMixer mixer, bool oldState, bool newState)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(() => connectionStateChangedHandler(mixer, oldState, newState)));
-                return;
-            }
-        }
-
-    }
-
+    } 
 }

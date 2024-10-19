@@ -45,8 +45,11 @@ namespace OpenSC.Model.Mixers.SonySerialTally
             State = MixerState.Unknown;
             StateString = "disconnected";
 
-            ComPort.InitializedChanged += handlePortInitChanged;
-            ComPort.ReceivedDataBytes += handleIncomingMessage;
+            if (ComPort != null)
+            {
+                ComPort.InitializedChanged += handlePortInitChanged;
+                ComPort.ReceivedDataBytes += handleIncomingMessage;
+            }
 
             sonySwitcher.TallyStateChanged += handleTallyStateChange;
             sonySwitcher.SendMessageTrigger += sendMessage;
@@ -54,8 +57,11 @@ namespace OpenSC.Model.Mixers.SonySerialTally
 
         private void deinitSwitcher()
         {
-            ComPort.InitializedChanged -= handlePortInitChanged;
-            ComPort.ReceivedDataBytes -= handleIncomingMessage;
+            if (ComPort != null)
+            {
+                ComPort.InitializedChanged -= handlePortInitChanged;
+                ComPort.ReceivedDataBytes -= handleIncomingMessage;
+            }
 
             sonySwitcher.TallyStateChanged -= handleTallyStateChange;
             sonySwitcher.SendMessageTrigger -= sendMessage;
@@ -131,7 +137,7 @@ namespace OpenSC.Model.Mixers.SonySerialTally
         }
 
 
-        private int redTallySourceGroup;
+        private int redTallySourceGroup = 1;
 
         [PersistAs("red_tally_source_group")]
         public int RedTallySourceGroup
@@ -151,7 +157,7 @@ namespace OpenSC.Model.Mixers.SonySerialTally
         }
 
 
-        private int greenTallySourceGroup;
+        private int greenTallySourceGroup = 1;
 
         [PersistAs("green_tally_source_group")]
         public int GreenTallySourceGroup

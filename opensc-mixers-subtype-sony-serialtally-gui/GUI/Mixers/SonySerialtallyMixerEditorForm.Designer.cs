@@ -362,7 +362,6 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(730, 537);
-            DeleteButtonVisible = true;
             Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             MinimumSize = new System.Drawing.Size(746, 576);
             Name = "SonySerialtallyMixerEditorForm";
