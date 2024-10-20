@@ -30,208 +30,193 @@ namespace OpenSC.GUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.menuStrip = new OpenSC.GUI.GeneralComponents.Menus.CustomMenuStrip();
-            this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileWindowsHorizontallyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileWindowsVerticallyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cascadeWindowsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.globalSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.statusStripEmptySpace = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStripClock = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStripVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.clockUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showGlobalIdInTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip.SuspendLayout();
-            this.statusStrip.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            menuStrip = new CustomMenuStrip();
+            fileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            showGlobalIdInTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            tileWindowsHorizontallyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tileWindowsVerticallyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            cascadeWindowsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            globalSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            statusStrip = new System.Windows.Forms.StatusStrip();
+            statusStripEmptySpace = new System.Windows.Forms.ToolStripStatusLabel();
+            statusStripClock = new System.Windows.Forms.ToolStripStatusLabel();
+            statusStripVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            clockUpdateTimer = new System.Windows.Forms.Timer(components);
+            menuStrip.SuspendLayout();
+            statusStrip.SuspendLayout();
+            SuspendLayout();
             // 
             // menuStrip
             // 
-            this.menuStrip.AssociatedMenuItem = null;
-            this.menuStrip.DynamicChildrenInsertPosition = 0;
-            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenu,
-            this.windowsMenu,
-            this.settingsToolStripMenuItem});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1482, 28);
-            this.menuStrip.TabIndex = 1;
-            this.menuStrip.Text = "menuStrip1";
+            menuStrip.AssociatedMenuItem = null;
+            menuStrip.DynamicChildrenInsertPosition = 0;
+            menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileMenu, windowsMenu, settingsToolStripMenuItem });
+            menuStrip.Location = new System.Drawing.Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            menuStrip.Size = new System.Drawing.Size(1297, 24);
+            menuStrip.TabIndex = 1;
+            menuStrip.Text = "menuStrip1";
             // 
             // fileMenu
             // 
-            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tablesToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
-            this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(46, 24);
-            this.fileMenu.Text = "File";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // windowsMenu
-            // 
-            this.windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tileWindowsHorizontallyMenuItem,
-            this.tileWindowsVerticallyMenuItem,
-            this.cascadeWindowsMenuItem,
-            this.toolStripSeparator1});
-            this.windowsMenu.Name = "windowsMenu";
-            this.windowsMenu.Size = new System.Drawing.Size(84, 24);
-            this.windowsMenu.Text = "Windows";
-            // 
-            // tileWindowsHorizontallyMenuItem
-            // 
-            this.tileWindowsHorizontallyMenuItem.Image = global::OpenSC.GUI.GuiIcons._32_tile_horizontally;
-            this.tileWindowsHorizontallyMenuItem.Name = "tileWindowsHorizontallyMenuItem";
-            this.tileWindowsHorizontallyMenuItem.Size = new System.Drawing.Size(260, 26);
-            this.tileWindowsHorizontallyMenuItem.Text = "Tile windows horizontally";
-            this.tileWindowsHorizontallyMenuItem.Click += new System.EventHandler(this.arrangeWindowsMenuItemClickHandler);
-            // 
-            // tileWindowsVerticallyMenuItem
-            // 
-            this.tileWindowsVerticallyMenuItem.Image = global::OpenSC.GUI.GuiIcons._32_tile_vertically;
-            this.tileWindowsVerticallyMenuItem.Name = "tileWindowsVerticallyMenuItem";
-            this.tileWindowsVerticallyMenuItem.Size = new System.Drawing.Size(260, 26);
-            this.tileWindowsVerticallyMenuItem.Text = "Tile windows vertically";
-            this.tileWindowsVerticallyMenuItem.Click += new System.EventHandler(this.arrangeWindowsMenuItemClickHandler);
-            // 
-            // cascadeWindowsMenuItem
-            // 
-            this.cascadeWindowsMenuItem.Name = "cascadeWindowsMenuItem";
-            this.cascadeWindowsMenuItem.Size = new System.Drawing.Size(260, 26);
-            this.cascadeWindowsMenuItem.Text = "Cascade windows";
-            this.cascadeWindowsMenuItem.Click += new System.EventHandler(this.arrangeWindowsMenuItemClickHandler);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(257, 6);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.globalSettingsToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // globalSettingsToolStripMenuItem
-            // 
-            this.globalSettingsToolStripMenuItem.Name = "globalSettingsToolStripMenuItem";
-            this.globalSettingsToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
-            this.globalSettingsToolStripMenuItem.Text = "Global settings";
-            this.globalSettingsToolStripMenuItem.Click += new System.EventHandler(this.globalSettingsToolStripMenuItem_Click);
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusStripEmptySpace,
-            this.statusStripClock,
-            this.statusStripVersion,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 915);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1482, 26);
-            this.statusStrip.TabIndex = 2;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // statusStripEmptySpace
-            // 
-            this.statusStripEmptySpace.Name = "statusStripEmptySpace";
-            this.statusStripEmptySpace.Size = new System.Drawing.Size(1207, 20);
-            this.statusStripEmptySpace.Spring = true;
-            // 
-            // statusStripClock
-            // 
-            this.statusStripClock.Name = "statusStripClock";
-            this.statusStripClock.Size = new System.Drawing.Size(140, 20);
-            this.statusStripClock.Text = "1970.01.01. 12:00:00";
-            // 
-            // statusStripVersion
-            // 
-            this.statusStripVersion.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
-            this.statusStripVersion.Name = "statusStripVersion";
-            this.statusStripVersion.Size = new System.Drawing.Size(85, 21);
-            this.statusStripVersion.Text = "OpenSC 1.0";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 20);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(25, 20);
-            this.toolStripStatusLabel1.Text = "    ";
-            // 
-            // clockUpdateTimer
-            // 
-            this.clockUpdateTimer.Enabled = true;
-            this.clockUpdateTimer.Interval = 500;
-            this.clockUpdateTimer.Tick += new System.EventHandler(this.clockUpdateTimer_Tick);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tablesToolStripMenuItem, toolStripSeparator2, exitToolStripMenuItem });
+            fileMenu.Name = "fileMenu";
+            fileMenu.Size = new System.Drawing.Size(37, 20);
+            fileMenu.Text = "File";
             // 
             // tablesToolStripMenuItem
             // 
-            this.tablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showGlobalIdInTablesToolStripMenuItem});
-            this.tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
-            this.tablesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.tablesToolStripMenuItem.Text = "Tables";
+            tablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { showGlobalIdInTablesToolStripMenuItem });
+            tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
+            tablesToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            tablesToolStripMenuItem.Text = "Tables";
             // 
-            // showGlobalIDToolStripMenuItem
+            // showGlobalIdInTablesToolStripMenuItem
             // 
-            this.showGlobalIdInTablesToolStripMenuItem.Name = "showGlobalIDToolStripMenuItem";
-            this.showGlobalIdInTablesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.showGlobalIdInTablesToolStripMenuItem.Text = "Show GlobalID";
+            showGlobalIdInTablesToolStripMenuItem.Name = "showGlobalIdInTablesToolStripMenuItem";
+            showGlobalIdInTablesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            showGlobalIdInTablesToolStripMenuItem.Text = "Show GlobalID";
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(103, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            // 
+            // windowsMenu
+            // 
+            windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tileWindowsHorizontallyMenuItem, tileWindowsVerticallyMenuItem, cascadeWindowsMenuItem, toolStripSeparator1 });
+            windowsMenu.Name = "windowsMenu";
+            windowsMenu.Size = new System.Drawing.Size(68, 20);
+            windowsMenu.Text = "Windows";
+            // 
+            // tileWindowsHorizontallyMenuItem
+            // 
+            tileWindowsHorizontallyMenuItem.Image = GuiIcons._32_tile_horizontally;
+            tileWindowsHorizontallyMenuItem.Name = "tileWindowsHorizontallyMenuItem";
+            tileWindowsHorizontallyMenuItem.Size = new System.Drawing.Size(207, 22);
+            tileWindowsHorizontallyMenuItem.Text = "Tile windows horizontally";
+            tileWindowsHorizontallyMenuItem.Click += arrangeWindowsMenuItemClickHandler;
+            // 
+            // tileWindowsVerticallyMenuItem
+            // 
+            tileWindowsVerticallyMenuItem.Image = GuiIcons._32_tile_vertically;
+            tileWindowsVerticallyMenuItem.Name = "tileWindowsVerticallyMenuItem";
+            tileWindowsVerticallyMenuItem.Size = new System.Drawing.Size(207, 22);
+            tileWindowsVerticallyMenuItem.Text = "Tile windows vertically";
+            tileWindowsVerticallyMenuItem.Click += arrangeWindowsMenuItemClickHandler;
+            // 
+            // cascadeWindowsMenuItem
+            // 
+            cascadeWindowsMenuItem.Name = "cascadeWindowsMenuItem";
+            cascadeWindowsMenuItem.Size = new System.Drawing.Size(207, 22);
+            cascadeWindowsMenuItem.Text = "Cascade windows";
+            cascadeWindowsMenuItem.Click += arrangeWindowsMenuItemClickHandler;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(204, 6);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { globalSettingsToolStripMenuItem });
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // globalSettingsToolStripMenuItem
+            // 
+            globalSettingsToolStripMenuItem.Name = "globalSettingsToolStripMenuItem";
+            globalSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            globalSettingsToolStripMenuItem.Text = "Global settings";
+            globalSettingsToolStripMenuItem.Click += globalSettingsToolStripMenuItem_Click;
+            // 
+            // statusStrip
+            // 
+            statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { statusStripEmptySpace, statusStripClock, statusStripVersion, toolStripStatusLabel2, toolStripStatusLabel1 });
+            statusStrip.Location = new System.Drawing.Point(0, 684);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
+            statusStrip.Size = new System.Drawing.Size(1297, 22);
+            statusStrip.TabIndex = 2;
+            statusStrip.Text = "statusStrip1";
+            // 
+            // statusStripEmptySpace
+            // 
+            statusStripEmptySpace.Name = "statusStripEmptySpace";
+            statusStripEmptySpace.Size = new System.Drawing.Size(1078, 17);
+            statusStripEmptySpace.Spring = true;
+            // 
+            // statusStripClock
+            // 
+            statusStripClock.Name = "statusStripClock";
+            statusStripClock.Size = new System.Drawing.Size(109, 17);
+            statusStripClock.Text = "1970.01.01. 12:00:00";
+            // 
+            // statusStripVersion
+            // 
+            statusStripVersion.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            statusStripVersion.Name = "statusStripVersion";
+            statusStripVersion.Size = new System.Drawing.Size(68, 17);
+            statusStripVersion.Text = "OpenSC 1.1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new System.Drawing.Size(19, 17);
+            toolStripStatusLabel1.Text = "    ";
+            // 
+            // clockUpdateTimer
+            // 
+            clockUpdateTimer.Enabled = true;
+            clockUpdateTimer.Interval = 500;
+            clockUpdateTimer.Tick += clockUpdateTimer_Tick;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 941);
-            this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.menuStrip);
-            this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "MainForm";
-            this.Text = "OpenSC";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.menuStrip.ResumeLayout(false);
-            this.menuStrip.PerformLayout();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1297, 706);
+            Controls.Add(statusStrip);
+            Controls.Add(menuStrip);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            IsMdiContainer = true;
+            MainMenuStrip = menuStrip;
+            Name = "MainForm";
+            Text = "OpenSC";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
