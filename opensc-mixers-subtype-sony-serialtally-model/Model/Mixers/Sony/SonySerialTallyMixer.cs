@@ -97,9 +97,13 @@ namespace OpenSC.Model.Mixers.SonySerialTally
 
         private void handlePortInitChanged(SerialPort item, bool oldValue, bool newValue)
         {
-            if(!oldValue && newValue)
+            if (!oldValue && newValue)
             {
                 ComPort.BreakForTime(1);
+
+
+                byte[] selectMessage = { ProtocolStrings.SELECT };
+                sendMessage(selectMessage);
             }
         }
 

@@ -200,7 +200,9 @@ namespace OpenSC.Model.SerialPorts
         public void BreakForTime(int ms)
         {
             serialPort.BreakState = true;
-            Thread.Sleep(ms);
+            //Thread.Sleep(ms);
+            Console.WriteLine("asdasdasd");
+            Console.WriteLine("asdasdasd");
             serialPort.BreakState = false;
         }
 
