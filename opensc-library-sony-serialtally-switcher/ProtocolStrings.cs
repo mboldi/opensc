@@ -87,39 +87,40 @@ namespace OpenSC.Library.SonySerialTally
         public static readonly byte TALLY_EFF = 36;                // 24 hex
         public static readonly byte TALLY_CMD_B3 = 255;            // FF hex
 
-        public static readonly byte TALLY_GP_1_RED_W = 145;        // 91 hex
-        public static readonly byte TALLY_GP_1_RED_R = 17;         // 11 hex
-        public static readonly byte TALLY_GP_1_GREEN_W = 146;      // 92 hex
-        public static readonly byte TALLY_GP_1_GREEN_R = 18;       // 12 hex
-        public static readonly byte TALLY_GP_2_RED_W = 147;        // 93 hex
-        public static readonly byte TALLY_GP_2_RED_R = 19;         // 13 hex
-        public static readonly byte TALLY_GP_2_GREEN_W = 148;      // 94 hex
-        public static readonly byte TALLY_GP_2_GREEN_R = 20;       // 14 hex
-        public static readonly byte TALLY_GP_3_RED_W = 149;        // 95 hex
-        public static readonly byte TALLY_GP_3_RED_R = 21;         // 15 hex
-        public static readonly byte TALLY_GP_3_GREEN_W = 150;      // 96 hex
-        public static readonly byte TALLY_GP_3_GREEN_R = 22;       // 16 hex
-        public static readonly byte TALLY_GP_4_RED_W = 151;        // 97 hex
-        public static readonly byte TALLY_GP_4_RED_R = 23;         // 17 hex
-        public static readonly byte TALLY_GP_4_GREEN_W = 152;      // 98 hex
-        public static readonly byte TALLY_GP_4_GREEN_R = 24;       // 18 hex
-        public static readonly byte TALLY_GP_5_RED_W = 153;        // 99 hex
-        public static readonly byte TALLY_GP_5_RED_R = 25;         // 19 hex
-        public static readonly byte TALLY_GP_5_GREEN_W = 154;      // 9A hex
-        public static readonly byte TALLY_GP_5_GREEN_R = 26;       // 1A hex
-        public static readonly byte TALLY_GP_6_RED_W = 155;        // 9B hex
-        public static readonly byte TALLY_GP_6_RED_R = 27;         // 1B hex
-        public static readonly byte TALLY_GP_6_GREEN_W = 156;      // 9C hex
-        public static readonly byte TALLY_GP_6_GREEN_R = 28;       // 1C hex
-        public static readonly byte TALLY_GP_7_RED_W = 157;        // 9D hex
-        public static readonly byte TALLY_GP_7_RED_R = 29;         // 1D hex
-        public static readonly byte TALLY_GP_7_GREEN_W = 158;      // 9E hex
-        public static readonly byte TALLY_GP_7_GREEN_R = 30;       // 1E hex
-        public static readonly byte TALLY_GP_8_RED_W = 159;        // 9F hex
-        public static readonly byte TALLY_GP_8_RED_R = 31;         // 1F hex
-        public static readonly byte TALLY_GP_8_GREEN_W = 160;      // A0 hex
-        public static readonly byte TALLY_GP_8_GREEN_R = 32;       // 20 hex
+        public static readonly byte TALLY_GP_1_RED_W = 209;        // D1 hex
+        public static readonly byte TALLY_GP_1_RED_R = 81;         // 51 hex
+        public static readonly byte TALLY_GP_1_GREEN_W = 21;      // D2 hex
+        public static readonly byte TALLY_GP_1_GREEN_R = 82;       // 52 hex
+        public static readonly byte TALLY_GP_2_RED_W = 211;        // D3 hex
+        public static readonly byte TALLY_GP_2_RED_R = 83;         // 53 hex
+        public static readonly byte TALLY_GP_2_GREEN_W = 212;      // D4 hex
+        public static readonly byte TALLY_GP_2_GREEN_R = 84;       // 54 hex
+        public static readonly byte TALLY_GP_3_RED_W = 213;        // D5 hex
+        public static readonly byte TALLY_GP_3_RED_R = 85;         // 55 hex
+        public static readonly byte TALLY_GP_3_GREEN_W = 214;      // D6 hex
+        public static readonly byte TALLY_GP_3_GREEN_R = 86;       // 56 hex
+        public static readonly byte TALLY_GP_4_RED_W = 215;        // D7 hex
+        public static readonly byte TALLY_GP_4_RED_R = 87;         // 57 hex
+        public static readonly byte TALLY_GP_4_GREEN_W = 216;      // D8 hex
+        public static readonly byte TALLY_GP_4_GREEN_R = 88;       // 58 hex
+        public static readonly byte TALLY_GP_5_RED_W = 217;        // D9 hex
+        public static readonly byte TALLY_GP_5_RED_R = 89;         // 59 hex
+        public static readonly byte TALLY_GP_5_GREEN_W = 218;      // DA hex
+        public static readonly byte TALLY_GP_5_GREEN_R = 90;       // 5A hex
+        public static readonly byte TALLY_GP_6_RED_W = 219;        // DB hex
+        public static readonly byte TALLY_GP_6_RED_R = 91;         // 5B hex
+        public static readonly byte TALLY_GP_6_GREEN_W = 220;      // DC hex
+        public static readonly byte TALLY_GP_6_GREEN_R = 92;       // 5C hex
+        public static readonly byte TALLY_GP_7_RED_W = 221;        // DD hex
+        public static readonly byte TALLY_GP_7_RED_R = 93;         // 5D hex
+        public static readonly byte TALLY_GP_7_GREEN_W = 222;      // DE hex
+        public static readonly byte TALLY_GP_7_GREEN_R = 94;       // 5E hex
+        public static readonly byte TALLY_GP_8_RED_W = 223;        // DF hex
+        public static readonly byte TALLY_GP_8_RED_R = 95;         // 5F hex
+        public static readonly byte TALLY_GP_8_GREEN_W = 224;      // E0 hex
+        public static readonly byte TALLY_GP_8_GREEN_R = 96;       // 60 hex
 
+        // Yellow nly on XVS!
         public static readonly byte TALLY_GP_1_YELLO_W = 161;      // A1 hex
         public static readonly byte TALLY_GP_1_YELLO_R = 33;       // 21 hex
         public static readonly byte TALLY_GP_2_YELLO_W = 162;      // A2 hex
@@ -187,6 +188,7 @@ namespace OpenSC.Library.SonySerialTally
             TALLY_GP_8_GREEN_R
         };
 
+        // Yellow nly on XVS!
         public static readonly byte[] TALLY_YELLOW_W_GROUPS =
         {
             TALLY_GP_1_YELLO_W,
@@ -221,6 +223,15 @@ namespace OpenSC.Library.SonySerialTally
         public static readonly byte VGPI_IN_W = 128;               // 80 hex
         public static readonly byte VGPI_OUT_W = 129;              // 81 hex
         public static readonly byte VGPI_OUT_R = 1;                // 01 hex
+        #endregion
+
+
+        #region Source name setup
+
+        public static readonly byte SRC_NAME_EFF = 32;             // 20 hex
+        public static readonly byte[] SRC_NAME_R_B2_3 = {112, 80}; // 70, 50 hex
+        public static readonly byte[] SRC_NAME_W_B2_3 = {240, 80}; // F0, 50 hex
+
         #endregion
 
         #region UI strings
