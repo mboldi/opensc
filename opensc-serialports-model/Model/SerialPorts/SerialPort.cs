@@ -6,6 +6,7 @@ using OpenSC.Model.SourceGenerators;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -197,11 +198,28 @@ namespace OpenSC.Model.SerialPorts
             DroppedInvalidPacket?.Invoke(this, packet);
         }
 
-        public void BreakForTime(int ms)
+        public void BreakForBits(int bits)
         {
+            int shouldBreakForNanoSec = 1000000 / BaudRate * bits;
+            long nanosecPerTick = (1000L * 1000L * 1000L) / Stopwatch.Frequency;
+
+            LogDispatcher.I("SerialPort", "Should wait for " + shouldBreakForNanoSec + " nanoSecs.");
+
+
+            var stopwatch = Stopwatch.StartNew();
+
             serialPort.BreakState = true;
-            Thread.Sleep(ms);
+            long currWaited = 0;
+
+            while ((currWaited = stopwatch.ElapsedTicks / nanosecPerTick) < shouldBreakForNanoSec)
+            {
+                Thread.SpinWait(10);
+            }
+
             serialPort.BreakState = false;
+
+            LogDispatcher.I("SerialPort", "Waited for " + currWaited + " nanoSecs.");
+
         }
 
         public delegate void PacketEventDelegate(SerialPort port, Packet packet);

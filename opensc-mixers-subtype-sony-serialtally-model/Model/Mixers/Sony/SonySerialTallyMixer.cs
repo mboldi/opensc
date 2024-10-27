@@ -5,6 +5,7 @@ using OpenSC.Model.Persistence;
 using OpenSC.Model.SerialPorts;
 using OpenSC.Model.SourceGenerators;
 using System;
+using System.Windows.Forms;
 
 namespace OpenSC.Model.Mixers.SonySerialTally
 {
@@ -99,8 +100,7 @@ namespace OpenSC.Model.Mixers.SonySerialTally
         {
             if (!oldValue && newValue)
             {
-                ComPort.BreakForTime(1);
-
+                ComPort.BreakForBits(18);
 
                 byte[] selectMessage = { ProtocolStrings.SELECT };
                 sendMessage(selectMessage);
